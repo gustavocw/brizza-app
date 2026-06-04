@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  Light-only by default. NativeWind classes (bg-background, text-foreground…)
+  read the LIGHT values compiled from src/theme/tokens.js.
+
+  To enable dark mode for NativeWind classes too, switch to the CSS-variable
+  setup documented in references/theme.md. The JS side (useColors) is already
+  dark-aware out of the box.
+*/
