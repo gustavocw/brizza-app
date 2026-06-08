@@ -7,7 +7,7 @@ import { Row } from '@/shared/components/ui/layout'
 import { Paragraph } from '@/shared/components/ui/paragraph'
 import { useColors } from '@/theme/use-colors'
 import { fontTheme } from '@/theme/theme'
-import { BatteryRing } from './battery-ring'
+import { BatteryRing } from '@/shared/components/ui/battery-ring'
 import { numberToBR } from '../utils/format'
 import type { DashboardData } from '../services/dashboard.dto'
 

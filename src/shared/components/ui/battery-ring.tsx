@@ -7,11 +7,14 @@ type Props = {
   percent: number
   size?: number
   stroke?: number
+  /** Track color. Defaults to white (for the dark hero); pass a light token on light cards. */
+  track?: string
+  trackOpacity?: number
   children?: ReactNode
 }
 
 /** Circular battery gauge: a track + an accent progress arc starting at 12 o'clock. */
-export function BatteryRing({ percent, size = 118, stroke = 9, children }: Props) {
+export function BatteryRing({ percent, size = 118, stroke = 9, track, trackOpacity = 0.16, children }: Props) {
   const colors = useColors()
   const clamped = Math.min(Math.max(percent, 0), 100)
   const radius = (size - stroke) / 2
@@ -22,15 +25,7 @@ export function BatteryRing({ percent, size = 118, stroke = 9, children }: Props
   return (
     <View style={{ width: size, height: size }} className="items-center justify-center">
       <Svg width={size} height={size} style={{ transform: [{ rotate: '-90deg' }] }}>
-        <Circle
-          cx={center}
-          cy={center}
-          r={radius}
-          stroke={colors.onPrimary}
-          strokeOpacity={0.16}
-          strokeWidth={stroke}
-          fill="none"
-        />
+        <Circle cx={center} cy={center} r={radius} stroke={track ?? colors.onPrimary} strokeOpacity={trackOpacity} strokeWidth={stroke} fill="none" />
         <Circle
           cx={center}
           cy={center}

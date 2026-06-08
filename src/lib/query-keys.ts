@@ -41,4 +41,9 @@ export const qk = {
     all: ['charge'] as const,
     stations: (params?: Record<string, unknown>) => [...qk.charge.all, 'stations', params ?? {}] as const,
   },
+
+  bike: {
+    all: ['bike'] as const,
+    detail: () => [...qk.bike.all, 'detail'] as const,
+  },
 }
