@@ -18,6 +18,8 @@ export const routes = {
     home: (): Href => ({ pathname: '/(private)/home' }),
     example: (): Href => ({ pathname: '/(private)/example' }),
     exampleDetail: (id: string): Href => ({ pathname: '/(private)/example/[id]', params: { id } }),
+    /** Legal documents served by the API (privacy policy / terms of use). */
+    legal: (kind: 'privacy' | 'terms'): Href => ({ pathname: '/(private)/legal/[kind]', params: { kind } }),
   },
 
   tabs: {

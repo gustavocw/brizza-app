@@ -35,7 +35,11 @@ export function Avatar({
         {showImage ? (
           <Image source={{ uri }} style={{ width: size, height: size }} onError={() => setErrored(true)} />
         ) : (
-          <Paragraph appear={false} style={{ fontSize: size * 0.38 }} className="font-semibold text-primary">
+          <Paragraph
+            appear={false}
+            style={{ fontSize: size * 0.38, lineHeight: size * 0.46, includeFontPadding: false }}
+            className="font-semibold text-primary"
+          >
             {initials(name)}
           </Paragraph>
         )}

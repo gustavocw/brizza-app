@@ -21,8 +21,13 @@ export const qk = {
     summary: () => [...qk.dashboard.all, 'summary'] as const,
   },
 
-  // me: {
-  //   all: ['me'] as const,
-  //   profile: () => [...qk.me.all, 'profile'] as const,
-  // },
+  me: {
+    all: ['me'] as const,
+    profile: () => [...qk.me.all, 'profile'] as const,
+  },
+
+  legal: {
+    all: ['legal'] as const,
+    doc: (kind: 'privacy' | 'terms') => [...qk.legal.all, kind] as const,
+  },
 }
