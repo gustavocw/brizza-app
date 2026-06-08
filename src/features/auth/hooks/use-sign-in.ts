@@ -35,6 +35,7 @@ export function useSignIn() {
     onGoogle: soon,
     onApple: soon,
     onForgotPassword: () => nav.push(nav.routes.public.forgotPassword()),
+    onRegister: () => nav.push(nav.routes.public.register()),
     isPending: signIn.isPending,
     showApple: Platform.OS === 'ios',
   }

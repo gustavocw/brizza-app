@@ -13,6 +13,7 @@ export const routes = {
   public: {
     signIn: (): Href => ({ pathname: '/(public)/sign-in' }),
     forgotPassword: (): Href => ({ pathname: '/(public)/forgot-password' }),
+    register: (): Href => ({ pathname: '/(public)/register' }),
   },
 
   private: {
