@@ -13,7 +13,7 @@ type Props<T extends FieldValues> = Omit<TextFieldProps, 'value' | 'onChangeText
  *   const { control, handleSubmit } = useForm({ resolver: zodResolver(schema) })
  *   <ControlledTextField control={control} name="email" label="Email" />
  */
-export function ControlledTextField<T extends FieldValues>({ control, name, ...rest }: Props<T>) {
+export function ControlledTextField<T extends FieldValues>({ control, name, onBlur: onBlurProp, ...rest }: Props<T>) {
   return (
     <Controller
       control={control}
@@ -23,7 +23,10 @@ export function ControlledTextField<T extends FieldValues>({ control, name, ...r
           {...rest}
           value={(value as string) ?? ''}
           onChangeText={onChange}
-          onBlur={onBlur}
+          onBlur={(e) => {
+            onBlur()
+            onBlurProp?.(e)
+          }}
           error={error?.message}
         />
       )}

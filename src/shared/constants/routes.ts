@@ -23,6 +23,12 @@ export const routes = {
     legal: (kind: 'privacy' | 'terms'): Href => ({ pathname: '/(private)/legal/[kind]', params: { kind } }),
     notificationSettings: (): Href => ({ pathname: '/(private)/notification-settings' }),
     changePassword: (): Href => ({ pathname: '/(private)/change-password' }),
+    editProfile: (): Href => ({ pathname: '/(private)/edit-profile' }),
+    changeContact: (kind: 'email' | 'phone'): Href => ({ pathname: '/(private)/change-contact/[kind]', params: { kind } }),
+    sessions: (): Href => ({ pathname: '/(private)/sessions' }),
+    support: (): Href => ({ pathname: '/(private)/support' }),
+    supportNew: (): Href => ({ pathname: '/(private)/support/new' }),
+    supportTicket: (id: string): Href => ({ pathname: '/(private)/support/[id]', params: { id } }),
   },
 
   tabs: {

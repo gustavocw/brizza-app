@@ -18,7 +18,7 @@ export type TextFieldProps = TextInputProps & {
  * by the <Screen> wrapper, not here — keep inputs dumb.
  */
 export const TextField = forwardRef<RNTextInput, TextFieldProps>(function TextField(
-  { label, error, left, right, containerClassName, className, onFocus, onBlur, ...rest },
+  { label, error, left, right, containerClassName, className, style, multiline, onFocus, onBlur, ...rest },
   ref,
 ) {
   const colors = useColors()
@@ -30,19 +30,21 @@ export const TextField = forwardRef<RNTextInput, TextFieldProps>(function TextFi
 
       <View
         className={twMerge(
-          'flex-row items-center gap-2 rounded-xl border bg-surface px-4',
+          'flex-row gap-2 rounded-xl border bg-surface px-4',
+          multiline ? 'items-start' : 'items-center',
           focused ? 'border-primary' : 'border-border',
           error ? 'border-error' : '',
         )}
-        style={{ height: 52 }}
+        style={[{ minHeight: 52 }, multiline ? { paddingVertical: 10 } : null]}
       >
         {left}
         <RNTextInput
           ref={ref}
+          multiline={multiline}
           className={twMerge('flex-1 text-base', className)}
           placeholderTextColor={colors.subtle}
           // Explicit color: Android renders white text on secureTextEntry otherwise.
-          style={{ color: colors.foreground }}
+          style={[{ color: colors.foreground }, style]}
           onFocus={(e) => {
             setFocused(true)
             onFocus?.(e)

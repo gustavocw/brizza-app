@@ -1,6 +1,4 @@
-import { Linking } from 'react-native'
 import Constants from 'expo-constants'
-import { useToast } from '@/providers/toast/use-toast'
 import { useBottomSheet } from '@/providers/overlay/use-bottom-sheet'
 import { useNavigation } from '@/shared/hooks/use-navigation'
 import { useAuthStore } from '@/shared/stores/auth.store'
@@ -8,37 +6,32 @@ import { useMeQuery } from './use-me-query'
 import { useSignOut } from './use-sign-out'
 import { DeleteAccountSheet } from '../components/delete-account-sheet'
 
-const SUPPORT_EMAIL = 'suporte@brizza.app'
-
 /**
  * Profile controller. Owns the /user/me query and every account action. The view
- * paints the cached name/email instantly (from the auth store) and enriches with
- * the live profile when it lands. Privacy/terms open the API-served legal docs;
- * delete-account runs the Apple/LGPD-required flow in a confirmation sheet.
+ * paints the cached name/email instantly and enriches with the live profile. Each
+ * menu item routes to its dedicated screen; delete runs in a confirmation sheet.
  */
 export function useProfile() {
   const nav = useNavigation()
-  const toast = useToast()
   const sheet = useBottomSheet()
   const storeUser = useAuthStore((s) => s.user)
   const query = useMeQuery()
   const signOut = useSignOut()
-
-  const soon = () => toast.show({ message: 'Disponível em breve.', type: 'info' })
 
   return {
     query,
     profile: query.data,
     fallbackName: storeUser?.name ?? 'Piloto',
     fallbackEmail: storeUser?.email ?? '',
-    onPersonalData: soon,
+    onPersonalData: () => nav.push(nav.routes.private.editProfile()),
+    onEmail: () => nav.push(nav.routes.private.changeContact('email')),
+    onPhone: () => nav.push(nav.routes.private.changeContact('phone')),
     onNotifications: () => nav.push(nav.routes.private.notificationSettings()),
     onChangePassword: () => nav.push(nav.routes.private.changePassword()),
+    onSessions: () => nav.push(nav.routes.private.sessions()),
     onPrivacy: () => nav.push(nav.routes.private.legal('privacy')),
     onTerms: () => nav.push(nav.routes.private.legal('terms')),
-    onSupport: () => {
-      Linking.openURL(`mailto:${SUPPORT_EMAIL}`).catch(soon)
-    },
+    onSupport: () => nav.push(nav.routes.private.support()),
     onSignOut: () => signOut.mutate(),
     isSigningOut: signOut.isPending,
     onDeleteAccount: () =>

@@ -50,4 +50,14 @@ export const qk = {
   notificationPrefs: {
     all: ['notification-prefs'] as const,
   },
+
+  sessions: {
+    all: ['sessions'] as const,
+  },
+
+  support: {
+    all: ['support'] as const,
+    list: () => [...qk.support.all, 'list'] as const,
+    detail: (id: string) => [...qk.support.all, 'detail', id] as const,
+  },
 }

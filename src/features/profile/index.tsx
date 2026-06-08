@@ -1,6 +1,18 @@
 import { type ReactNode } from 'react'
 import { View } from 'react-native'
-import { DocumentText, I24Support, Lock, LogoutCurve, Notification, ShieldTick, Trash, User } from 'iconsax-react-nativejs'
+import {
+  Call,
+  DocumentText,
+  I24Support,
+  Lock,
+  LogoutCurve,
+  MonitorMobbile,
+  Notification,
+  ShieldTick,
+  Sms,
+  Trash,
+  User,
+} from 'iconsax-react-nativejs'
 import { Screen } from '@/shared/components/layout/screen'
 import { Button, Card, Divider, Paragraph } from '@/shared/components/ui'
 import { useColors } from '@/theme/use-colors'
@@ -27,10 +39,9 @@ function Section({ label, delay, children }: { label: string; delay?: number; ch
 }
 
 /**
- * Profile view — UI only. Data + handlers come from useProfile(). The hero paints
- * instantly from the cached session and enriches with /user/me; the account
- * actions (privacy, terms, sign out, delete) stay available even if the fetch
- * fails. Bottom padding clears the floating tab bar.
+ * Profile view — UI only. Data + handlers come from useProfile(). Hero paints
+ * instantly from the cached session and enriches with /user/me; every row routes
+ * to its own screen. Bottom padding clears the floating tab bar.
  */
 export default function ProfileScreen() {
   const colors = useColors()
@@ -39,8 +50,11 @@ export default function ProfileScreen() {
     fallbackName,
     fallbackEmail,
     onPersonalData,
+    onEmail,
+    onPhone,
     onNotifications,
     onChangePassword,
+    onSessions,
     onPrivacy,
     onTerms,
     onSupport,
@@ -57,22 +71,30 @@ export default function ProfileScreen() {
     <Screen contentClassName="gap-5 px-4 pb-32 pt-1">
       <ProfileHeader name={name} email={email} photoUrl={profile?.photo_url} delay={40} />
 
-      <Section label="Conta" delay={130}>
+      <Section label="Conta" delay={120}>
         <MenuRow icon={<User size={20} color={colors.primary} variant="Bold" />} label="Dados pessoais" sub="Nome e endereço" onPress={onPersonalData} />
         <Divider />
-        <MenuRow icon={<Notification size={20} color={colors.primary} variant="Bold" />} label="Notificações" sub="Preferências de alertas" onPress={onNotifications} />
+        <MenuRow icon={<Sms size={20} color={colors.primary} variant="Bold" />} label="E-mail" sub={profile?.email} onPress={onEmail} />
         <Divider />
+        <MenuRow icon={<Call size={20} color={colors.primary} variant="Bold" />} label="Telefone" sub={profile?.phone} onPress={onPhone} />
+        <Divider />
+        <MenuRow icon={<Notification size={20} color={colors.primary} variant="Bold" />} label="Notificações" sub="Preferências de alertas" onPress={onNotifications} />
+      </Section>
+
+      <Section label="Segurança" delay={160}>
         <MenuRow icon={<Lock size={20} color={colors.primary} variant="Bold" />} label="Alterar senha" sub="Atualize sua senha de acesso" onPress={onChangePassword} />
+        <Divider />
+        <MenuRow icon={<MonitorMobbile size={20} color={colors.primary} variant="Bold" />} label="Sessões ativas" sub="Aparelhos conectados" onPress={onSessions} />
         <Divider />
         <MenuRow tone="danger" icon={<Trash size={20} color={colors.error} variant="Bold" />} label="Excluir minha conta" onPress={onDeleteAccount} />
       </Section>
 
-      <Section label="Privacidade e suporte" delay={170}>
+      <Section label="Privacidade e suporte" delay={200}>
+        <MenuRow icon={<I24Support size={20} color={colors.primary} variant="Bold" />} label="Suporte" sub="Abra e acompanhe chamados" onPress={onSupport} />
+        <Divider />
         <MenuRow icon={<ShieldTick size={20} color={colors.primary} variant="Bold" />} label="Política de Privacidade" onPress={onPrivacy} />
         <Divider />
         <MenuRow icon={<DocumentText size={20} color={colors.primary} variant="Bold" />} label="Termos de Uso" onPress={onTerms} />
-        <Divider />
-        <MenuRow icon={<I24Support size={20} color={colors.primary} variant="Bold" />} label="Falar com o suporte" sub="suporte@brizza.app" onPress={onSupport} />
       </Section>
 
       <Button
@@ -87,7 +109,7 @@ export default function ProfileScreen() {
         }
         isLoading={isSigningOut}
         onPress={onSignOut}
-        delay={210}
+        delay={240}
       />
 
       <Paragraph appear={false} className="self-center text-xs text-subtle">
