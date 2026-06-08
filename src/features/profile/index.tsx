@@ -1,6 +1,6 @@
 import { type ReactNode } from 'react'
 import { View } from 'react-native'
-import { DocumentText, I24Support, LogoutCurve, ShieldTick, Trash, User } from 'iconsax-react-nativejs'
+import { DocumentText, I24Support, Lock, LogoutCurve, Notification, ShieldTick, Trash, User } from 'iconsax-react-nativejs'
 import { Screen } from '@/shared/components/layout/screen'
 import { Button, Card, Divider, Paragraph } from '@/shared/components/ui'
 import { useColors } from '@/theme/use-colors'
@@ -39,6 +39,8 @@ export default function ProfileScreen() {
     fallbackName,
     fallbackEmail,
     onPersonalData,
+    onNotifications,
+    onChangePassword,
     onPrivacy,
     onTerms,
     onSupport,
@@ -57,6 +59,10 @@ export default function ProfileScreen() {
 
       <Section label="Conta" delay={130}>
         <MenuRow icon={<User size={20} color={colors.primary} variant="Bold" />} label="Dados pessoais" sub="Nome e endereço" onPress={onPersonalData} />
+        <Divider />
+        <MenuRow icon={<Notification size={20} color={colors.primary} variant="Bold" />} label="Notificações" sub="Preferências de alertas" onPress={onNotifications} />
+        <Divider />
+        <MenuRow icon={<Lock size={20} color={colors.primary} variant="Bold" />} label="Alterar senha" sub="Atualize sua senha de acesso" onPress={onChangePassword} />
         <Divider />
         <MenuRow tone="danger" icon={<Trash size={20} color={colors.error} variant="Bold" />} label="Excluir minha conta" onPress={onDeleteAccount} />
       </Section>

@@ -12,6 +12,7 @@ export const routes = {
 
   public: {
     signIn: (): Href => ({ pathname: '/(public)/sign-in' }),
+    forgotPassword: (): Href => ({ pathname: '/(public)/forgot-password' }),
   },
 
   private: {
@@ -20,6 +21,8 @@ export const routes = {
     exampleDetail: (id: string): Href => ({ pathname: '/(private)/example/[id]', params: { id } }),
     /** Legal documents served by the API (privacy policy / terms of use). */
     legal: (kind: 'privacy' | 'terms'): Href => ({ pathname: '/(private)/legal/[kind]', params: { kind } }),
+    notificationSettings: (): Href => ({ pathname: '/(private)/notification-settings' }),
+    changePassword: (): Href => ({ pathname: '/(private)/change-password' }),
   },
 
   tabs: {

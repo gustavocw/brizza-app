@@ -3,6 +3,7 @@ import { Platform } from 'react-native'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useToast } from '@/providers/toast/use-toast'
+import { useNavigation } from '@/shared/hooks/use-navigation'
 import { signInSchema, type SignInForm } from '../services/auth.dto'
 import { useSignInMutation } from './use-sign-in-mutation'
 
@@ -13,6 +14,7 @@ import { useSignInMutation } from './use-sign-in-mutation'
  */
 export function useSignIn() {
   const toast = useToast()
+  const nav = useNavigation()
   const signIn = useSignInMutation()
   const [showPassword, setShowPassword] = useState(false)
 
@@ -32,7 +34,7 @@ export function useSignIn() {
     onSubmit,
     onGoogle: soon,
     onApple: soon,
-    onForgotPassword: () => toast.show({ message: 'Recuperação de senha em breve.', type: 'info' }),
+    onForgotPassword: () => nav.push(nav.routes.public.forgotPassword()),
     isPending: signIn.isPending,
     showApple: Platform.OS === 'ios',
   }

@@ -46,4 +46,8 @@ export const qk = {
     all: ['bike'] as const,
     detail: () => [...qk.bike.all, 'detail'] as const,
   },
+
+  notificationPrefs: {
+    all: ['notification-prefs'] as const,
+  },
 }

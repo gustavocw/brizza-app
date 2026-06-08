@@ -32,6 +32,8 @@ export function useProfile() {
     fallbackName: storeUser?.name ?? 'Piloto',
     fallbackEmail: storeUser?.email ?? '',
     onPersonalData: soon,
+    onNotifications: () => nav.push(nav.routes.private.notificationSettings()),
+    onChangePassword: () => nav.push(nav.routes.private.changePassword()),
     onPrivacy: () => nav.push(nav.routes.private.legal('privacy')),
     onTerms: () => nav.push(nav.routes.private.legal('terms')),
     onSupport: () => {
