@@ -5,20 +5,20 @@ import type { ConfigContext, ExpoConfig } from 'expo/config'
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
   name: process.env.APP_NAME ?? 'Minas Brisa',
-  slug: 'gobrisa-mobile',
-  scheme: 'gobrisa',
+  slug: 'brizza-mobile',
+  scheme: 'brizza',
   version: '1.0.0',
   orientation: 'portrait',
   userInterfaceStyle: 'light', // UI ships light-only; lock the scheme for token parity
   icon: './assets/icon.png',
   ios: {
     supportsTablet: true,
-    bundleIdentifier: process.env.IOS_BUNDLE_ID ?? 'com.gobrisa.mobile',
+    bundleIdentifier: process.env.IOS_BUNDLE_ID ?? 'com.brizza.mobile',
   },
   android: {
     // Edge-to-edge is always on from SDK 55+, so keyboard-controller resizes correctly.
     adaptiveIcon: { foregroundImage: './assets/adaptive-icon.png', backgroundColor: '#F7F8F6' },
-    package: process.env.ANDROID_PACKAGE ?? 'com.gobrisa.mobile',
+    package: process.env.ANDROID_PACKAGE ?? 'com.brizza.mobile',
   },
   plugins: [
     'expo-router',
