@@ -4,7 +4,7 @@ import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps'
 import { useColors } from '@/theme/use-colors'
 import { shadowsTheme } from '@/theme/theme'
 import { mapStyle } from '@/shared/constants/map-style'
-import type { Availability, ChargingStation, LatLng } from '../services/station.dto'
+import { availabilityOf, type Availability, type ChargingStation, type LatLng } from '../services/station.dto'
 
 // Solid colored dot (no SVG): a Marker with tracksViewChanges={false} snapshots
 // its child once, and an icon may not be painted yet — a plain View always is.
@@ -65,7 +65,7 @@ export const StationsMap = forwardRef<MapView, Props>(function StationsMap({ use
           tracksViewChanges={false}
           onPress={() => onMarkerPress(s)}
         >
-          <StationPin availability={s.availability} />
+          <StationPin availability={availabilityOf(s)} />
         </Marker>
       ))}
     </MapView>

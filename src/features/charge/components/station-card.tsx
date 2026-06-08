@@ -15,7 +15,7 @@ type Props = {
 /** One nearby station: charge chip, name/address, status + distance + price, and a route FAB. */
 export function StationCard({ station, onPress, onRoute }: Props) {
   const colors = useColors()
-  const dim = station.availability === 'offline'
+  const dim = !station.is_open
 
   return (
     <Pressable onPress={onPress} className="flex-row items-center gap-3 rounded-3xl bg-surface p-4">
@@ -31,14 +31,14 @@ export function StationCard({ station, onPress, onRoute }: Props) {
           {station.address}
         </Paragraph>
         <View className="mt-1.5 flex-row items-center gap-2">
-          <AvailabilityPill availability={station.availability} />
+          <AvailabilityPill station={station} />
           <View className="h-1 w-1 rounded-full bg-border" />
           <Paragraph appear={false} style={{ fontFamily: fontTheme.mono }} className="text-[11px] text-muted">
             {formatKm(station.distance_km)}
           </Paragraph>
           <View className="h-1 w-1 rounded-full bg-border" />
           <Paragraph appear={false} style={{ fontFamily: fontTheme.mono }} className="text-[11px] text-muted">
-            {formatPrice(station.price_brl)}
+            {formatPrice(station.price_per_kwh)}
           </Paragraph>
         </View>
       </View>
