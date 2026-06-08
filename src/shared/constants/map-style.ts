@@ -1,5 +1,6 @@
 // Clean, light Google Maps style: hides POI/transit clutter and softens the
-// palette toward the brand (greenish water, light land, white roads).
+// palette toward the brand (greenish water, light land, white roads). Shared by
+// the dashboard mini-map and the charging-stations map.
 export const mapStyle = [
   { featureType: 'poi', stylers: [{ visibility: 'off' }] },
   { featureType: 'transit', stylers: [{ visibility: 'off' }] },

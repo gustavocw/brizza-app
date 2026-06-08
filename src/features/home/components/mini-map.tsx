@@ -2,7 +2,7 @@ import { StyleSheet, View } from 'react-native'
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps'
 import { useColors } from '@/theme/use-colors'
 import { shadowsTheme } from '@/theme/theme'
-import { mapStyle } from './map-style'
+import { mapStyle } from '@/shared/constants/map-style'
 
 type Props = {
   latitude: number

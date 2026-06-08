@@ -36,4 +36,9 @@ export const qk = {
     list: () => [...qk.notifications.all, 'list'] as const,
     unread: () => [...qk.notifications.all, 'unread'] as const,
   },
+
+  charge: {
+    all: ['charge'] as const,
+    stations: (params?: Record<string, unknown>) => [...qk.charge.all, 'stations', params ?? {}] as const,
+  },
 }
