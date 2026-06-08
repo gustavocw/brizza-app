@@ -30,4 +30,10 @@ export const qk = {
     all: ['legal'] as const,
     doc: (kind: 'privacy' | 'terms') => [...qk.legal.all, kind] as const,
   },
+
+  notifications: {
+    all: ['notifications'] as const,
+    list: () => [...qk.notifications.all, 'list'] as const,
+    unread: () => [...qk.notifications.all, 'unread'] as const,
+  },
 }

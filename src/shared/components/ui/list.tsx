@@ -1,5 +1,6 @@
 import { RefreshControl } from 'react-native'
 import { FlashList, type FlashListProps } from '@shopify/flash-list'
+import { useColors } from '@/theme/use-colors'
 
 export type ListProps<T> = FlashListProps<T> & {
   onRefresh?: () => void
@@ -14,13 +15,25 @@ export type ListProps<T> = FlashListProps<T> & {
  *         onRefresh={list.refetch} refreshing={list.isRefetching} />
  */
 export function List<T>({ onRefresh, refreshing = false, ...rest }: ListProps<T>) {
+  const colors = useColors()
   return (
     <FlashList
       showsVerticalScrollIndicator={false}
       keyboardShouldPersistTaps="handled"
       keyboardDismissMode="on-drag"
       onEndReachedThreshold={0.5}
-      refreshControl={onRefresh ? <RefreshControl refreshing={refreshing} onRefresh={onRefresh} /> : undefined}
+      refreshControl={
+        onRefresh ? (
+          // Brand-tokenized spinner: tintColor = iOS, colors = Android arrow, puck = surface.
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            tintColor={colors.primary}
+            colors={[colors.primary]}
+            progressBackgroundColor={colors.surface}
+          />
+        ) : undefined
+      }
       {...rest}
     />
   )
