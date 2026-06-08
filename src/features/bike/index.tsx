@@ -1,8 +1,8 @@
-import { View } from 'react-native'
+import { Pressable, View } from 'react-native'
 import { Routing2, Setting2, Speedometer, Wind } from 'iconsax-react-nativejs'
 import { Screen } from '@/shared/components/layout/screen'
 import { QueryBoundary } from '@/shared/components/data/query-boundary'
-import { Row, StatCard } from '@/shared/components/ui'
+import { Paragraph, Row, StatCard } from '@/shared/components/ui'
 import { useColors } from '@/theme/use-colors'
 import { BikeHero } from './components/bike-hero'
 import { MotoActions } from './components/moto-actions'
@@ -10,6 +10,7 @@ import { BatteryCard } from './components/battery-card'
 import { SpecsCard } from './components/specs-card'
 import { LocationRow } from './components/location-row'
 import { MotoSkeleton } from './components/moto-skeleton'
+import { NoBikeState } from './components/no-bike-state'
 import { numberToBR } from './services/bike.dto'
 import { useMoto } from './hooks/use-moto'
 
@@ -20,11 +21,16 @@ import { useMoto } from './hooks/use-moto'
  */
 export default function BikeScreen() {
   const colors = useColors()
-  const { query, moto, onMap, onLocate, onLock, onHistory } = useMoto()
+  const { query, moto, onVincular, onUnlink, onMap, onLocate, onLock, onHistory } = useMoto()
 
   return (
     <Screen contentClassName="gap-4 px-4 pb-32 pt-1">
-      <QueryBoundary query={query} loading={<MotoSkeleton />}>
+      <QueryBoundary
+        query={query}
+        isEmpty={!moto}
+        loading={<MotoSkeleton />}
+        empty={<NoBikeState onVincular={onVincular} />}
+      >
         {moto ? (
           <View className="gap-4">
             <BikeHero model={moto.model} plate={moto.plate} status={moto.status} lastSeen={moto.lastSeen} delay={40} />
@@ -73,6 +79,12 @@ export default function BikeScreen() {
             <SpecsCard specs={moto.specs} delay={260} />
 
             <LocationRow location={moto.location} onPress={onMap} delay={300} />
+
+            <Pressable onPress={onUnlink} hitSlop={8} className="self-center px-4 py-1">
+              <Paragraph appear={false} className="font-semibold text-error">
+                Desvincular moto
+              </Paragraph>
+            </Pressable>
           </View>
         ) : null}
       </QueryBoundary>

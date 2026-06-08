@@ -1,22 +1,54 @@
 import { Linking } from 'react-native'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { qk } from '@/lib/query-keys'
 import { useToast } from '@/providers/toast/use-toast'
+import { useDialog } from '@/providers/overlay/use-dialog'
+import { useNavigation } from '@/shared/hooks/use-navigation'
 import { mapsViewUrl } from '../services/bike.dto'
+import { BikeService } from '../services/bike.service'
 import { useBikeQuery } from './use-bike-query'
 
 /**
- * Moto controller. Owns the (mocked) bike snapshot and the action handlers; the
- * view renders what it returns. "Ver no mapa" opens the bike's location in Google
- * Maps; locate/lock/history are placeholders until the telemetry integration.
+ * Moto controller. Real bike identity + battery (mock-server telemetry); a 404
+ * resolves to no bike, surfacing the link CTA. "Ver no mapa" opens the location;
+ * locate/lock/history await the telemetry integration.
  */
 export function useMoto() {
+  const nav = useNavigation()
   const toast = useToast()
+  const dialog = useDialog()
+  const qc = useQueryClient()
   const query = useBikeQuery()
-  const moto = query.data
+  const moto = query.data ?? null
+
   const soon = () => toast.show({ message: 'Disponível em breve.', type: 'info' })
+
+  const unlink = useMutation({
+    mutationFn: async () => {
+      const res = await BikeService.unlink()
+      if (!res.success) throw res.error
+    },
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: qk.bike.all })
+      toast.show({ message: 'Moto desvinculada.', type: 'success' })
+    },
+  })
+
+  const onUnlink = async () => {
+    const ok = await dialog.confirm({
+      title: 'Desvincular moto?',
+      message: 'Você poderá vincular novamente quando quiser.',
+      confirmText: 'Desvincular',
+      destructive: true,
+    })
+    if (ok) unlink.mutate()
+  }
 
   return {
     query,
     moto,
+    onVincular: () => nav.push(nav.routes.private.linkBike()),
+    onUnlink,
     onMap: () => {
       if (moto) Linking.openURL(mapsViewUrl(moto.location)).catch(soon)
     },

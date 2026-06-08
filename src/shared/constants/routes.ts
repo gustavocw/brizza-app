@@ -29,6 +29,7 @@ export const routes = {
     support: (): Href => ({ pathname: '/(private)/support' }),
     supportNew: (): Href => ({ pathname: '/(private)/support/new' }),
     supportTicket: (id: string): Href => ({ pathname: '/(private)/support/[id]', params: { id } }),
+    linkBike: (): Href => ({ pathname: '/(private)/link-bike' }),
   },
 
   tabs: {
