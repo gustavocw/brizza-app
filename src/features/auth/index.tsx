@@ -6,30 +6,17 @@ import { Appear, Button, Paragraph, Title } from '@/shared/components/ui'
 import { useColors } from '@/theme/use-colors'
 import { AppleIcon, GoogleIcon } from './components/brand-icons'
 import { BrandMark } from './components/brand-mark'
-import { CpfField } from './components/cpf-field'
 import { useSignIn } from './hooks/use-sign-in'
 
 /**
- * Login view — UI only. Behavior lives in useSignIn(). Sign in with CPF + senha,
- * Google or Apple (all mocked). Inside <Screen>, so the keyboard never covers the
- * inputs and tapping outside dismisses it.
+ * Login view — UI only. Behavior lives in useSignIn(). Real login by e-mail or
+ * telefone + senha (Brizza API). Google/Apple are placeholders for now. Inside
+ * <Screen>, so the keyboard never covers the inputs and tapping outside dismisses it.
  */
 export default function SignInScreen() {
   const colors = useColors()
-  const {
-    control,
-    showPassword,
-    togglePassword,
-    onSubmit,
-    onGoogle,
-    onApple,
-    onForgotPassword,
-    isCpfPending,
-    isGooglePending,
-    isApplePending,
-    isBusy,
-    showApple,
-  } = useSignIn()
+  const { control, showPassword, togglePassword, onSubmit, onGoogle, onApple, onForgotPassword, isPending, showApple } =
+    useSignIn()
 
   return (
     <Screen contentClassName="gap-6 px-6 py-4">
@@ -46,11 +33,14 @@ export default function SignInScreen() {
       </Appear>
 
       <Appear delay={90} className="gap-4">
-        <CpfField
+        <ControlledTextField
           control={control}
-          name="cpf"
-          label="CPF"
-          placeholder="000.000.000-00"
+          name="identifier"
+          label="E-mail ou telefone"
+          placeholder="voce@email.com"
+          autoCapitalize="none"
+          autoCorrect={false}
+          keyboardType="email-address"
           returnKeyType="next"
           left={<User size={18} color={colors.subtle} variant="Bold" />}
         />
@@ -78,7 +68,7 @@ export default function SignInScreen() {
             Esqueci a senha
           </Paragraph>
         </Pressable>
-        <Button label="Entrar" appear={false} isLoading={isCpfPending} disabled={isBusy} onPress={onSubmit} />
+        <Button label="Entrar" appear={false} isLoading={isPending} disabled={isPending} onPress={onSubmit} />
       </Appear>
 
       <Appear delay={150} className="flex-row items-center gap-3">
@@ -97,8 +87,7 @@ export default function SignInScreen() {
           iconContainerClassName="bg-surfaceMuted"
           label="Continuar com o Google"
           icon={<GoogleIcon size={20} />}
-          isLoading={isGooglePending}
-          disabled={isBusy}
+          disabled={isPending}
           onPress={onGoogle}
         />
         {showApple ? (
@@ -107,8 +96,7 @@ export default function SignInScreen() {
             className="bg-foreground"
             label="Continuar com a Apple"
             icon={<AppleIcon size={20} color={colors.foreground} />}
-            isLoading={isApplePending}
-            disabled={isBusy}
+            disabled={isPending}
             onPress={onApple}
           />
         ) : null}

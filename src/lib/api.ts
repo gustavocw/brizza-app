@@ -7,7 +7,7 @@
 // When wiring into TanStack Query, unwrap inside queryFn (throw res.error) so
 // Query's error state works — see references/data-layer.md.
 
-import axios, { AxiosError, type AxiosResponse } from 'axios'
+import axios, { AxiosError, type AxiosResponse, type InternalAxiosRequestConfig } from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { ENV } from '@/shared/constants/env'
 
@@ -16,6 +16,7 @@ export type ApiFail = { success: false; error: AxiosError }
 export type ApiResponse<R> = ApiSuccess<R> | ApiFail
 
 export const TOKEN_KEY = 'access_token'
+export const REFRESH_TOKEN_KEY = 'refresh_token'
 
 export const api = axios.create({
   baseURL: ENV.apiUrl,
@@ -38,11 +39,51 @@ export function setOnUnauthorized(handler: UnauthorizedHandler | null) {
   onUnauthorized = handler
 }
 
+// ── Single-flight access-token refresh ───────────────────────────────────────
+// The backend ROTATES the refresh token on every /auth/refresh and revokes the
+// whole chain if one is reused, so refresh must be one-at-a-time: concurrent 401s
+// all await the SAME in-flight refresh instead of each spending the token.
+let refreshing: Promise<string | null> | null = null
+
+async function refreshAccessToken(): Promise<string | null> {
+  refreshing ??= (async () => {
+    try {
+      const refreshToken = await AsyncStorage.getItem(REFRESH_TOKEN_KEY)
+      if (!refreshToken) return null
+      // Bare axios (no interceptors) so a 401 here never recurses into a refresh.
+      const res = await axios.post<{ access_token: string; refresh_token: string }>(
+        `${ENV.apiUrl}/auth/refresh`,
+        { refresh_token: refreshToken },
+        { timeout: 30_000 },
+      )
+      await AsyncStorage.multiSet([
+        [TOKEN_KEY, res.data.access_token],
+        [REFRESH_TOKEN_KEY, res.data.refresh_token],
+      ])
+      return res.data.access_token
+    } catch {
+      return null
+    } finally {
+      refreshing = null
+    }
+  })()
+  return refreshing
+}
+
 api.interceptors.response.use(
   (res) => res,
   async (error: AxiosError) => {
-    if (error.response?.status === 401) {
-      await AsyncStorage.removeItem(TOKEN_KEY)
+    const original = error.config as (InternalAxiosRequestConfig & { _retry?: boolean }) | undefined
+    // A 401 on /auth/* is a credential/token result for the caller (e.g. wrong
+    // password), not an expired session — never refresh or trip the bridge there.
+    const isAuthCall = original?.url?.includes('/auth/') ?? false
+
+    if (error.response?.status === 401 && !isAuthCall && original && !original._retry) {
+      original._retry = true
+      const token = await refreshAccessToken()
+      if (token) return api(original) // the request interceptor re-attaches the fresh token
+      // No/expired/revoked refresh token → the session is really gone.
+      await AsyncStorage.multiRemove([TOKEN_KEY, REFRESH_TOKEN_KEY])
       onUnauthorized?.()
     }
     return Promise.reject(error)
