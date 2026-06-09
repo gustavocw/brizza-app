@@ -44,6 +44,12 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         androidGoogleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
       },
     ],
+    // Camera for scanning the bike's QR code (adds NSCameraUsageDescription on
+    // iOS + CAMERA permission on Android). Requires a rebuild of the dev client.
+    [
+      'expo-camera',
+      { cameraPermission: 'A câmera é usada para ler o QR code da sua moto e vinculá-la à conta.' },
+    ],
   ],
   // typedRoutes is intentionally OFF: routes.ts is the single typed routing layer
   // (it lists routes that may not exist as files yet, which strict typedRoutes rejects).

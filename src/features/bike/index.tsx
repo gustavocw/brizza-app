@@ -21,7 +21,7 @@ import { useMoto } from './hooks/use-moto'
  */
 export default function BikeScreen() {
   const colors = useColors()
-  const { query, moto, onVincular, onUnlink, onMap, onLocate, onLock, onHistory } = useMoto()
+  const { query, moto, onScanQr, linkingQr, onVincular, onUnlink, onMap, onLocate, onLock, onHistory } = useMoto()
 
   return (
     <Screen contentClassName="gap-4 px-4 pb-32 pt-1">
@@ -29,7 +29,7 @@ export default function BikeScreen() {
         query={query}
         isEmpty={!moto}
         loading={<MotoSkeleton />}
-        empty={<NoBikeState onVincular={onVincular} />}
+        empty={<NoBikeState onScan={onScanQr} onManual={onVincular} linking={linkingQr} />}
       >
         {moto ? (
           <View className="gap-4">

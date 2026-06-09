@@ -44,9 +44,22 @@ export function useMoto() {
     if (ok) unlink.mutate()
   }
 
+  const linkQr = useMutation({
+    mutationFn: async (qrCode: string) => {
+      const res = await BikeService.link({ qr_code: qrCode })
+      if (!res.success) throw res.error
+    },
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: qk.bike.all })
+      toast.show({ message: 'Moto vinculada!', type: 'success' })
+    },
+  })
+
   return {
     query,
     moto,
+    onScanQr: (qrCode: string) => linkQr.mutate(qrCode),
+    linkingQr: linkQr.isPending,
     onVincular: () => nav.push(nav.routes.private.linkBike()),
     onUnlink,
     onMap: () => {
