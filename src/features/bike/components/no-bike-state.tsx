@@ -1,4 +1,5 @@
 import { View } from 'react-native'
+import { Scan } from 'iconsax-react-nativejs'
 import { Button, Paragraph, Title } from '@/shared/components/ui'
 import { MotoIcon } from '@/shared/components/navigation/moto-icon'
 import { useColors } from '@/theme/use-colors'
@@ -18,7 +19,7 @@ export function NoBikeState({ onVincular }: { onVincular: () => void }) {
         </Paragraph>
       </View>
       <View className="w-full px-2 pt-1">
-        <Button label="Vincular moto" icon={<MotoIcon size={20} color={colors.primary} />} onPress={onVincular} />
+        <Button label="Vincular moto" icon={<Scan size={20} color={colors.primary} variant="Bold" />} onPress={onVincular} />
       </View>
     </View>
   )
