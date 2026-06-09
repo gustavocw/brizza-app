@@ -1,7 +1,7 @@
 import { View } from 'react-native'
+import LottieView from 'lottie-react-native'
 import { Scan } from 'iconsax-react-nativejs'
 import { Button, Paragraph, Title } from '@/shared/components/ui'
-import { MotoIcon } from '@/shared/components/navigation/moto-icon'
 import { useColors } from '@/theme/use-colors'
 
 /** Empty state when the user has no bike linked yet. */
@@ -9,9 +9,12 @@ export function NoBikeState({ onVincular }: { onVincular: () => void }) {
   const colors = useColors()
   return (
     <View className="flex-1 items-center justify-center gap-5 px-8 pb-16">
-      <View className="h-24 w-24 items-center justify-center rounded-[28px] bg-primarySoft">
-        <MotoIcon size={48} color={colors.primary} />
-      </View>
+      <LottieView
+        autoPlay
+        loop
+        source={require('../../../../assets/lottie/qr-code.json')}
+        style={{ width: 180, height: 180 }}
+      />
       <View className="items-center gap-1.5">
         <Title className="text-center text-lg">Nenhuma moto vinculada</Title>
         <Paragraph appear={false} className="text-center text-muted">

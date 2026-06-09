@@ -39,6 +39,7 @@
     "expo-splash-screen": "~56.0.10",
     "expo-status-bar": "~56.0.4",
     "iconsax-react-nativejs": "^0.0.8",
+    "lottie-react-native": "~7.3.8",
     "nativewind": "^4.2.4",
     "react": "19.2.3",
     "react-dom": "19.2.3",
