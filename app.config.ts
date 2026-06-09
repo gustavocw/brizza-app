@@ -14,6 +14,11 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   ios: {
     supportsTablet: true,
     bundleIdentifier: process.env.IOS_BUNDLE_ID ?? 'com.brizza.mobile',
+    // Explicit so the camera permission lands in Info.plist even if the plugin
+    // form is missed by an incremental prebuild (QR scanner on the link screen).
+    infoPlist: {
+      NSCameraUsageDescription: 'A câmera é usada para ler o QR code da sua moto e vinculá-la à conta.',
+    },
   },
   android: {
     // Edge-to-edge is always on from SDK 55+, so keyboard-controller resizes correctly.
