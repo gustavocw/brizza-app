@@ -13,7 +13,10 @@ export default function EditProfileScreen() {
   const { control, query, onCepBlur, onSubmit, isPending } = useEditProfile()
 
   return (
-    <Screen contentClassName="gap-5 px-4 pt-1">
+    <Screen
+      contentClassName="gap-5 px-4 pt-1"
+      footer={query.data ? <Button label="Salvar" isLoading={isPending} disabled={isPending} onPress={onSubmit} /> : undefined}
+    >
       <View className="flex-row items-center gap-3">
         <BackButton />
         <Title numberOfLines={1} className="flex-1 text-xl">
@@ -59,8 +62,6 @@ export default function EditProfileScreen() {
               <ControlledTextField control={control} name="state" label="UF" placeholder="MG" autoCapitalize="characters" maxLength={2} />
             </View>
           </View>
-
-          <Button label="Salvar" isLoading={isPending} disabled={isPending} onPress={onSubmit} />
         </View>
       </QueryBoundary>
     </Screen>

@@ -17,7 +17,16 @@ export default function ForgotPasswordScreen() {
     useForgotPassword()
 
   return (
-    <Screen contentClassName="gap-5 px-4 pt-1">
+    <Screen
+      contentClassName="gap-5 px-4 pt-1"
+      footer={
+        phase === 'request' ? (
+          <Button label="Enviar código" isLoading={requesting} disabled={requesting} onPress={onRequest} />
+        ) : (
+          <Button label="Redefinir senha" isLoading={resetting} disabled={resetting} onPress={onReset} />
+        )
+      }
+    >
       <View className="flex-row items-center gap-3">
         <BackButton onPress={onBack} />
         <Title numberOfLines={1} className="flex-1 text-xl">
@@ -42,7 +51,6 @@ export default function ForgotPasswordScreen() {
             onSubmitEditing={onRequest}
             left={<Sms size={18} color={colors.subtle} variant="Bold" />}
           />
-          <Button label="Enviar código" isLoading={requesting} disabled={requesting} onPress={onRequest} />
         </View>
       ) : (
         <View className="gap-4">
@@ -72,7 +80,6 @@ export default function ForgotPasswordScreen() {
             returnKeyType="go"
             onSubmitEditing={onReset}
           />
-          <Button label="Redefinir senha" isLoading={resetting} disabled={resetting} onPress={onReset} />
         </View>
       )}
     </Screen>

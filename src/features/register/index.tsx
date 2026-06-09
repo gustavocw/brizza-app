@@ -24,7 +24,17 @@ export default function RegisterScreen() {
   const { control, onCepBlur, onSubmit, isPending } = useRegister()
 
   return (
-    <Screen contentClassName="gap-4 px-4 pt-1">
+    <Screen
+      contentClassName="gap-4 px-4 pt-1"
+      footer={
+        <View className="gap-2">
+          <Paragraph appear={false} className="px-2 text-center text-xs text-subtle">
+            Ao criar a conta você concorda com os Termos de Uso e a Política de Privacidade.
+          </Paragraph>
+          <Button label="Criar conta" isLoading={isPending} disabled={isPending} onPress={onSubmit} />
+        </View>
+      }
+    >
       <View className="flex-row items-center gap-3">
         <BackButton />
         <Title numberOfLines={1} className="flex-1 text-xl">
@@ -69,12 +79,6 @@ export default function RegisterScreen() {
           <ControlledTextField control={control} name="state" label="UF" placeholder="MG" autoCapitalize="characters" maxLength={2} />
         </View>
       </View>
-
-      <Button label="Criar conta" isLoading={isPending} disabled={isPending} onPress={onSubmit} delay={0} />
-
-      <Paragraph appear={false} className="px-2 pb-2 pt-1 text-center text-xs text-subtle">
-        Ao criar a conta você concorda com os Termos de Uso e a Política de Privacidade.
-      </Paragraph>
     </Screen>
   )
 }

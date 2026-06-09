@@ -13,7 +13,16 @@ export default function ChangeContactScreen() {
     useChangeContact()
 
   return (
-    <Screen contentClassName="gap-5 px-4 pt-1">
+    <Screen
+      contentClassName="gap-5 px-4 pt-1"
+      footer={
+        phase === 'request' ? (
+          <Button label="Enviar código" isLoading={requesting} disabled={requesting} onPress={onRequest} />
+        ) : (
+          <Button label="Confirmar" isLoading={confirming} disabled={confirming} onPress={onConfirm} />
+        )
+      }
+    >
       <View className="flex-row items-center gap-3">
         <BackButton onPress={onBack} />
         <Title numberOfLines={1} className="flex-1 text-xl">
@@ -37,7 +46,6 @@ export default function ChangeContactScreen() {
             returnKeyType="go"
             onSubmitEditing={onRequest}
           />
-          <Button label="Enviar código" isLoading={requesting} disabled={requesting} onPress={onRequest} />
         </View>
       ) : (
         <View className="gap-4">
@@ -54,7 +62,6 @@ export default function ChangeContactScreen() {
             returnKeyType="go"
             onSubmitEditing={onConfirm}
           />
-          <Button label="Confirmar" isLoading={confirming} disabled={confirming} onPress={onConfirm} />
         </View>
       )}
     </Screen>

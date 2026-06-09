@@ -12,7 +12,10 @@ export default function NewTicketScreen() {
   const { control, onSubmit, isPending } = useNewTicket()
 
   return (
-    <Screen contentClassName="gap-5 px-4 pt-1">
+    <Screen
+      contentClassName="gap-5 px-4 pt-1"
+      footer={<Button label="Enviar chamado" isLoading={isPending} disabled={isPending} onPress={onSubmit} />}
+    >
       <View className="flex-row items-center gap-3">
         <BackButton />
         <Title numberOfLines={1} className="flex-1 text-xl">
@@ -63,8 +66,6 @@ export default function NewTicketScreen() {
           maxLength={5000}
           style={{ height: 130, textAlignVertical: 'top' }}
         />
-
-        <Button label="Enviar chamado" isLoading={isPending} disabled={isPending} onPress={onSubmit} />
       </View>
     </Screen>
   )

@@ -9,7 +9,10 @@ export default function LinkBikeScreen() {
   const { control, onSubmit, isPending } = useLinkBike()
 
   return (
-    <Screen contentClassName="gap-5 px-4 pt-1">
+    <Screen
+      contentClassName="gap-5 px-4 pt-1"
+      footer={<Button label="Vincular moto" isLoading={isPending} disabled={isPending} onPress={onSubmit} />}
+    >
       <View className="flex-row items-center gap-3">
         <BackButton />
         <Title numberOfLines={1} className="flex-1 text-xl">
@@ -31,7 +34,6 @@ export default function LinkBikeScreen() {
           maxLength={8}
         />
         <ControlledTextField control={control} name="model" label="Modelo (opcional)" placeholder="Brisa S1" returnKeyType="go" onSubmitEditing={onSubmit} />
-        <Button label="Vincular moto" isLoading={isPending} disabled={isPending} onPress={onSubmit} />
       </View>
     </Screen>
   )

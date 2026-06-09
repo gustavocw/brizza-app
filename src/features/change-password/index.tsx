@@ -12,7 +12,10 @@ export default function ChangePasswordScreen() {
   const { control, onSubmit, isPending } = useChangePassword()
 
   return (
-    <Screen contentClassName="gap-5 px-4 pt-1">
+    <Screen
+      contentClassName="gap-5 px-4 pt-1"
+      footer={<Button label="Alterar senha" isLoading={isPending} disabled={isPending} onPress={onSubmit} />}
+    >
       <View className="flex-row items-center gap-3">
         <BackButton />
         <Title numberOfLines={1} className="flex-1 text-xl">
@@ -35,8 +38,6 @@ export default function ChangePasswordScreen() {
         <Paragraph appear={false} className="px-1 text-xs text-muted">
           Por segurança, você será desconectado e precisará entrar novamente.
         </Paragraph>
-
-        <Button label="Alterar senha" isLoading={isPending} disabled={isPending} onPress={onSubmit} />
       </View>
     </Screen>
   )
