@@ -17,7 +17,9 @@ export function NoBikeState({ onVincular }: { onVincular: () => void }) {
           Vincule sua Minas Brisa para acompanhar bateria, localização e telemetria.
         </Paragraph>
       </View>
-      <Button full={false} label="Vincular moto" onPress={onVincular} />
+      <View className="w-full px-2 pt-1">
+        <Button label="Vincular moto" icon={<MotoIcon size={20} color={colors.primary} />} onPress={onVincular} />
+      </View>
     </View>
   )
 }
