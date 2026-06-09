@@ -22,7 +22,7 @@ export function NoBikeState({ onScan, onManual, linking }: Props) {
   const [scanning, setScanning] = useState(false)
 
   return (
-    <View className="flex-1 px-5 pb-32 pt-8">
+    <View className="flex-1 px-5 pb-24 pt-8">
       <Title className="text-center text-[22px]">Nenhuma moto vinculada</Title>
 
       <View className="flex-1 items-center justify-center gap-5">
@@ -45,9 +45,8 @@ export function NoBikeState({ onScan, onManual, linking }: Props) {
       </View>
 
       <Button
-        variant="secondary"
         label="Inserir placa manualmente"
-        icon={<Keyboard size={20} color={colors.onPrimary} variant="Bold" />}
+        icon={<Keyboard size={20} color={colors.primary} variant="Bold" />}
         onPress={onManual}
       />
     </View>
