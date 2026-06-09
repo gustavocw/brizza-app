@@ -5,7 +5,7 @@ import { Gps } from 'iconsax-react-nativejs'
 import { Screen } from '@/shared/components/layout/screen'
 import { QueryBoundary } from '@/shared/components/data/query-boundary'
 import { ErrorBoundary } from '@/shared/components/error-boundary'
-import { List, Paragraph, Title } from '@/shared/components/ui'
+import { List, Paragraph } from '@/shared/components/ui'
 import { useColors } from '@/theme/use-colors'
 import { fontTheme, shadowsTheme } from '@/theme/theme'
 import { StationsMap } from './components/stations-map'
@@ -37,9 +37,8 @@ export default function ChargeScreen() {
 
   return (
     <Screen scroll={false} dismissKeyboardOnTap={false} contentClassName="gap-4 px-0 pt-1">
-      <View className="px-4">
-        <Title>Carregar</Title>
-        <Paragraph appear={false} className="mt-0.5 text-muted">
+      <View className="px-4 pt-1">
+        <Paragraph appear={false} className="text-muted">
           {subtitle}
         </Paragraph>
       </View>
