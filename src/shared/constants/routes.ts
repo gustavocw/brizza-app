@@ -14,6 +14,7 @@ export const routes = {
     signIn: (): Href => ({ pathname: '/(public)/sign-in' }),
     forgotPassword: (): Href => ({ pathname: '/(public)/forgot-password' }),
     register: (): Href => ({ pathname: '/(public)/register' }),
+    undelete: (): Href => ({ pathname: '/(public)/undelete' }),
   },
 
   private: {
@@ -31,6 +32,7 @@ export const routes = {
     supportNew: (): Href => ({ pathname: '/(private)/support/new' }),
     supportTicket: (id: string): Href => ({ pathname: '/(private)/support/[id]', params: { id } }),
     linkBike: (): Href => ({ pathname: '/(private)/link-bike' }),
+    verify: (kind: 'email' | 'phone'): Href => ({ pathname: '/(private)/verify/[kind]', params: { kind } }),
   },
 
   tabs: {

@@ -55,6 +55,11 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       'expo-camera',
       { cameraPermission: 'A câmera é usada para ler o QR code da sua moto e vinculá-la à conta.' },
     ],
+    // Photo library to pick the profile picture (adds NSPhotoLibraryUsageDescription).
+    [
+      'expo-image-picker',
+      { photosPermission: 'O app acessa suas fotos para você escolher a imagem de perfil.' },
+    ],
   ],
   // typedRoutes is intentionally OFF: routes.ts is the single typed routing layer
   // (it lists routes that may not exist as files yet, which strict typedRoutes rejects).

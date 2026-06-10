@@ -15,7 +15,7 @@ import { useSignIn } from './hooks/use-sign-in'
  */
 export default function SignInScreen() {
   const colors = useColors()
-  const { control, showPassword, togglePassword, onSubmit, onGoogle, onApple, onForgotPassword, onRegister, isPending, showApple } =
+  const { control, showPassword, togglePassword, onSubmit, onGoogle, onApple, onForgotPassword, onRegister, onUndelete, isPending, showApple } =
     useSignIn()
 
   return (
@@ -108,6 +108,12 @@ export default function SignInScreen() {
         </Paragraph>
         <Paragraph appear={false} className="text-sm font-semibold text-primary">
           Criar conta
+        </Paragraph>
+      </Pressable>
+
+      <Pressable onPress={onUndelete} hitSlop={8} className="self-center">
+        <Paragraph appear={false} className="text-xs text-subtle">
+          Reativar conta excluída
         </Paragraph>
       </Pressable>
 

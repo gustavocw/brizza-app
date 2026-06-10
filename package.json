@@ -18,7 +18,8 @@
     "build:dev:ios": "eas build --profile development --platform ios",
     "build:prod:ios": "eas build --profile production --platform ios",
     "submit:ios": "eas submit --platform ios",
-    "submit:android": "eas submit --platform android"
+    "submit:android": "eas submit --platform android",
+    "device": "npx expo run:ios --device"
   },
   "dependencies": {
     "@expo-google-fonts/dm-mono": "^0.4.2",
@@ -35,6 +36,7 @@
     "expo-constants": "~56.0.16",
     "expo-font": "~56.0.5",
     "expo-haptics": "~56.0.3",
+    "expo-image-picker": "~56.0.16",
     "expo-linking": "~56.0.13",
     "expo-router": "~56.2.8",
     "expo-splash-screen": "~56.0.10",

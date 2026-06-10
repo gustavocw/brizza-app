@@ -1,4 +1,4 @@
-import { type ReactNode } from 'react'
+import { Fragment, type ReactNode } from 'react'
 import { View } from 'react-native'
 import {
   Call,
@@ -12,6 +12,7 @@ import {
   Sms,
   Trash,
   User,
+  Verify,
 } from 'iconsax-react-nativejs'
 import { Screen } from '@/shared/components/layout/screen'
 import { Button, Card, Divider, Paragraph } from '@/shared/components/ui'
@@ -49,9 +50,13 @@ export default function ProfileScreen() {
     profile,
     fallbackName,
     fallbackEmail,
+    onChangePhoto,
+    uploadingPhoto,
     onPersonalData,
     onEmail,
     onPhone,
+    onVerifyEmail,
+    onVerifyPhone,
     onNotifications,
     onChangePassword,
     onSessions,
@@ -69,14 +74,26 @@ export default function ProfileScreen() {
 
   return (
     <Screen contentClassName="gap-5 px-4 pb-32 pt-1">
-      <ProfileHeader name={name} email={email} photoUrl={profile?.photo_url} delay={40} />
+      <ProfileHeader name={name} email={email} photoUrl={profile?.photo_url} onChangePhoto={onChangePhoto} uploading={uploadingPhoto} delay={40} />
 
       <Section label="Conta" delay={120}>
         <MenuRow icon={<User size={20} color={colors.primary} variant="Bold" />} label="Dados pessoais" sub="Nome e endereço" onPress={onPersonalData} />
         <Divider />
         <MenuRow icon={<Sms size={20} color={colors.primary} variant="Bold" />} label="E-mail" sub={profile?.email} onPress={onEmail} />
+        {profile && !profile.email_verified ? (
+          <Fragment>
+            <Divider />
+            <MenuRow icon={<Verify size={20} color={colors.primary} variant="Bold" />} label="Verificar e-mail" sub="Confirme para liberar recursos" onPress={onVerifyEmail} />
+          </Fragment>
+        ) : null}
         <Divider />
         <MenuRow icon={<Call size={20} color={colors.primary} variant="Bold" />} label="Telefone" sub={profile?.phone} onPress={onPhone} />
+        {profile && !profile.phone_verified ? (
+          <Fragment>
+            <Divider />
+            <MenuRow icon={<Verify size={20} color={colors.primary} variant="Bold" />} label="Verificar telefone" sub="Confirme para liberar recursos" onPress={onVerifyPhone} />
+          </Fragment>
+        ) : null}
         <Divider />
         <MenuRow icon={<Notification size={20} color={colors.primary} variant="Bold" />} label="Notificações" sub="Preferências de alertas" onPress={onNotifications} />
       </Section>

@@ -36,6 +36,7 @@ export function useSignIn() {
     onApple: soon,
     onForgotPassword: () => nav.push(nav.routes.public.forgotPassword()),
     onRegister: () => nav.push(nav.routes.public.register()),
+    onUndelete: () => nav.push(nav.routes.public.undelete()),
     isPending: signIn.isPending,
     showApple: Platform.OS === 'ios',
   }

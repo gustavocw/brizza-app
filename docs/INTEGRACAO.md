@@ -52,6 +52,7 @@ A telemetria segue mock no servidor (hardware pendente) mas a integração é re
   mas a API real retorna `price_per_kwh`, `total_slots`, `available_slots`, `is_open`, `city`, `state`.
   O app foi integrado pelo shape real; vale alinhar o contrato.
 - `GET /user/me/export` (LGPD) documentado mas respondeu 404. Confirmar implementação.
+- `POST /user/me/photo/upload-url` (foto de perfil) documentado mas responde 404. A tela está pronta no app; só falta implementar no backend.
 - Caução: o gate exige `coverage_deposit_paid` mas não há endpoint de pagamento no contrato. Como é setado?
 - Apple: não existe `/auth/apple` (só Google). O botão Apple fica sem backend.
 - Reativar conta: `POST /auth/undelete` existe, dá pra oferecer no login após exclusão.
