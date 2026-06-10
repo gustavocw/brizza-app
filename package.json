@@ -19,7 +19,8 @@
     "build:prod:ios": "eas build --profile production --platform ios",
     "submit:ios": "eas submit --platform ios",
     "submit:android": "eas submit --platform android",
-    "device": "npx expo run:ios --device"
+    "device": "npx expo run:ios --device",
+    "android:apk:release": "cd android && ./gradlew assembleRelease"
   },
   "dependencies": {
     "@expo-google-fonts/dm-mono": "^0.4.2",
