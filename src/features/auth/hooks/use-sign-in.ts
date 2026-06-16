@@ -21,7 +21,7 @@ export function useSignIn() {
   const { control, handleSubmit } = useForm<SignInForm>({
     resolver: zodResolver(signInSchema),
     // TEMP: admin seedado pra testar a integração. Zerar quando houver cadastro.
-    defaultValues: { identifier: 'admin@brizza.com.br', password: 'Decode3430!' },
+    defaultValues: { identifier: 'user@brizza.com', password: 'Decode3430!' },
   })
 
   const onSubmit = handleSubmit((values) => signIn.mutate(values))
