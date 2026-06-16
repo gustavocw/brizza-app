@@ -64,3 +64,35 @@ A telemetria segue mock no servidor (hardware pendente) mas a integração é re
 3. Fase 3: vincular moto + telemetria real no Dashboard e na Moto.
 4. Fase 4: cadastro + verificação + termos (destrava o gate).
 5. Fase 5: Google, push, undelete.
+
+## 6. Atualização (2026-06-16): backend implementou os pendentes do PDF
+
+Sondagem ao vivo em `https://brizza-api.fly.dev` (rotas na raiz, sem `/v1`; health em `/healthz`).
+
+Integrado nesta rodada (app):
+
+- **Foto de perfil:** fluxo presign confirmado no ar. `POST /user/me/photo/upload-url` →
+  `{upload_url, photo_id, cdn_url}`; `PUT <upload_url>` bytes crus; `POST /user/me/photo/confirm`
+  SEM body → `{photo_url}`. Storage é Bunny.net, máx 5 MB (guarda no app).
+- **Export LGPD:** `GET /user/me/export` (alias `/user/me/lgpd-export`), JSON inline, rate limit 5/h.
+  Nova feature `lgpd-export` (gera arquivo + share). Item "Exportar meus dados" no perfil.
+- **Moto:** enum de status alinhado (`pending_activation|active|offline|charging|disabled`);
+  "Localizar" abre direções até a moto. Telemetria do servidor segue MOCK; campos ricos
+  (saúde, ciclos, specs) seguem em EXTRAS no app até a fonte real.
+- **Push/Devices:** feature `push` (registra `fcm_token` em `POST /user/me/devices` ao logar).
+  Cliente pronto; entrega real exige Firebase (ver pendências).
+
+Pendências que continuam no backend / config externa:
+
+- **Apple:** `POST /auth/apple` existe no código mas responde **404 em produção** porque só é
+  montado quando `APPLE_CLIENT_IDS` está setado no ambiente. Backend precisa configurar o
+  bundle ID no fly. Botão Apple no app segue sem ligar até lá.
+- **Caução:** sem endpoint self-service. `coverage_deposit_paid` só via `PUT /admin/users/{id}`
+  (admin) ou seed. Gateway é TBD. Sem isso o gate de negócio não destrava pelo app.
+- **Telemetria real:** `mock_provider.go` no servidor (dados determinísticos). Aguarda hardware.
+- **Push (Firebase):** entrega exige `google-services.json` (Android, via `android.googleServicesFile`)
+  + chave APNs/Firebase (iOS). Sem isso o token não registra/entrega; o registro falha em silêncio
+  (tratado) e o build segue normal.
+
+Deps nativas adicionadas (exigem rebuild do dev client/APK): `expo-notifications`, `expo-device`,
+`expo-file-system`, `expo-sharing`.
