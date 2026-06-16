@@ -33,6 +33,7 @@ export const routes = {
     supportTicket: (id: string): Href => ({ pathname: '/(private)/support/[id]', params: { id } }),
     linkBike: (): Href => ({ pathname: '/(private)/link-bike' }),
     verify: (kind: 'email' | 'phone'): Href => ({ pathname: '/(private)/verify/[kind]', params: { kind } }),
+    lgpdExport: (): Href => ({ pathname: '/(private)/lgpd-export' }),
   },
 
   tabs: {

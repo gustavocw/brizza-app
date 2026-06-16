@@ -48,6 +48,7 @@ export function useProfile() {
     onSessions: () => nav.push(nav.routes.private.sessions()),
     onPrivacy: () => nav.push(nav.routes.private.legal('privacy')),
     onTerms: () => nav.push(nav.routes.private.legal('terms')),
+    onExportData: () => nav.push(nav.routes.private.lgpdExport()),
     onSupport: () => nav.push(nav.routes.private.support()),
     onSignOut: () => signOut.mutate(),
     isSigningOut: signOut.isPending,

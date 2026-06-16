@@ -2,6 +2,7 @@ import { Fragment, type ReactNode } from 'react'
 import { View } from 'react-native'
 import {
   Call,
+  DocumentDownload,
   DocumentText,
   I24Support,
   Lock,
@@ -62,6 +63,7 @@ export default function ProfileScreen() {
     onSessions,
     onPrivacy,
     onTerms,
+    onExportData,
     onSupport,
     onSignOut,
     isSigningOut,
@@ -112,6 +114,8 @@ export default function ProfileScreen() {
         <MenuRow icon={<ShieldTick size={20} color={colors.primary} variant="Bold" />} label="Política de Privacidade" onPress={onPrivacy} />
         <Divider />
         <MenuRow icon={<DocumentText size={20} color={colors.primary} variant="Bold" />} label="Termos de Uso" onPress={onTerms} />
+        <Divider />
+        <MenuRow icon={<DocumentDownload size={20} color={colors.primary} variant="Bold" />} label="Exportar meus dados" sub="Baixar uma cópia (LGPD)" onPress={onExportData} />
       </Section>
 
       <Button
