@@ -60,6 +60,10 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       'expo-image-picker',
       { photosPermission: 'O app acessa suas fotos para você escolher a imagem de perfil.' },
     ],
+    // Push notifications (FCM). Sets up the native notifications config. Delivery
+    // additionally requires Firebase: google-services.json wired via
+    // android.googleServicesFile, plus an APNs key + Firebase on iOS.
+    'expo-notifications',
   ],
   // typedRoutes is intentionally OFF: routes.ts is the single typed routing layer
   // (it lists routes that may not exist as files yet, which strict typedRoutes rejects).
