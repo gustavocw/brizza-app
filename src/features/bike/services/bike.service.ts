@@ -1,7 +1,7 @@
 import { apiDelete, apiGet, apiPost, type ApiResponse } from '@/lib/api'
 import { relSeen, type BikeStatusKind, type MotoData } from './bike.dto'
 
-type BikeApi = { id: string; plate: string; qr_code?: string; model?: string; status: string }
+type BikeApi = { id: string; plate: string; qr_code?: string; model?: string; status?: string }
 type StatusApi = {
   battery_pct?: number
   autonomy_km?: number
@@ -9,6 +9,8 @@ type StatusApi = {
   last_seen_at?: string | null
   location?: { lat: number; lng: number } | null
 }
+
+const STATUS_KINDS: BikeStatusKind[] = ['pending_activation', 'active', 'offline', 'charging', 'disabled']
 
 // Telemetry the API does not expose yet (the backend flags /bike/status as a
 // hardware-pending MOCK and it only returns battery/autonomy/status/location).
@@ -19,7 +21,9 @@ const EXTRAS = {
   specs: { powerKw: 3, topSpeedKmh: 90, chargeTimeH: 4, weightKg: 78, rangeKm: 120 },
 }
 
-const toKind = (s?: string): BikeStatusKind => (s === 'moving' || s === 'charging' ? s : 'parked')
+// Trust the API's status; fall back to offline for unknown/missing values.
+const toKind = (s?: string | null): BikeStatusKind =>
+  STATUS_KINDS.includes(s as BikeStatusKind) ? (s as BikeStatusKind) : 'offline'
 
 /**
  * Bike. Real identity (GET /user/me/bike) merged with the live battery/status
@@ -39,7 +43,7 @@ export const BikeService = {
     const moto: MotoData = {
       model: bike.data.model || 'Brisa S1',
       plate: bike.data.plate || '',
-      status: toKind(s?.status),
+      status: toKind(s?.status ?? bike.data.status),
       lastSeen: relSeen(s?.last_seen_at),
       battery: {
         percent: s?.battery_pct ?? 0,

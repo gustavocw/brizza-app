@@ -4,7 +4,7 @@ import { qk } from '@/lib/query-keys'
 import { useToast } from '@/providers/toast/use-toast'
 import { useDialog } from '@/providers/overlay/use-dialog'
 import { useNavigation } from '@/shared/hooks/use-navigation'
-import { mapsViewUrl } from '../services/bike.dto'
+import { mapsDirectionsUrl, mapsViewUrl } from '../services/bike.dto'
 import { BikeService } from '../services/bike.service'
 import { useBikeQuery } from './use-bike-query'
 
@@ -65,7 +65,9 @@ export function useMoto() {
     onMap: () => {
       if (moto) Linking.openURL(mapsViewUrl(moto.location)).catch(soon)
     },
-    onLocate: soon,
+    onLocate: () => {
+      if (moto) Linking.openURL(mapsDirectionsUrl(moto.location)).catch(soon)
+    },
     onLock: soon,
     onHistory: soon,
   }

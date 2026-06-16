@@ -2,7 +2,8 @@
 // `BikeStatus` (MOCK telemetry) schemas — `GET /user/me/bike` + `/bike/status`.
 // Data is mocked for now (see bike.service.ts) but typed to swap in the real calls.
 
-export type BikeStatusKind = 'parked' | 'moving' | 'charging'
+// Real status enum from GET /user/me/bike + /bike/status (Brizza API).
+export type BikeStatusKind = 'pending_activation' | 'active' | 'offline' | 'charging' | 'disabled'
 
 export type MotoData = {
   model: string
@@ -16,9 +17,11 @@ export type MotoData = {
 }
 
 export const STATUS: Record<BikeStatusKind, { label: string; dot: string }> = {
-  parked: { label: 'Estacionada', dot: 'bg-accent' },
-  moving: { label: 'Em movimento', dot: 'bg-accent' },
+  active: { label: 'Conectada', dot: 'bg-accent' },
   charging: { label: 'Carregando', dot: 'bg-warning' },
+  offline: { label: 'Offline', dot: 'bg-subtle' },
+  pending_activation: { label: 'Ativando', dot: 'bg-warning' },
+  disabled: { label: 'Desativada', dot: 'bg-error' },
 }
 
 export const numberToBR = (n: number) => n.toLocaleString('pt-BR')
@@ -40,3 +43,7 @@ export function relSeen(iso?: string | null): string {
 /** Google Maps link that SHOWS the bike's current location (not directions). */
 export const mapsViewUrl = (loc: Pick<MotoData['location'], 'lat' | 'lng'>) =>
   `https://www.google.com/maps/search/?api=1&query=${loc.lat},${loc.lng}`
+
+/** Turn-by-turn directions to the bike (origin = device's current location). */
+export const mapsDirectionsUrl = (loc: Pick<MotoData['location'], 'lat' | 'lng'>) =>
+  `https://www.google.com/maps/dir/?api=1&destination=${loc.lat},${loc.lng}`

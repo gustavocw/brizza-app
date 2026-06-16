@@ -65,7 +65,7 @@ export function BikeHero({ model, plate, status, lastSeen, delay = 0 }: Props) {
       </Row>
 
       <Paragraph appear={false} className="mt-4 text-xs text-onPrimary opacity-60">
-        Vista {lastSeen} · conectada
+        Vista {lastSeen}
       </Paragraph>
     </Card>
   )
