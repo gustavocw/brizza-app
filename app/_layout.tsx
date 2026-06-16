@@ -2,6 +2,7 @@ import '../global.css'
 
 import { useEffect } from 'react'
 import { router, Stack } from 'expo-router'
+import * as Notifications from 'expo-notifications'
 import * as SplashScreen from 'expo-splash-screen'
 import { StatusBar } from 'expo-status-bar'
 import { useFonts } from 'expo-font'
@@ -19,6 +20,18 @@ import { useAuthStore } from '@/shared/stores/auth.store'
 import { routes } from '@/shared/constants/routes'
 
 SplashScreen.preventAutoHideAsync()
+
+// Registered at the root so it's in place before any notification is delivered
+// (incl. cold start from a tapped notification). Foreground: show banner + list,
+// play sound, bump the badge.
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowBanner: true,
+    shouldShowList: true,
+    shouldPlaySound: true,
+    shouldSetBadge: true,
+  }),
+})
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
