@@ -15,7 +15,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   ios: {
     supportsTablet: true,
     bundleIdentifier: process.env.IOS_BUNDLE_ID ?? 'com.brizze.mobile',
-    buildNumber: '2',
+    buildNumber: '3',
     // Explicit so the camera permission lands in Info.plist even if the plugin
     // form is missed by an incremental prebuild (QR scanner on the link screen).
     infoPlist: {
@@ -26,7 +26,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     // Edge-to-edge is always on from SDK 55+, so keyboard-controller resizes correctly.
     adaptiveIcon: { foregroundImage: './assets/adaptive-icon.png', backgroundColor: '#F7F8F6' },
     package: process.env.ANDROID_PACKAGE ?? 'com.brizze.mobile',
-    versionCode: 2,
+    versionCode: 3,
   },
   plugins: [
     'expo-router',
