@@ -4,16 +4,18 @@ import type { ConfigContext, ExpoConfig } from 'expo/config'
 // Values flow from .env (EXPO_PUBLIC_*) and eas.json build profiles.
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
-  name: process.env.APP_NAME ?? 'Minas Brisa',
-  slug: 'brizza-mobile',
-  scheme: 'brizza',
-  version: '1.0.0',
+  name: process.env.APP_NAME ?? 'Brizze',
+  slug: 'brizze-mobile',
+  owner: 'brizze',
+  scheme: 'brizze',
+  version: '1.0.2',
   orientation: 'portrait',
   userInterfaceStyle: 'light', // UI ships light-only; lock the scheme for token parity
   icon: './assets/icon.png',
   ios: {
     supportsTablet: true,
-    bundleIdentifier: process.env.IOS_BUNDLE_ID ?? 'com.brizza.mobile',
+    bundleIdentifier: process.env.IOS_BUNDLE_ID ?? 'com.brizze.mobile',
+    buildNumber: '2',
     // Explicit so the camera permission lands in Info.plist even if the plugin
     // form is missed by an incremental prebuild (QR scanner on the link screen).
     infoPlist: {
@@ -23,7 +25,8 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   android: {
     // Edge-to-edge is always on from SDK 55+, so keyboard-controller resizes correctly.
     adaptiveIcon: { foregroundImage: './assets/adaptive-icon.png', backgroundColor: '#F7F8F6' },
-    package: process.env.ANDROID_PACKAGE ?? 'com.brizza.mobile',
+    package: process.env.ANDROID_PACKAGE ?? 'com.brizze.mobile',
+    versionCode: 2,
   },
   plugins: [
     'expo-router',
@@ -69,6 +72,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   // (it lists routes that may not exist as files yet, which strict typedRoutes rejects).
   extra: {
     EXPO_PUBLIC_API_URL: process.env.EXPO_PUBLIC_API_URL,
-    eas: { projectId: process.env.EAS_PROJECT_ID },
+    eas: { projectId: process.env.EAS_PROJECT_ID ?? '3fc46409-7577-4139-ab07-1ff4df6e4e89' },
   },
 })

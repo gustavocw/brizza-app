@@ -13,10 +13,16 @@ expo-env.d.ts
 .kotlin/
 *.orig.*
 *.jks
+*.keystore
 *.p8
 *.p12
 *.key
 *.mobileprovision
+
+# Build secrets (Firebase / Play submit) — never commit
+google-services.json
+GoogleService-Info.plist
+*service-account*.json
 
 # Metro
 .metro-health-check*
