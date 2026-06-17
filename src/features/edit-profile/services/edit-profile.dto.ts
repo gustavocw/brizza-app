@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 // UpdateProfileRequest = { first_name, last_name, address }. The form is flattened;
-// the address is rebuilt on submit. Mirrors the Brizza API Address schema.
+// the address is rebuilt on submit. Mirrors the Brizze API Address schema.
 export const editProfileSchema = z.object({
   first_name: z.string().trim().min(2, 'Mínimo de 2 caracteres'),
   last_name: z.string().trim().min(2, 'Mínimo de 2 caracteres'),

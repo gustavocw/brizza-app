@@ -1,6 +1,6 @@
 # Plano de integração com a API
 
-Relação do que já está integrado, do que está mockado e do que dá pra ligar na Brizza API,
+Relação do que já está integrado, do que está mockado e do que dá pra ligar na Brizze API,
 com sequência sugerida. Base: 53 endpoints do contrato (`apidocs/openapi.yaml`) cruzados com
 os serviços do app e uma sondagem ao vivo com o usuário admin.
 

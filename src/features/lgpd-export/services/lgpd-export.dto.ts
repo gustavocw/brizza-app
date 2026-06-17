@@ -62,4 +62,4 @@ export type LgpdExport = {
 }
 
 /** Filename for the shared/saved export. Date-stamped, no separators in prose. */
-export const exportFileName = () => `brizza-meus-dados-${new Date().toISOString().slice(0, 10)}.json`
+export const exportFileName = () => `brizze-meus-dados-${new Date().toISOString().slice(0, 10)}.json`

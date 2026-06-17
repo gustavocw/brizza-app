@@ -1,8 +1,8 @@
-// Contract for the user's motorcycle. Merges the Brizza API `Bike` (identity) and
+// Contract for the user's motorcycle. Merges the Brizze API `Bike` (identity) and
 // `BikeStatus` (MOCK telemetry) schemas — `GET /user/me/bike` + `/bike/status`.
 // Data is mocked for now (see bike.service.ts) but typed to swap in the real calls.
 
-// Real status enum from GET /user/me/bike + /bike/status (Brizza API).
+// Real status enum from GET /user/me/bike + /bike/status (Brizze API).
 export type BikeStatusKind = 'pending_activation' | 'active' | 'offline' | 'charging' | 'disabled'
 
 export type MotoData = {

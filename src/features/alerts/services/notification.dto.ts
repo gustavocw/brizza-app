@@ -1,4 +1,4 @@
-// Contract for notifications. Mirrors the Brizza API `Notification` schema and the
+// Contract for notifications. Mirrors the Brizze API `Notification` schema and the
 // cursor-paginated `GET /user/me/notifications` response (apidocs/openapi.yaml).
 
 export type NotificationKind =

@@ -3,7 +3,7 @@ import type { AuthResponse, SignInForm } from './auth.dto'
 
 /**
  * Auth service. Functions return ApiResponse<R> (never throw); the query hooks
- * unwrap. Contract: Brizza API `POST /auth/login` ({ identifier, password }).
+ * unwrap. Contract: Brizze API `POST /auth/login` ({ identifier, password }).
  */
 export const AuthService = {
   signIn: (body: SignInForm) => apiPost<SignInForm, AuthResponse>('/auth/login', body),

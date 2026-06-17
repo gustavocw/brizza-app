@@ -12,7 +12,7 @@ import { useAlerts } from './hooks/use-alerts'
 
 /**
  * Alerts view — UI only. Data + handlers come from useAlerts(). A cursor-paginated
- * notification feed (pull to refresh, infinite scroll) wired to the Brizza API.
+ * notification feed (pull to refresh, infinite scroll) wired to the Brizze API.
  * Bottom padding clears the floating tab bar.
  */
 export default function AlertsScreen() {

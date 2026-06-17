@@ -134,7 +134,7 @@ export default function ProfileScreen() {
       />
 
       <Paragraph appear={false} className="self-center text-xs text-subtle">
-        Minas Brisa · versão {appVersion}
+        Brizze · versão {appVersion}
       </Paragraph>
     </Screen>
   )

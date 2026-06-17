@@ -22,7 +22,7 @@ export default function LinkBikeScreen() {
 
       <View className="gap-4">
         <Paragraph appear={false} className="text-muted">
-          Informe a placa da sua Minas Brisa para vinculá-la ao seu perfil.
+          Informe a placa da sua Brizze para vinculá-la ao seu perfil.
         </Paragraph>
         <ControlledTextField
           control={control}
@@ -33,7 +33,7 @@ export default function LinkBikeScreen() {
           autoCorrect={false}
           maxLength={8}
         />
-        <ControlledTextField control={control} name="model" label="Modelo (opcional)" placeholder="Brisa S1" returnKeyType="go" onSubmitEditing={onSubmit} />
+        <ControlledTextField control={control} name="model" label="Modelo (opcional)" placeholder="Brizze S1" returnKeyType="go" onSubmitEditing={onSubmit} />
       </View>
     </Screen>
   )

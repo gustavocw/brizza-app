@@ -1,4 +1,4 @@
-// Contract for the signed-in user. Mirrors the Brizza API `User` schema returned
+// Contract for the signed-in user. Mirrors the Brizze API `User` schema returned
 // by `GET /user/me` (see apidocs/openapi.yaml). Kept in the feature because the
 // profile screen is the only place that reads the full shape.
 

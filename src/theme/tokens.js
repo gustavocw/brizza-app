@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// SINGLE SOURCE OF TRUTH for design tokens — Minas Brisa.
+// SINGLE SOURCE OF TRUTH for design tokens — Brizze.
 //
 // This file is plain CommonJS on purpose: it is consumed BOTH by
 //   - tailwind.config.js  (Node, via require) → powers NativeWind classes
@@ -13,7 +13,7 @@
 
 // Raw palette — the only place literal colors are allowed.
 const palette = {
-  // Brand — Minas Brisa green.
+  // Brand — Brizze green.
   brand: '#1E6B41', // green-600 — verde primário
   brandDark: '#1A5235', // green-700
   brandSoft: '#EDFAF3', // green-50 — verde claro

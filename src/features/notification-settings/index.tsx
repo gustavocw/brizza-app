@@ -7,7 +7,7 @@ import { PREF_ITEMS } from './services/notification-prefs.dto'
 import { useNotificationSettings } from './hooks/use-notification-settings'
 
 /**
- * Notification settings — UI only. Toggles wired to the Brizza API
+ * Notification settings — UI only. Toggles wired to the Brizze API
  * (GET/PUT /user/me/notification-preferences), applied optimistically.
  */
 export default function NotificationSettingsScreen() {

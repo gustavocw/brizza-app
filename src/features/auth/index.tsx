@@ -10,7 +10,7 @@ import { useSignIn } from './hooks/use-sign-in'
 
 /**
  * Login view — UI only. Behavior lives in useSignIn(). Real login by e-mail or
- * telefone + senha (Brizza API). Google/Apple are placeholders for now. Inside
+ * telefone + senha (Brizze API). Google/Apple are placeholders for now. Inside
  * <Screen>, so the keyboard never covers the inputs and tapping outside dismisses it.
  */
 export default function SignInScreen() {
@@ -27,7 +27,7 @@ export default function SignInScreen() {
             Bem-vindo de volta
           </Title>
           <Paragraph appear={false} className="text-muted">
-            Acesse sua conta Minas Brisa
+            Acesse sua conta Brizze
           </Paragraph>
         </View>
       </Appear>

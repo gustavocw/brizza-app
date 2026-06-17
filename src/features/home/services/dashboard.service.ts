@@ -12,7 +12,7 @@ import type { DashboardData } from './dashboard.dto'
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
 const SNAPSHOT: DashboardData = {
-  vehicle: { model: 'Brisa S1', plate: 'ABC-1234' },
+  vehicle: { model: 'Brizze S1', plate: 'ABC-1234' },
   battery: { percent: 74, autonomyKm: 112, status: 'parked' },
   motor: { state: 'Tudo certo', tempC: 28 },
   lastRoute: { distanceKm: 8.4, when: 'hoje' },

@@ -1,6 +1,6 @@
-# Brizza
+# Brizze
 
-App mobile das motos elétricas Minas Brisa. O usuário acompanha a moto pelo celular: bateria, autonomia, localização e carregamento. Tudo em poucos toques.
+App mobile das motos elétricas Brizze. O usuário acompanha a moto pelo celular: bateria, autonomia, localização e carregamento. Tudo em poucos toques.
 
 > **Estágio:** MVP com dados mockados. A telemetria real da moto (bateria e GPS) é a integração que falta fechar.
 

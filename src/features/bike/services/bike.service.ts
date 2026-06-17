@@ -41,7 +41,7 @@ export const BikeService = {
     const s = st.success ? st.data : null
 
     const moto: MotoData = {
-      model: bike.data.model || 'Brisa S1',
+      model: bike.data.model || 'Brizze S1',
       plate: bike.data.plate || '',
       status: toKind(s?.status ?? bike.data.status),
       lastSeen: relSeen(s?.last_seen_at),

@@ -8,9 +8,10 @@ import { signInSchema, type SignInForm } from '../services/auth.dto'
 import { useSignInMutation } from './use-sign-in-mutation'
 
 /**
- * Sign-in controller. Real login by e-mail/telefone + senha against the Brizza
+ * Sign-in controller. Real login by e-mail/telefone + senha against the Brizze
  * API. Google and Apple are not wired yet (Apple has no backend endpoint, Google
  * needs the native Google Sign-In), so they show a "soon" toast.
+ * defaultValues: { identifier: 'user@brizza.com', password: 'Decode3430!' },
  */
 export function useSignIn() {
   const toast = useToast()
@@ -21,7 +22,7 @@ export function useSignIn() {
   const { control, handleSubmit } = useForm<SignInForm>({
     resolver: zodResolver(signInSchema),
     // TEMP: admin seedado pra testar a integração. Zerar quando houver cadastro.
-    defaultValues: { identifier: 'user@brizza.com', password: 'Decode3430!' },
+    defaultValues: { identifier: '', password: '' },
   })
 
   const onSubmit = handleSubmit((values) => signIn.mutate(values))

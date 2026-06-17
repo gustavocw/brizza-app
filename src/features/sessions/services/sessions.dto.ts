@@ -1,4 +1,4 @@
-// Mirrors the Brizza API `Session` schema (GET /auth/sessions).
+// Mirrors the Brizze API `Session` schema (GET /auth/sessions).
 export type Session = {
   id: string
   user_agent: string

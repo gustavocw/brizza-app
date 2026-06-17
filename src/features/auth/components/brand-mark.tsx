@@ -4,7 +4,7 @@ import { shadowsTheme } from '@/theme/theme'
 import { useColors } from '@/theme/use-colors'
 
 /**
- * Minas Brisa app mark: the blueprint lightning bolt in a rounded accent tile.
+ * Brizze app mark: the blueprint lightning bolt in a rounded accent tile.
  * Same bolt path as the brand blueprint, themed via tokens.
  */
 export function BrandMark({ size = 60 }: { size?: number }) {
