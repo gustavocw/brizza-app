@@ -7,16 +7,16 @@
     "development": {
       "developmentClient": true,
       "distribution": "internal",
-      "env": { "EXPO_PUBLIC_API_URL": "https://dev-api.gobrisa.com.br" }
+      "env": { "EXPO_PUBLIC_API_URL": "https://brizza-api.fly.dev" }
     },
     "preview": {
       "distribution": "internal",
       "android": { "buildType": "apk" },
-      "env": { "EXPO_PUBLIC_API_URL": "https://staging-api.gobrisa.com.br" }
+      "env": { "EXPO_PUBLIC_API_URL": "https://brizza-api.fly.dev" }
     },
     "production": {
       "android": { "buildType": "app-bundle" },
-      "env": { "EXPO_PUBLIC_API_URL": "https://api.gobrisa.com.br" }
+      "env": { "EXPO_PUBLIC_API_URL": "https://brizza-api.fly.dev" }
     }
   },
   "submit": {
