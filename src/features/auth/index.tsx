@@ -15,7 +15,7 @@ import { useSignIn } from './hooks/use-sign-in'
  */
 export default function SignInScreen() {
   const colors = useColors()
-  const { control, showPassword, togglePassword, onSubmit, onGoogle, onApple, onForgotPassword, onRegister, onUndelete, isPending, showApple } =
+  const { control, showPassword, togglePassword, onSubmit, onGoogle, onApple, onForgotPassword, onRegister, onUndelete, isPending, googleLoading, showApple } =
     useSignIn()
 
   return (
@@ -87,7 +87,8 @@ export default function SignInScreen() {
           iconContainerClassName="bg-surfaceMuted"
           label="Continuar com o Google"
           icon={<GoogleIcon size={20} />}
-          disabled={isPending}
+          isLoading={googleLoading}
+          disabled={isPending || googleLoading}
           onPress={onGoogle}
         />
         {showApple ? (
