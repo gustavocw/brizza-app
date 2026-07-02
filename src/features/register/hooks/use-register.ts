@@ -3,8 +3,10 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { REFRESH_TOKEN_KEY, TOKEN_KEY } from '@/lib/api'
+import { useToast } from '@/providers/toast/use-toast'
 import { useNavigation } from '@/shared/hooks/use-navigation'
 import { useAuthStore } from '@/shared/stores/auth.store'
+import { onlyDigits } from '@/shared/utils/masks'
 import { toAppUser } from '@/features/auth/services/auth.dto'
 import { registerSchema, type RegisterForm } from '../services/register.dto'
 import { RegisterService } from '../services/register.service'
@@ -32,6 +34,7 @@ const EMPTY: RegisterForm = {
  */
 export function useRegister() {
   const nav = useNavigation()
+  const toast = useToast()
   const login = useAuthStore((s) => s.login)
 
   const { control, handleSubmit, setValue, getValues } = useForm<RegisterForm>({
@@ -40,10 +43,13 @@ export function useRegister() {
   })
 
   const onCepBlur = async () => {
-    const zip = getValues('zip').replace(/\D/g, '')
+    const zip = onlyDigits(getValues('zip'))
     if (zip.length !== 8) return
     const res = await RegisterService.lookupCep(zip)
-    if (!res.success) return
+    if (!res.success) {
+      toast.show({ message: 'CEP não encontrado. Preencha o endereço manualmente.', type: 'info' })
+      return
+    }
     const { street, neighborhood, city, state } = res.data
     if (street) setValue('street', street)
     if (neighborhood) setValue('neighborhood', neighborhood)
@@ -56,13 +62,13 @@ export function useRegister() {
       const res = await RegisterService.register({
         first_name: form.first_name.trim(),
         last_name: form.last_name.trim(),
-        email: form.email.trim(),
-        phone: form.phone.replace(/\D/g, ''),
-        cpf: form.cpf.replace(/\D/g, ''),
+        email: form.email.trim().toLowerCase(),
+        phone: onlyDigits(form.phone),
+        cpf: onlyDigits(form.cpf),
         password: form.password,
         password_confirm: form.password_confirm,
         address: {
-          zip: form.zip,
+          zip: onlyDigits(form.zip),
           street: form.street.trim(),
           number: form.number.trim(),
           complement: form.complement?.trim() || undefined,

@@ -1,6 +1,6 @@
 import { apiPut } from '@/lib/api'
 
-type ChangePasswordBody = { current_password: string; new_password: string }
+type ChangePasswordBody = { current_password: string; new_password: string; new_password_confirm: string }
 
 /** PUT /user/me/password → 204 (revokes all refresh tokens). Returns ApiResponse. */
 export const ChangePasswordService = {

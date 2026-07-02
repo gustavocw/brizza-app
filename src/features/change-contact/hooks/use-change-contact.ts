@@ -6,6 +6,7 @@ import { useLocalSearchParams } from 'expo-router'
 import { qk } from '@/lib/query-keys'
 import { useToast } from '@/providers/toast/use-toast'
 import { useNavigation } from '@/shared/hooks/use-navigation'
+import { onlyDigits } from '@/shared/utils/masks'
 import {
   CONTACT,
   confirmSchema,
@@ -34,14 +35,14 @@ export function useChangeContact() {
 
   const requestForm = useForm<RequestForm>({
     resolver: zodResolver(kind === 'email' ? requestEmailSchema : requestPhoneSchema),
-    defaultValues: { value: '' },
+    defaultValues: { value: '', current_password: '' },
   })
   const confirmForm = useForm<ConfirmForm>({ resolver: zodResolver(confirmSchema), defaultValues: { code: '' } })
 
   const requestMutation = useMutation({
     mutationFn: async (form: RequestForm) => {
-      const v = form.value.trim()
-      const res = await ChangeContactService.request(kind, v)
+      const v = kind === 'phone' ? onlyDigits(form.value) : form.value.trim().toLowerCase()
+      const res = await ChangeContactService.request(kind, v, form.current_password)
       if (!res.success) throw res.error
       return v
     },

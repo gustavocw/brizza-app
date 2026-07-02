@@ -25,8 +25,6 @@ export type Profile = {
   coverage_deposit_paid: boolean
   photo_url?: string | null
   address?: Address | null
-  terms_version_accepted?: string | null
-  privacy_version_accepted?: string | null
   created_at: string
 }
 

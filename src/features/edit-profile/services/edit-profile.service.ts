@@ -1,4 +1,5 @@
 import { apiGet, apiPut } from '@/lib/api'
+import type { Profile } from '@/features/profile/services/profile.dto'
 import type { CepLookup } from './edit-profile.dto'
 
 type Address = {
@@ -18,6 +19,6 @@ type UpdateBody = { first_name: string; last_name: string; address: Address }
  *   GET /address/lookup/{cep} → ViaCEP proxy (street/neighborhood/city/state)
  */
 export const EditProfileService = {
-  update: (body: UpdateBody) => apiPut<UpdateBody, unknown>('/user/me', body),
+  update: (body: UpdateBody) => apiPut<UpdateBody, Profile>('/user/me', body),
   lookupCep: (cep: string) => apiGet<void, CepLookup>(`/address/lookup/${cep}`),
 }

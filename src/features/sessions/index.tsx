@@ -26,7 +26,7 @@ function SessionRow({ session, onRevoke }: { session: Session; onRevoke: () => v
           {label}
         </Paragraph>
         <Paragraph appear={false} numberOfLines={1} className="text-xs text-muted">
-          {session.ip} · {relTime(session.last_used_at)}
+          {session.ip} · {relTime(session.last_seen_at)}
         </Paragraph>
       </View>
       {session.current ? (

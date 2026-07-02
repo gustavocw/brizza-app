@@ -1,10 +1,12 @@
-// Mirrors the Brizze API `Session` schema (GET /auth/sessions).
+// Mirrors the Brizze API `Session` payload (GET /auth/sessions).
 export type Session = {
   id: string
   user_agent: string
   ip: string
-  created_at: string
-  last_used_at: string
+  device_info?: string
+  issued_at: string
+  last_seen_at: string
+  expires_at: string
   current: boolean
 }
 

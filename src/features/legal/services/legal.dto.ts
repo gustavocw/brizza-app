@@ -16,6 +16,14 @@ export type LegalDocument = {
 
 export const legalBody = (d?: LegalDocument) => d?.content_md ?? d?.content ?? ''
 
+/** GET /user/me/terms-status: the user's LATEST acceptance (accepted=false when none). */
+export type TermsStatus = {
+  accepted: boolean
+  terms_version?: string
+  privacy_version?: string
+  accepted_at?: string | null
+}
+
 // A fixed, accented nav title per kind — cleaner than the backend's raw title
 // (e.g. "Politica de Privacidade - Brizze"); the document's own H1 still renders
 // inside the body.

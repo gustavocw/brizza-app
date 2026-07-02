@@ -5,11 +5,9 @@ import type { Href } from 'expo-router'
  * sites, params fully typed. Pair with useNavigation():
  *
  *   const nav = useNavigation()
- *   nav.push(routes.private.exampleDetail(id))
+ *   nav.push(routes.private.supportTicket(id))
  */
 export const routes = {
-  splash: (): Href => ({ pathname: '/splash' }),
-
   public: {
     signIn: (): Href => ({ pathname: '/(public)/sign-in' }),
     forgotPassword: (): Href => ({ pathname: '/(public)/forgot-password' }),
@@ -19,8 +17,6 @@ export const routes = {
 
   private: {
     home: (): Href => ({ pathname: '/(private)/home' }),
-    example: (): Href => ({ pathname: '/(private)/example' }),
-    exampleDetail: (id: string): Href => ({ pathname: '/(private)/example/[id]', params: { id } }),
     /** Legal documents served by the API (privacy policy / terms of use). */
     legal: (kind: 'privacy' | 'terms'): Href => ({ pathname: '/(private)/legal/[kind]', params: { kind } }),
     notificationSettings: (): Href => ({ pathname: '/(private)/notification-settings' }),

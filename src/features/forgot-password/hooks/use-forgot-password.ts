@@ -45,7 +45,12 @@ export function useForgotPassword() {
 
   const resetMutation = useMutation({
     mutationFn: async (form: ResetForm) => {
-      const res = await ForgotPasswordService.reset({ identifier, code: form.code, new_password: form.new_password })
+      const res = await ForgotPasswordService.reset({
+        identifier,
+        code: form.code,
+        new_password: form.new_password,
+        new_password_confirm: form.confirm,
+      })
       if (!res.success) throw res.error
     },
     onSuccess: () => {

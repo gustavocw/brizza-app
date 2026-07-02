@@ -6,6 +6,7 @@ import { qk } from '@/lib/query-keys'
 import { useToast } from '@/providers/toast/use-toast'
 import { useNavigation } from '@/shared/hooks/use-navigation'
 import { useMeQuery } from '@/features/profile/hooks/use-me-query'
+import { onlyDigits } from '@/shared/utils/masks'
 import { editProfileSchema, type EditProfileForm } from '../services/edit-profile.dto'
 import { EditProfileService } from '../services/edit-profile.service'
 
@@ -53,10 +54,13 @@ export function useEditProfile() {
   }, [me, reset])
 
   const onCepBlur = async () => {
-    const zip = getValues('zip').replace(/\D/g, '')
+    const zip = onlyDigits(getValues('zip'))
     if (zip.length !== 8) return
     const res = await EditProfileService.lookupCep(zip)
-    if (!res.success) return
+    if (!res.success) {
+      toast.show({ message: 'CEP não encontrado. Preencha o endereço manualmente.', type: 'info' })
+      return
+    }
     const { street, neighborhood, city, state } = res.data
     if (street) setValue('street', street)
     if (neighborhood) setValue('neighborhood', neighborhood)
@@ -70,7 +74,7 @@ export function useEditProfile() {
         first_name: form.first_name.trim(),
         last_name: form.last_name.trim(),
         address: {
-          zip: form.zip,
+          zip: onlyDigits(form.zip),
           street: form.street.trim(),
           number: form.number.trim(),
           complement: form.complement?.trim() || undefined,

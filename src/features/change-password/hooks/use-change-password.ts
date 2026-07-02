@@ -29,6 +29,7 @@ export function useChangePassword() {
       const res = await ChangePasswordService.update({
         current_password: form.current_password,
         new_password: form.new_password,
+        new_password_confirm: form.confirm,
       })
       if (!res.success) throw res.error
     },

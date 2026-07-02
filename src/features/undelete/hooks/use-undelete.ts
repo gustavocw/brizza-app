@@ -6,10 +6,14 @@ import { REFRESH_TOKEN_KEY, TOKEN_KEY } from '@/lib/api'
 import { useNavigation } from '@/shared/hooks/use-navigation'
 import { useAuthStore } from '@/shared/stores/auth.store'
 import { toAppUser } from '@/features/auth/services/auth.dto'
+import { AuthService } from '@/features/auth/services/auth.service'
 import { undeleteSchema, type UndeleteForm } from '../services/undelete.dto'
 import { UndeleteService } from '../services/undelete.service'
 
-/** Undelete controller. On success the API reactivates + returns tokens (auto-login). */
+/**
+ * Undelete controller. POST /auth/undelete returns 204 with no body, so after
+ * reactivating we log in with the same credentials to get the session tokens.
+ */
 export function useUndelete() {
   const nav = useNavigation()
   const login = useAuthStore((s) => s.login)
@@ -21,9 +25,12 @@ export function useUndelete() {
 
   const mutation = useMutation({
     mutationFn: async (form: UndeleteForm) => {
-      const res = await UndeleteService.undelete({ identifier: form.identifier.trim(), password: form.password })
+      const identifier = form.identifier.trim()
+      const res = await UndeleteService.undelete({ identifier, password: form.password })
       if (!res.success) throw res.error
-      return res.data
+      const signIn = await AuthService.signIn({ identifier, password: form.password })
+      if (!signIn.success) throw signIn.error
+      return signIn.data
     },
     onSuccess: async (data) => {
       await AsyncStorage.multiSet([

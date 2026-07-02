@@ -136,9 +136,24 @@ export async function apiDelete<T, R>(path: string, body?: T): Promise<ApiRespon
   }
 }
 
-/** Best-effort human message from an API/Axios error (NestJS-style payloads supported). */
+/** Error payload the Brizze API renders: { code, message, details?, request_id? }. */
+type ApiErrorBody = {
+  code?: string
+  message?: string | string[]
+  error?: string
+  details?: { field?: string; message?: string }[]
+  request_id?: string
+}
+
+/** Machine-readable error code from an API error (e.g. "INVALID_CREDENTIALS"), if any. */
+export function getApiErrorCode(error: unknown): string | undefined {
+  const data = (error as AxiosError<ApiErrorBody>)?.response?.data
+  return typeof data === 'object' && data ? data.code : undefined
+}
+
+/** Best-effort human message from an API/Axios error (the API sends pt-BR messages). */
 export function getApiErrorMessage(error: unknown, fallback = 'Algo deu errado. Tente novamente.'): string {
-  const axiosError = error as AxiosError<{ message?: string | string[]; error?: string }>
+  const axiosError = error as AxiosError<ApiErrorBody>
   const data = axiosError?.response?.data
   if (data) {
     if (typeof data === 'string') return data

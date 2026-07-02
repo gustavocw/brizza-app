@@ -1,4 +1,3 @@
-import { useNavigation } from '@/shared/hooks/use-navigation'
 import type { PrefKey } from '../services/notification-prefs.dto'
 import { useNotificationPrefsQuery, useUpdateNotificationPrefs } from './use-notification-prefs'
 
@@ -7,7 +6,6 @@ import { useNotificationPrefsQuery, useUpdateNotificationPrefs } from './use-not
  * Toggling sends the FULL prefs object (the API is a full PUT), applied optimistically.
  */
 export function useNotificationSettings() {
-  const nav = useNavigation()
   const query = useNotificationPrefsQuery()
   const update = useUpdateNotificationPrefs()
   const prefs = query.data
@@ -17,5 +15,5 @@ export function useNotificationSettings() {
     update.mutate({ ...prefs, [key]: !prefs[key] })
   }
 
-  return { query, prefs, onToggle, onBack: nav.back }
+  return { query, prefs, onToggle }
 }

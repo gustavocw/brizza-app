@@ -1,6 +1,7 @@
 import { View } from 'react-native'
 import { Screen } from '@/shared/components/layout/screen'
 import { ControlledTextField } from '@/shared/components/form/controlled-text-field'
+import { ControlledPasswordField } from '@/shared/components/form/controlled-password-field'
 import { BackButton, Button, Paragraph, Title } from '@/shared/components/ui'
 import { useChangeContact } from './hooks/use-change-contact'
 
@@ -41,8 +42,16 @@ export default function ChangeContactScreen() {
             label={config.label}
             placeholder={config.placeholder}
             keyboardType={config.keyboardType}
+            mask={config.mask}
             autoCapitalize="none"
             autoCorrect={false}
+            returnKeyType="next"
+          />
+          <ControlledPasswordField
+            control={requestControl}
+            name="current_password"
+            label="Senha atual"
+            placeholder="Confirme sua senha"
             returnKeyType="go"
             onSubmitEditing={onRequest}
           />
