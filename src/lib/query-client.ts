@@ -4,9 +4,13 @@ import { getApiErrorMessage } from './api'
 import { showToast } from '@/providers/toast/toast-provider'
 
 export const queryClient = new QueryClient({
-  // Any mutation that doesn't handle its own onError surfaces a toast.
+  // Fallback toast ONLY for mutations that don't define their own onError —
+  // otherwise a mutation with a specific message would show two toasts.
   mutationCache: new MutationCache({
-    onError: (error) => showToast({ message: getApiErrorMessage(error), type: 'error' }),
+    onError: (error, _variables, _context, mutation) => {
+      if (mutation.options.onError) return
+      showToast({ message: getApiErrorMessage(error), type: 'error' })
+    },
   }),
   defaultOptions: {
     queries: {

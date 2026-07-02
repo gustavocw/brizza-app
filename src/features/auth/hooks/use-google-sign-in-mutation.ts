@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query'
 import type { AxiosError } from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { REFRESH_TOKEN_KEY, TOKEN_KEY } from '@/lib/api'
+import { getApiErrorCode, REFRESH_TOKEN_KEY, TOKEN_KEY } from '@/lib/api'
 import { useAuthStore } from '@/shared/stores/auth.store'
 import { useNavigation } from '@/shared/hooks/use-navigation'
 import { useToast } from '@/providers/toast/use-toast'
@@ -37,13 +37,16 @@ export function useGoogleSignInMutation() {
       nav.replace(nav.routes.tabs.home())
     },
     onError: (err) => {
-      const status = (err as AxiosError)?.response?.status
-      const message =
-        status === 401
-          ? 'Nenhuma conta Brizze com esse e-mail do Google. Cadastre-se primeiro.'
-          : err instanceof Error && !(err as AxiosError).isAxiosError
-            ? err.message
-            : 'Não foi possível entrar com o Google.'
+      const ax = err as AxiosError
+      const status = ax?.response?.status
+      const code = getApiErrorCode(err)
+      let message: string
+      if (code === 'INVALID_CREDENTIALS') message = 'Nenhuma conta Brizze com esse e-mail. Crie a conta primeiro.'
+      else if (code === 'GOOGLE_EMAIL_UNVERIFIED') message = 'Seu e-mail do Google não está verificado.'
+      else if (code === 'GOOGLE_TOKEN_INVALID') message = 'Não foi possível validar o login Google. Tente de novo.'
+      else if (status === 404) message = 'Login com Google ainda não está ativo no servidor.'
+      else if (err instanceof Error && !ax?.isAxiosError) message = err.message
+      else message = 'Não foi possível entrar com o Google.'
       toast.show({ message, type: 'error' })
     },
   })
