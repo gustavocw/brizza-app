@@ -4,6 +4,7 @@ import { Screen } from '@/shared/components/layout/screen'
 import { ControlledTextField } from '@/shared/components/form/controlled-text-field'
 import { ControlledPasswordField } from '@/shared/components/form/controlled-password-field'
 import { BackButton, Button, Paragraph, Title } from '@/shared/components/ui'
+import { maskCep, maskCpf, maskPhone } from '@/shared/utils/masks'
 import { fontTheme } from '@/theme/theme'
 import { useRegister } from './hooks/use-register'
 
@@ -52,15 +53,15 @@ export default function RegisterScreen() {
         </View>
       </View>
       <ControlledTextField control={control} name="email" label="E-mail" placeholder="voce@email.com" keyboardType="email-address" autoCapitalize="none" autoCorrect={false} />
-      <ControlledTextField control={control} name="phone" label="Telefone" placeholder="(31) 99999-9999" keyboardType="phone-pad" />
-      <ControlledTextField control={control} name="cpf" label="CPF" placeholder="Somente números" keyboardType="number-pad" maxLength={11} />
+      <ControlledTextField control={control} name="phone" label="Telefone" placeholder="(31) 99999-9999" keyboardType="phone-pad" mask={maskPhone} />
+      <ControlledTextField control={control} name="cpf" label="CPF" placeholder="000.000.000-00" keyboardType="number-pad" mask={maskCpf} />
 
       <GroupLabel>Acesso</GroupLabel>
       <ControlledPasswordField control={control} name="password" label="Senha" placeholder="Mínimo de 8 caracteres" />
       <ControlledPasswordField control={control} name="password_confirm" label="Confirmar senha" placeholder="Repita a senha" />
 
       <GroupLabel>Endereço</GroupLabel>
-      <ControlledTextField control={control} name="zip" label="CEP" placeholder="Somente números" keyboardType="number-pad" maxLength={8} onBlur={onCepBlur} />
+      <ControlledTextField control={control} name="zip" label="CEP" placeholder="00000-000" keyboardType="number-pad" mask={maskCep} onBlur={onCepBlur} />
       <ControlledTextField control={control} name="street" label="Rua" placeholder="Logradouro" />
       <View className="flex-row gap-3">
         <View className="flex-1">

@@ -1,16 +1,19 @@
 import { z } from 'zod'
+import { isValidCpf, isValidPhone, isValidCep } from '@/shared/utils/masks'
 
 // Mirrors RegisterRequest. Address is flattened in the form and rebuilt on submit.
+// Masked fields (phone/cpf/zip) validate on their digits — the mask is stripped
+// before the payload is sent (see use-register.ts).
 export const registerSchema = z
   .object({
     first_name: z.string().trim().min(2, 'Mínimo de 2 caracteres'),
     last_name: z.string().trim().min(2, 'Mínimo de 2 caracteres'),
     email: z.string().trim().email('E-mail inválido'),
-    phone: z.string().trim().min(10, 'Telefone inválido'),
-    cpf: z.string().regex(/^\d{11}$/, 'CPF deve ter 11 dígitos'),
+    phone: z.string().refine(isValidPhone, 'Telefone inválido'),
+    cpf: z.string().refine(isValidCpf, 'CPF inválido'),
     password: z.string().min(8, 'Mínimo de 8 caracteres'),
     password_confirm: z.string().min(1, 'Confirme a senha'),
-    zip: z.string().regex(/^\d{8}$/, 'CEP de 8 dígitos'),
+    zip: z.string().refine(isValidCep, 'CEP de 8 dígitos'),
     street: z.string().trim().min(1, 'Informe a rua'),
     number: z.string().trim().min(1, 'Informe o número'),
     complement: z.string().trim().optional(),

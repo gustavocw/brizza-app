@@ -3,6 +3,7 @@ import { Screen } from '@/shared/components/layout/screen'
 import { QueryBoundary } from '@/shared/components/data/query-boundary'
 import { ControlledTextField } from '@/shared/components/form/controlled-text-field'
 import { BackButton, Button, Skeleton, Title } from '@/shared/components/ui'
+import { maskCep } from '@/shared/utils/masks'
 import { useEditProfile } from './hooks/use-edit-profile'
 
 /**
@@ -39,9 +40,9 @@ export default function EditProfileScreen() {
             control={control}
             name="zip"
             label="CEP"
-            placeholder="Somente números"
+            placeholder="00000-000"
             keyboardType="number-pad"
-            maxLength={8}
+            mask={maskCep}
             onBlur={onCepBlur}
           />
           <ControlledTextField control={control} name="street" label="Rua" placeholder="Logradouro" />
