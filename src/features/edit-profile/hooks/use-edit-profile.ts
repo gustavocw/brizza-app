@@ -33,9 +33,10 @@ export function useEditProfile() {
   const query = useMeQuery()
   const me = query.data
 
-  const { control, handleSubmit, reset, setValue, getValues } = useForm<EditProfileForm>({
+  const { control, handleSubmit, reset, setValue, getValues, formState } = useForm<EditProfileForm>({
     resolver: zodResolver(editProfileSchema),
     defaultValues: EMPTY,
+    mode: 'onChange',
   })
 
   useEffect(() => {
@@ -98,5 +99,6 @@ export function useEditProfile() {
     onCepBlur,
     onSubmit: handleSubmit((v) => mutation.mutate(v)),
     isPending: mutation.isPending,
+    canSubmit: formState.isValid,
   }
 }

@@ -36,8 +36,13 @@ export function useChangeContact() {
   const requestForm = useForm<RequestForm>({
     resolver: zodResolver(kind === 'email' ? requestEmailSchema : requestPhoneSchema),
     defaultValues: { value: '', current_password: '' },
+    mode: 'onChange',
   })
-  const confirmForm = useForm<ConfirmForm>({ resolver: zodResolver(confirmSchema), defaultValues: { code: '' } })
+  const confirmForm = useForm<ConfirmForm>({
+    resolver: zodResolver(confirmSchema),
+    defaultValues: { code: '' },
+    mode: 'onChange',
+  })
 
   const requestMutation = useMutation({
     mutationFn: async (form: RequestForm) => {
@@ -72,9 +77,12 @@ export function useChangeContact() {
     requestControl: requestForm.control,
     onRequest: requestForm.handleSubmit((v) => requestMutation.mutate(v)),
     requesting: requestMutation.isPending,
+    canRequest: requestForm.formState.isValid,
     confirmControl: confirmForm.control,
     onConfirm: confirmForm.handleSubmit((v) => confirmMutation.mutate(v)),
     confirming: confirmMutation.isPending,
+    // Unlocks only with the full 6-digit code.
+    canConfirm: confirmForm.formState.isValid,
     onBack: () => (phase === 'confirm' ? setPhase('request') : nav.back()),
   }
 }

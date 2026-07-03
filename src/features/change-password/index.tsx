@@ -9,12 +9,12 @@ import { useChangePassword } from './hooks/use-change-password'
  * (new === confirm, min 8). PUT /user/me/password; the user is signed out after.
  */
 export default function ChangePasswordScreen() {
-  const { control, onSubmit, isPending } = useChangePassword()
+  const { control, onSubmit, isPending, canSubmit } = useChangePassword()
 
   return (
     <Screen
       contentClassName="gap-5 px-4 pt-1"
-      footer={<Button label="Alterar senha" isLoading={isPending} disabled={isPending} onPress={onSubmit} />}
+      footer={<Button label="Alterar senha" isLoading={isPending} disabled={isPending || !canSubmit} onPress={onSubmit} />}
     >
       <View className="flex-row items-center gap-3">
         <BackButton />

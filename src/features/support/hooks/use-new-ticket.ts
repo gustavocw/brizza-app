@@ -13,9 +13,10 @@ export function useNewTicket() {
   const toast = useToast()
   const qc = useQueryClient()
 
-  const { control, handleSubmit } = useForm<NewTicketForm>({
+  const { control, handleSubmit, formState } = useForm<NewTicketForm>({
     resolver: zodResolver(newTicketSchema),
     defaultValues: { category: 'other', subject: '', body: '' },
+    mode: 'onChange',
   })
 
   const mutation = useMutation({
@@ -30,5 +31,10 @@ export function useNewTicket() {
     },
   })
 
-  return { control, onSubmit: handleSubmit((v) => mutation.mutate(v)), isPending: mutation.isPending }
+  return {
+    control,
+    onSubmit: handleSubmit((v) => mutation.mutate(v)),
+    isPending: mutation.isPending,
+    canSubmit: formState.isValid,
+  }
 }

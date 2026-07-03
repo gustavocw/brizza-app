@@ -2,6 +2,7 @@ import { Pressable, View } from 'react-native'
 import { Screen } from '@/shared/components/layout/screen'
 import { ControlledTextField } from '@/shared/components/form/controlled-text-field'
 import { BackButton, Button, Paragraph, Title } from '@/shared/components/ui'
+import { maskCode } from '@/shared/utils/masks'
 import { useVerify } from './hooks/use-verify'
 
 /**
@@ -9,12 +10,12 @@ import { useVerify } from './hooks/use-verify'
  * Driven by the `kind` route param.
  */
 export default function VerifyScreen() {
-  const { config, control, onConfirm, confirming, onResend } = useVerify()
+  const { config, control, onConfirm, confirming, canConfirm, onResend } = useVerify()
 
   return (
     <Screen
       contentClassName="gap-5 px-4 pt-1"
-      footer={<Button label="Confirmar" isLoading={confirming} disabled={confirming} onPress={onConfirm} />}
+      footer={<Button label="Confirmar" isLoading={confirming} disabled={confirming || !canConfirm} onPress={onConfirm} />}
     >
       <View className="flex-row items-center gap-3">
         <BackButton />
@@ -33,7 +34,7 @@ export default function VerifyScreen() {
           label="Código"
           placeholder="000000"
           keyboardType="number-pad"
-          maxLength={6}
+          mask={maskCode}
           returnKeyType="go"
           onSubmitEditing={onConfirm}
         />

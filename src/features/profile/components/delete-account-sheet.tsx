@@ -31,9 +31,10 @@ export function DeleteAccountSheet({ onClose }: { onClose: () => void }) {
   const del = useDeleteAccount()
   const [show, setShow] = useState(false)
 
-  const { control, handleSubmit } = useForm<Form>({
+  const { control, handleSubmit, formState } = useForm<Form>({
     resolver: zodResolver(schema),
     defaultValues: { password: '' },
+    mode: 'onChange',
   })
 
   const submit = handleSubmit(({ password }) =>
@@ -85,7 +86,14 @@ export function DeleteAccountSheet({ onClose }: { onClose: () => void }) {
           <Button variant="secondary" appear={false} label="Cancelar" disabled={del.isPending} onPress={onClose} />
         </View>
         <View className="flex-1">
-          <Button appear={false} className="bg-error" label="Excluir conta" isLoading={del.isPending} onPress={submit} />
+          <Button
+            appear={false}
+            className="bg-error"
+            label="Excluir conta"
+            isLoading={del.isPending}
+            disabled={del.isPending || !formState.isValid}
+            onPress={submit}
+          />
         </View>
       </Row>
     </View>

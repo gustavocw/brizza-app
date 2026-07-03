@@ -11,12 +11,16 @@ import { useEditProfile } from './hooks/use-edit-profile'
  * PUT /user/me on save.
  */
 export default function EditProfileScreen() {
-  const { control, query, onCepBlur, onSubmit, isPending } = useEditProfile()
+  const { control, query, onCepBlur, onSubmit, isPending, canSubmit } = useEditProfile()
 
   return (
     <Screen
       contentClassName="gap-5 px-4 pt-1"
-      footer={query.data ? <Button label="Salvar" isLoading={isPending} disabled={isPending} onPress={onSubmit} /> : undefined}
+      footer={
+        query.data ? (
+          <Button label="Salvar" isLoading={isPending} disabled={isPending || !canSubmit} onPress={onSubmit} />
+        ) : undefined
+      }
     >
       <View className="flex-row items-center gap-3">
         <BackButton />
@@ -29,10 +33,10 @@ export default function EditProfileScreen() {
         <View className="gap-4">
           <View className="flex-row gap-3">
             <View className="flex-1">
-              <ControlledTextField control={control} name="first_name" label="Nome" placeholder="Seu nome" />
+              <ControlledTextField control={control} name="first_name" label="Nome" placeholder="Seu nome" autoCapitalize="words" autoCorrect={false} />
             </View>
             <View className="flex-1">
-              <ControlledTextField control={control} name="last_name" label="Sobrenome" placeholder="Seu sobrenome" />
+              <ControlledTextField control={control} name="last_name" label="Sobrenome" placeholder="Seu sobrenome" autoCapitalize="words" autoCorrect={false} />
             </View>
           </View>
 

@@ -3,6 +3,7 @@ import { Screen } from '@/shared/components/layout/screen'
 import { ControlledTextField } from '@/shared/components/form/controlled-text-field'
 import { ControlledPasswordField } from '@/shared/components/form/controlled-password-field'
 import { BackButton, Button, Paragraph, Title } from '@/shared/components/ui'
+import { maskCode } from '@/shared/utils/masks'
 import { useChangeContact } from './hooks/use-change-contact'
 
 /**
@@ -10,7 +11,7 @@ import { useChangeContact } from './hooks/use-change-contact'
  * with the 6-digit code. Driven by the `kind` route param.
  */
 export default function ChangeContactScreen() {
-  const { config, phase, value, requestControl, onRequest, requesting, confirmControl, onConfirm, confirming, onBack } =
+  const { config, phase, value, requestControl, onRequest, requesting, canRequest, confirmControl, onConfirm, confirming, canConfirm, onBack } =
     useChangeContact()
 
   return (
@@ -18,9 +19,9 @@ export default function ChangeContactScreen() {
       contentClassName="gap-5 px-4 pt-1"
       footer={
         phase === 'request' ? (
-          <Button label="Enviar código" isLoading={requesting} disabled={requesting} onPress={onRequest} />
+          <Button label="Enviar código" isLoading={requesting} disabled={requesting || !canRequest} onPress={onRequest} />
         ) : (
-          <Button label="Confirmar" isLoading={confirming} disabled={confirming} onPress={onConfirm} />
+          <Button label="Confirmar" isLoading={confirming} disabled={confirming || !canConfirm} onPress={onConfirm} />
         )
       }
     >
@@ -67,7 +68,7 @@ export default function ChangeContactScreen() {
             label="Código"
             placeholder="000000"
             keyboardType="number-pad"
-            maxLength={6}
+            mask={maskCode}
             returnKeyType="go"
             onSubmitEditing={onConfirm}
           />

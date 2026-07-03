@@ -19,9 +19,10 @@ export function useChangePassword() {
   const qc = useQueryClient()
   const logout = useAuthStore((s) => s.logout)
 
-  const { control, handleSubmit } = useForm<ChangePasswordForm>({
+  const { control, handleSubmit, formState } = useForm<ChangePasswordForm>({
     resolver: zodResolver(changePasswordSchema),
     defaultValues: { current_password: '', new_password: '', confirm: '' },
+    mode: 'onChange',
   })
 
   const mutation = useMutation({
@@ -46,6 +47,7 @@ export function useChangePassword() {
     control,
     onSubmit: handleSubmit((v) => mutation.mutate(v)),
     isPending: mutation.isPending,
+    canSubmit: formState.isValid,
     onBack: nav.back,
   }
 }

@@ -5,7 +5,7 @@ import { isValidPhone, maskPhone } from '@/shared/utils/masks'
 export type ContactKind = 'email' | 'phone'
 
 export const requestEmailSchema = z.object({
-  value: z.string().trim().email('E-mail inválido'),
+  value: z.string().trim().email('E-mail inválido').max(254, 'E-mail muito longo'),
   current_password: z.string().min(1, 'Informe sua senha atual'),
 })
 export const requestPhoneSchema = z.object({

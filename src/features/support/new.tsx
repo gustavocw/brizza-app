@@ -9,12 +9,12 @@ import { useNewTicket } from './hooks/use-new-ticket'
 
 /** New support ticket — UI only. Category chips + subject + description. POST. */
 export default function NewTicketScreen() {
-  const { control, onSubmit, isPending } = useNewTicket()
+  const { control, onSubmit, isPending, canSubmit } = useNewTicket()
 
   return (
     <Screen
       contentClassName="gap-5 px-4 pt-1"
-      footer={<Button label="Enviar chamado" isLoading={isPending} disabled={isPending} onPress={onSubmit} />}
+      footer={<Button label="Enviar chamado" isLoading={isPending} disabled={isPending || !canSubmit} onPress={onSubmit} />}
     >
       <View className="flex-row items-center gap-3">
         <BackButton />

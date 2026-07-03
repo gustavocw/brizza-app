@@ -31,6 +31,9 @@ export function maskCep(value: string): string {
   return `${d.slice(0, 5)}-${d.slice(5)}`
 }
 
+/** 6-digit confirmation code (verify, trocar contato, reset): digits only, capped at 6. */
+export const maskCode = (value: string) => onlyDigits(value).slice(0, 6)
+
 /** True BR phone check: 10 (landline) or 11 (mobile) digits. */
 export const isValidPhone = (value: string) => {
   const n = onlyDigits(value).length

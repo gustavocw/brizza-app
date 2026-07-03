@@ -20,7 +20,11 @@ export function useVerify() {
   const { kind: raw } = useLocalSearchParams<{ kind: string }>()
   const kind: VerifyKind = raw === 'phone' ? 'phone' : 'email'
 
-  const { control, handleSubmit } = useForm<CodeForm>({ resolver: zodResolver(codeSchema), defaultValues: { code: '' } })
+  const { control, handleSubmit, formState } = useForm<CodeForm>({
+    resolver: zodResolver(codeSchema),
+    defaultValues: { code: '' },
+    mode: 'onChange',
+  })
 
   const request = useMutation({
     mutationFn: async () => {
@@ -52,9 +56,12 @@ export function useVerify() {
     control,
     onConfirm: handleSubmit((v) => confirm.mutate(v)),
     confirming: confirm.isPending,
+    // Button unlocks only with a complete, valid 6-digit code.
+    canConfirm: formState.isValid,
     onResend: () => {
-      request.mutate()
-      toast.show({ message: 'Código reenviado.', type: 'info' })
+      request.mutate(undefined, {
+        onSuccess: () => toast.show({ message: 'Código reenviado.', type: 'info' }),
+      })
     },
     resending: request.isPending,
   }
