@@ -1,6 +1,7 @@
 import { useNavigation } from '@/shared/hooks/use-navigation'
 import { useAuthStore } from '@/shared/stores/auth.store'
 import { useUserLocation } from '@/shared/hooks/use-user-location'
+import { useMeQuery } from '@/features/profile/hooks/use-me-query'
 import { useDashboardQuery } from './use-dashboard-query'
 
 /**
@@ -12,6 +13,7 @@ import { useDashboardQuery } from './use-dashboard-query'
 export function useHome() {
   const nav = useNavigation()
   const user = useAuthStore((s) => s.user)
+  const me = useMeQuery()
   const query = useDashboardQuery()
   const { coords, address } = useUserLocation()
 
@@ -30,6 +32,7 @@ export function useHome() {
     query,
     location,
     userName: user?.name ?? 'Piloto',
+    photoUrl: me.data?.photo_url ?? null,
     onChargeStations: () => nav.push(nav.routes.tabs.charge()),
     onLocation: () => nav.push(nav.routes.tabs.bike()),
   }

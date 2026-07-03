@@ -16,13 +16,13 @@ import { numberToBR } from './utils/format'
  */
 export default function HomeScreen() {
   const colors = useColors()
-  const { query, location, userName, onChargeStations, onLocation } = useHome()
+  const { query, location, userName, photoUrl, onChargeStations, onLocation } = useHome()
   const data = query.data
 
   return (
     <Screen contentClassName="gap-5 px-4 pb-32 pt-1">
       <Row className="items-center gap-3">
-        <Avatar name={userName} size={46} />
+        <Avatar uri={photoUrl} name={userName} size={46} />
         <View>
           <Paragraph appear={false} className="text-base font-semibold text-foreground">
             {userName}
