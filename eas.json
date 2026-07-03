@@ -7,16 +7,16 @@
     "development": {
       "developmentClient": true,
       "distribution": "internal",
-      "env": { "EXPO_PUBLIC_API_URL": "https://brizza-api.fly.dev", "GOOGLE_MAPS_API_KEY": "AIzaSyD2fxMwvtd2nUaFCzlIrxov92KcmqGkLxs", "EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID": "99780179495-1nrikuveuf2qv4bhn828hua5mq9t69o6.apps.googleusercontent.com", "EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID": "99780179495-d0kt1os7bgee96p40hhqlljigj3djr4i.apps.googleusercontent.com" }
+      "env": { "EXPO_PUBLIC_API_URL": "https://brizze-api.fly.dev", "GOOGLE_MAPS_API_KEY": "AIzaSyDL_G1ZxuIsDtpv5GP-u1_yK9P0woNOHmE", "EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID": "99780179495-1nrikuveuf2qv4bhn828hua5mq9t69o6.apps.googleusercontent.com", "EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID": "99780179495-d0kt1os7bgee96p40hhqlljigj3djr4i.apps.googleusercontent.com" }
     },
     "preview": {
       "distribution": "internal",
       "android": { "buildType": "apk" },
-      "env": { "EXPO_PUBLIC_API_URL": "https://brizza-api.fly.dev", "GOOGLE_MAPS_API_KEY": "AIzaSyD2fxMwvtd2nUaFCzlIrxov92KcmqGkLxs", "EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID": "99780179495-1nrikuveuf2qv4bhn828hua5mq9t69o6.apps.googleusercontent.com", "EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID": "99780179495-d0kt1os7bgee96p40hhqlljigj3djr4i.apps.googleusercontent.com" }
+      "env": { "EXPO_PUBLIC_API_URL": "https://brizze-api.fly.dev", "GOOGLE_MAPS_API_KEY": "AIzaSyDL_G1ZxuIsDtpv5GP-u1_yK9P0woNOHmE", "EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID": "99780179495-1nrikuveuf2qv4bhn828hua5mq9t69o6.apps.googleusercontent.com", "EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID": "99780179495-d0kt1os7bgee96p40hhqlljigj3djr4i.apps.googleusercontent.com" }
     },
     "production": {
       "android": { "buildType": "app-bundle" },
-      "env": { "EXPO_PUBLIC_API_URL": "https://brizza-api.fly.dev", "GOOGLE_MAPS_API_KEY": "AIzaSyD2fxMwvtd2nUaFCzlIrxov92KcmqGkLxs", "EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID": "99780179495-1nrikuveuf2qv4bhn828hua5mq9t69o6.apps.googleusercontent.com", "EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID": "99780179495-d0kt1os7bgee96p40hhqlljigj3djr4i.apps.googleusercontent.com" }
+      "env": { "EXPO_PUBLIC_API_URL": "https://brizze-api.fly.dev", "GOOGLE_MAPS_API_KEY": "AIzaSyDL_G1ZxuIsDtpv5GP-u1_yK9P0woNOHmE", "EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID": "99780179495-1nrikuveuf2qv4bhn828hua5mq9t69o6.apps.googleusercontent.com", "EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID": "99780179495-d0kt1os7bgee96p40hhqlljigj3djr4i.apps.googleusercontent.com" }
     }
   },
   "submit": {

@@ -6,14 +6,14 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   slug: 'brizze-mobile',
   owner: 'brizze',
   scheme: 'brizze',
-  version: '1.0.5',
+  version: '1.0.6',
   orientation: 'portrait',
   userInterfaceStyle: 'light', 
   icon: './assets/icon.png',
   ios: {
     supportsTablet: false,
     bundleIdentifier: process.env.IOS_BUNDLE_ID ?? 'com.brizze.mobile',
-    buildNumber: '5',
+    buildNumber: '6',
     infoPlist: {
       NSCameraUsageDescription: 'A câmera é usada para ler o QR code da sua moto e vinculá-la à conta.',
       // App é só em português: força a região base pra App Store listar só pt-BR.
@@ -25,7 +25,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   android: {
     adaptiveIcon: { foregroundImage: './assets/adaptive-icon.png', backgroundColor: '#F7F8F6' },
     package: process.env.ANDROID_PACKAGE ?? 'com.brizze.mobile',
-    versionCode: 5,
+    versionCode: 6,
   },
   plugins: [
     'expo-router',
@@ -39,10 +39,9 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     [
       'react-native-maps',
       {
-        // Chaves separadas por plataforma (conta oficial), com fallback pra chave
-        // única atual até as novas serem criadas/coladas nas envs.
-        iosGoogleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY_IOS || process.env.GOOGLE_MAPS_API_KEY,
-        androidGoogleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY_ANDROID || process.env.GOOGLE_MAPS_API_KEY,
+        // Uma chave (conta oficial) pra iOS e Android. Injetada por build via eas.json.
+        iosGoogleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
+        androidGoogleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
       },
     ],
     [

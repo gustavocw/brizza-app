@@ -1,6 +1,6 @@
 {
   "name": "brizze-mobile",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "main": "expo-router/entry",
   "scripts": {
     "start": "expo start",
@@ -52,7 +52,7 @@
     "expo-system-ui": "~56.0.5",
     "iconsax-react-nativejs": "^0.0.8",
     "lottie-react-native": "~7.3.8",
-    "nativewind": "^4.2.4",
+    "nativewind": "^4.2.6",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-hook-form": "^7.77.0",
