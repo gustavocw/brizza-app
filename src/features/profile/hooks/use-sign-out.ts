@@ -6,9 +6,9 @@ import { useNavigation } from '@/shared/hooks/use-navigation'
 import { AuthService } from '@/features/auth/services/auth.service'
 
 /**
- * Sign out. Best-effort revokes the refresh token server-side (POST /auth/logout),
- * then ALWAYS tears down the local session — even offline — and lands on login.
- * Never surfaces an error: a failed revoke must not trap the user inside the app.
+ * Sign out. Fires a best-effort refresh-token revoke server-side (POST /auth/logout)
+ * WITHOUT awaiting it, then ALWAYS tears down the local session — even offline or with
+ * the API down — and lands on login. The server call must never block or trap the user.
  */
 export function useSignOut() {
   const nav = useNavigation()
@@ -18,7 +18,9 @@ export function useSignOut() {
   return useMutation({
     mutationFn: async () => {
       const refreshToken = await AsyncStorage.getItem(REFRESH_TOKEN_KEY)
-      if (refreshToken) await AuthService.logout(refreshToken) // ApiResponse, never throws
+      // Fire-and-forget: don't await the network so logout is instant even if the
+      // backend is unreachable. AuthService.logout returns ApiResponse (never throws).
+      if (refreshToken) void AuthService.logout(refreshToken)
       await AsyncStorage.multiRemove([TOKEN_KEY, REFRESH_TOKEN_KEY])
     },
     onSuccess: () => {
