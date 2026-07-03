@@ -16,6 +16,7 @@ export const qk = {
   me: {
     all: ['me'] as const,
     profile: () => [...qk.me.all, 'profile'] as const,
+    location: (cep: string) => [...qk.me.all, 'location', cep] as const,
   },
 
   legal: {

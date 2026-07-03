@@ -16,7 +16,7 @@ import { numberToBR } from './utils/format'
  */
 export default function HomeScreen() {
   const colors = useColors()
-  const { query, userName, onChargeStations, onLocation } = useHome()
+  const { query, location, userName, onChargeStations, onLocation } = useHome()
   const data = query.data
 
   return (
@@ -58,15 +58,17 @@ export default function HomeScreen() {
               />
             </Row>
 
-            <LocationCard
-              delay={190}
-              address={data.location.address}
-              city={data.location.city}
-              updatedAgo={data.location.updatedAgo}
-              latitude={data.location.latitude}
-              longitude={data.location.longitude}
-              onPress={onLocation}
-            />
+            {location ? (
+              <LocationCard
+                delay={190}
+                address={location.address}
+                city={location.city}
+                updatedAgo={location.updatedAgo}
+                latitude={location.latitude}
+                longitude={location.longitude}
+                onPress={onLocation}
+              />
+            ) : null}
 
             <Button
               delay={230}
