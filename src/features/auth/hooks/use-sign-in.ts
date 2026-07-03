@@ -8,10 +8,13 @@ import { signInSchema, type SignInForm } from '../services/auth.dto'
 import { useSignInMutation } from './use-sign-in-mutation'
 import { useGoogleSignInMutation } from './use-google-sign-in-mutation'
 
+// Apple Sign-In is iOS-only. Kept OFF until the native flow + backend
+// (APPLE_CLIENT_IDS) are wired — flip to true to show the button again.
+const APPLE_LOGIN_ENABLED = false
+
 /**
  * Sign-in controller. Real login by e-mail/telefone + senha against the Brizze
- * API, plus native Google Sign-In (POST /auth/google). Apple is not wired yet
- * (needs APPLE_CLIENT_IDS on the backend), so it shows a "soon" toast.
+ * API, plus native Google Sign-In (POST /auth/google). Apple is hidden for now.
  */
 export function useSignIn() {
   const toast = useToast()
@@ -41,6 +44,6 @@ export function useSignIn() {
     onUndelete: () => nav.push(nav.routes.public.undelete()),
     isPending: signIn.isPending,
     googleLoading: google.isPending,
-    showApple: Platform.OS === 'ios',
+    showApple: APPLE_LOGIN_ENABLED && Platform.OS === 'ios',
   }
 }
