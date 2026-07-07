@@ -23,7 +23,7 @@ export default function LgpdExportScreen() {
       footer={
         <Button
           label="Exportar meus dados"
-          icon={<DocumentDownload size={20} color={colors.onPrimary} variant="Linear" />}
+          icon={<DocumentDownload size={20} color={colors.primary} variant="Bold" />}
           isLoading={isExporting}
           disabled={isExporting}
           onPress={onExport}

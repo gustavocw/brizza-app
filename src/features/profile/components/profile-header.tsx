@@ -31,11 +31,11 @@ export function ProfileHeader({ name, email, photoUrl, onChangePhoto, uploading,
         </View>
       </Pressable>
 
-      <View className="items-center gap-1">
+      <View className="items-center">
         <Title appear={false} numberOfLines={1} className="text-[26px]">
           {name}
         </Title>
-        <Paragraph appear={false} numberOfLines={1} className="text-base text-muted">
+        <Paragraph appear={false} numberOfLines={1} className="text-base text-muted -mt-1">
           {email}
         </Paragraph>
       </View>
