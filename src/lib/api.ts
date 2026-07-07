@@ -78,11 +78,15 @@ api.interceptors.response.use(
     // password), not an expired session — never refresh or trip the bridge there.
     const isAuthCall = original?.url?.includes('/auth/') ?? false
 
-    if (error.response?.status === 401 && !isAuthCall && original && !original._retry) {
-      original._retry = true
-      const token = await refreshAccessToken()
-      if (token) return api(original) // the request interceptor re-attaches the fresh token
-      // No/expired/revoked refresh token → the session is really gone.
+    if (error.response?.status === 401 && !isAuthCall && original) {
+      if (!original._retry) {
+        original._retry = true
+        const token = await refreshAccessToken()
+        if (token) return api(original) // the request interceptor re-attaches the fresh token
+      }
+      // Refresh unavailable, or the retried request still came back 401 → the
+      // session is really gone. Never leave a dead session silently failing every
+      // request: clear the tokens and trip the logout bridge.
       await AsyncStorage.multiRemove([TOKEN_KEY, REFRESH_TOKEN_KEY])
       onUnauthorized?.()
     }
