@@ -48,7 +48,7 @@ export function FloatingTabBar({ state, navigation }: FloatingTabBarProps) {
   return (
     <View pointerEvents="box-none" style={styles.host}>
       <View
-        style={[styles.bar, shadowsTheme.sm, { marginBottom: insets.bottom + 2 }]}
+        style={[styles.bar, shadowsTheme.md, { marginBottom: insets.bottom + 2 }]}
         className="flex-row items-center gap-1 rounded-full bg-surface p-1.5"
       >
         {state.routes.map((route, index) => {
