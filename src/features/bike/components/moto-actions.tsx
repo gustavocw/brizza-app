@@ -4,11 +4,13 @@ import { Clock, Discover, Lock } from 'iconsax-react-nativejs'
 import { Paragraph } from '@/shared/components/ui/paragraph'
 import { Row } from '@/shared/components/ui/layout'
 import { useColors } from '@/theme/use-colors'
+import { shadowsTheme } from '@/theme/theme'
 
 function ActionChip({ icon, label, onPress }: { icon: ReactNode; label: string; onPress: () => void }) {
   return (
     <Pressable
       onPress={onPress}
+      style={shadowsTheme.sm}
       className="flex-1 items-center gap-2 rounded-3xl bg-surface p-4"
       accessibilityRole="button"
       accessibilityLabel={label}

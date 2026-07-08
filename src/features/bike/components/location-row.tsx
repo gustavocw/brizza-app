@@ -16,7 +16,7 @@ export function LocationRow({ location, onPress, delay = 0 }: Props) {
   const colors = useColors()
 
   return (
-    <Card delay={delay} className="rounded-3xl border-transparent bg-surface p-0">
+    <Card elevated delay={delay} className="rounded-3xl border-transparent bg-surface p-0">
       <Pressable onPress={onPress} className="flex-row items-center gap-3 p-4">
         <View className="h-12 w-12 items-center justify-center rounded-2xl bg-primarySoft">
           <Location size={22} color={colors.primary} variant="Bold" />

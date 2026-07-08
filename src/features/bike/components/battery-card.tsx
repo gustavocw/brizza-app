@@ -29,7 +29,7 @@ export function BatteryCard({ battery, delay = 0 }: { battery: MotoData['battery
   const colors = useColors()
 
   return (
-    <Card delay={delay} className="flex-row items-center gap-5 rounded-3xl border-transparent bg-surface p-5">
+    <Card elevated delay={delay} className="flex-row items-center gap-5 rounded-3xl border-transparent bg-surface p-5">
       <BatteryRing percent={battery.percent} size={104} track={colors.border} trackOpacity={1}>
         <Paragraph appear={false} className="text-[22px] font-bold text-foreground">
           {battery.percent}%

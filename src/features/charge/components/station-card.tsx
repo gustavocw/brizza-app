@@ -2,7 +2,7 @@ import { Pressable, View } from 'react-native'
 import { Flash, Send2 } from 'iconsax-react-nativejs'
 import { Paragraph } from '@/shared/components/ui/paragraph'
 import { useColors } from '@/theme/use-colors'
-import { fontTheme } from '@/theme/theme'
+import { fontTheme, shadowsTheme } from '@/theme/theme'
 import { AvailabilityPill } from './availability-pill'
 import { formatKm, formatPrice, type ChargingStation } from '../services/station.dto'
 
@@ -18,7 +18,7 @@ export function StationCard({ station, onPress, onRoute }: Props) {
   const dim = !station.is_open
 
   return (
-    <Pressable onPress={onPress} className="flex-row items-center gap-3 rounded-3xl bg-surface p-4">
+    <Pressable onPress={onPress} style={shadowsTheme.sm} className="flex-row items-center gap-3 rounded-3xl bg-surface p-4">
       <View className="h-12 w-12 items-center justify-center rounded-2xl bg-primarySoft">
         <Flash size={22} color={dim ? colors.subtle : colors.primary} variant="Bold" />
       </View>

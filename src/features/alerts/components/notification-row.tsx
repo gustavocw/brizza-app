@@ -4,7 +4,7 @@ import { twMerge } from 'tailwind-merge'
 import { BatteryCharging, BatteryEmpty, BatteryFull, Flash, Gift, InfoCircle, More, Warning2 } from 'iconsax-react-nativejs'
 import { Paragraph } from '@/shared/components/ui/paragraph'
 import { useColors } from '@/theme/use-colors'
-import { fontTheme } from '@/theme/theme'
+import { fontTheme, shadowsTheme } from '@/theme/theme'
 import { timeAgo, type AppNotification, type NotificationKind } from '../services/notification.dto'
 
 type IconCmp = ComponentType<{ size?: number; color?: string; variant?: 'Bold' | 'Linear' | 'Outline' | 'Bulk' | 'Broken' | 'TwoTone' }>
@@ -35,7 +35,7 @@ export function NotificationRow({ notification, onPress, onOptions }: Props) {
   const unread = !notification.read_at
 
   return (
-    <Pressable onPress={onPress} className="flex-row items-start gap-3 rounded-3xl bg-surface p-4">
+    <Pressable onPress={onPress} style={shadowsTheme.sm} className="flex-row items-start gap-3 rounded-3xl bg-surface p-4">
       <View className={twMerge('h-11 w-11 items-center justify-center rounded-2xl', cfg.bg)}>
         <Icon size={20} color={colors[cfg.tone]} variant="Bold" />
       </View>

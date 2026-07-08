@@ -18,7 +18,7 @@ import {
 import { Screen } from '@/shared/components/layout/screen'
 import { Button, Card, Divider, Paragraph } from '@/shared/components/ui'
 import { useColors } from '@/theme/use-colors'
-import { fontTheme } from '@/theme/theme'
+import { fontTheme, shadowsTheme } from '@/theme/theme'
 import { ProfileHeader } from './components/profile-header'
 import { MenuRow } from './components/menu-row'
 import { fullName } from './services/profile.dto'
@@ -27,7 +27,7 @@ import { useProfile } from './hooks/use-profile'
 /** Grouped card with a mono section caption inside, above its rows. */
 function Section({ label, delay, children }: { label: string; delay?: number; children: ReactNode }) {
   return (
-    <Card delay={delay} className="rounded-3xl border-transparent px-4 pb-1 pt-4">
+    <Card elevated delay={delay} className="rounded-3xl border-transparent px-4 pb-1 pt-4">
       <Paragraph
         appear={false}
         style={{ fontFamily: fontTheme.monoMedium }}
@@ -120,6 +120,7 @@ export default function ProfileScreen() {
 
       <Button
         variant="outline"
+        style={shadowsTheme.sm}
         className="border-transparent bg-surface"
         iconContainerClassName="bg-error"
         label="Sair da conta"

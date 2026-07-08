@@ -23,7 +23,7 @@ export function BikeHero({ model, plate, status, lastSeen, delay = 0 }: Props) {
   const st = STATUS[status]
 
   return (
-    <Card delay={delay} className="flex-row items-center gap-4 rounded-3xl border-transparent bg-surface p-4">
+    <Card elevated delay={delay} className="flex-row items-center gap-4 rounded-3xl border-transparent bg-surface p-4">
       <View className="h-24 w-24 items-center justify-center overflow-hidden rounded-2xl">
         <Image source={MOTO} style={{ width: '100%', height: '100%' }} resizeMode="contain" />
       </View>

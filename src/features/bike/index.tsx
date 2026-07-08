@@ -40,17 +40,13 @@ export default function BikeScreen() {
             <BatteryCard battery={moto.battery} delay={120} />
 
             <Row className="gap-4">
-              <StatCard
-                elevated={false}
-                delay={160}
+              <StatCard                delay={160}
                 icon={<Speedometer size={20} color={colors.primary} variant="Bold" />}
                 label="Odômetro"
                 value={`${numberToBR(moto.telemetry.odometerKm)} km`}
                 sub="no total"
               />
-              <StatCard
-                elevated={false}
-                delay={180}
+              <StatCard                delay={180}
                 icon={<Routing2 size={20} color={colors.primary} variant="Bold" />}
                 label="Última viagem"
                 value={`${numberToBR(moto.telemetry.lastRouteKm)} km`}
@@ -59,16 +55,12 @@ export default function BikeScreen() {
             </Row>
 
             <Row className="gap-4">
-              <StatCard
-                elevated={false}
-                delay={200}
+              <StatCard                delay={200}
                 icon={<Wind size={20} color={colors.primary} variant="Bold" />}
                 label="Vel. média"
                 value={`${moto.telemetry.avgSpeedKmh} km/h`}
               />
-              <StatCard
-                elevated={false}
-                delay={220}
+              <StatCard                delay={220}
                 icon={<Setting2 size={20} color={colors.primary} variant="Bold" />}
                 label="Motor"
                 value={moto.telemetry.motorState}

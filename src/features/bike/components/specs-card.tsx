@@ -30,7 +30,7 @@ export function SpecsCard({ specs, delay = 0 }: { specs: MotoData['specs']; dela
   ]
 
   return (
-    <Card delay={delay} className="rounded-3xl border-transparent bg-surface px-4 pb-2 pt-4">
+    <Card elevated delay={delay} className="rounded-3xl border-transparent bg-surface px-4 pb-2 pt-4">
       <Paragraph
         appear={false}
         style={{ fontFamily: fontTheme.monoMedium }}
