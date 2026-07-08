@@ -21,8 +21,8 @@ export function LocationCard({ address, city, updatedAgo, latitude, longitude, o
   const colors = useColors()
 
   return (
-    <Card elevated delay={delay} className="overflow-hidden rounded-3xl border-transparent p-0">
-      <View style={{ height: 210 }}>
+    <Card elevated delay={delay} className="rounded-3xl border-transparent p-0">
+      <View style={{ height: 210 }} className="overflow-hidden rounded-3xl border-2 border-surface">
         <MiniMap latitude={latitude} longitude={longitude} />
 
         <Pressable

@@ -44,32 +44,34 @@ export default function ChargeScreen() {
       </View>
 
       <View className="px-4">
-        <View style={{ height: 260 }} className="overflow-hidden rounded-3xl bg-surfaceMuted">
-          <ErrorBoundary fallback={<MapFallback />}>
-            <StationsMap ref={mapRef} user={userLocation} stations={stations} onMarkerPress={onSelect} />
-          </ErrorBoundary>
+        <View style={shadowsTheme.sm} className="rounded-3xl bg-surfaceMuted">
+          <View style={{ height: 260 }} className="overflow-hidden rounded-3xl border-2 border-surface">
+            <ErrorBoundary fallback={<MapFallback />}>
+              <StationsMap ref={mapRef} user={userLocation} stations={stations} onMarkerPress={onSelect} />
+            </ErrorBoundary>
 
-          {!query.isPending ? (
-            <View
+            {!query.isPending ? (
+              <View
+                style={shadowsTheme.sm}
+                className="absolute left-3 top-3 flex-row items-center gap-1.5 rounded-full bg-surface px-3 py-1.5"
+              >
+                <View className="h-2 w-2 rounded-full bg-success" />
+                <Paragraph appear={false} className="text-xs font-semibold text-foreground">
+                  {availableCount} disponíveis
+                </Paragraph>
+              </View>
+            ) : null}
+
+            <Pressable
+              onPress={onRecenter}
               style={shadowsTheme.sm}
-              className="absolute left-3 top-3 flex-row items-center gap-1.5 rounded-full bg-surface px-3 py-1.5"
+              className="absolute bottom-3 right-3 h-11 w-11 items-center justify-center rounded-full bg-surface"
+              accessibilityRole="button"
+              accessibilityLabel="Centralizar no meu local"
             >
-              <View className="h-2 w-2 rounded-full bg-success" />
-              <Paragraph appear={false} className="text-xs font-semibold text-foreground">
-                {availableCount} disponíveis
-              </Paragraph>
-            </View>
-          ) : null}
-
-          <Pressable
-            onPress={onRecenter}
-            style={shadowsTheme.sm}
-            className="absolute bottom-3 right-3 h-11 w-11 items-center justify-center rounded-full bg-surface"
-            accessibilityRole="button"
-            accessibilityLabel="Centralizar no meu local"
-          >
-            <Gps size={20} color={colors.primary} variant="Bold" />
-          </Pressable>
+              <Gps size={20} color={colors.primary} variant="Bold" />
+            </Pressable>
+          </View>
         </View>
       </View>
 
