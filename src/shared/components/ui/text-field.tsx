@@ -41,7 +41,7 @@ export const TextField = forwardRef<RNTextInput, TextFieldProps>(function TextFi
         <RNTextInput
           ref={ref}
           multiline={multiline}
-          className={twMerge('flex-1 text-base', className)}
+          className={twMerge('flex-1 font-sans text-base', className)}
           placeholderTextColor={colors.subtle}
           // Explicit color: Android renders white text on secureTextEntry otherwise.
           style={[{ color: colors.foreground }, style]}
