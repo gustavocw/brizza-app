@@ -44,14 +44,14 @@ export default function HomeScreen() {
             <Row className="gap-4">
               <StatCard
                 delay={120}
-                icon={<Setting2 size={20} color={colors.primary} variant="Bold" />}
+                icon={<Setting2 size={20} color={colors.secondary} variant="Bold" />}
                 label="Motor"
                 value={data.motor.state}
                 sub={`${data.motor.tempC} °C`}
               />
               <StatCard
                 delay={150}
-                icon={<Speedometer size={20} color={colors.primary} variant="Bold" />}
+                icon={<Speedometer size={20} color={colors.secondary} variant="Bold" />}
                 label="Rodados"
                 value={`${numberToBR(data.odometerKm)} km`}
                 sub="no total"

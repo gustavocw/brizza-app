@@ -79,43 +79,43 @@ export default function ProfileScreen() {
       <ProfileHeader name={name} email={email} photoUrl={profile?.photo_url} onChangePhoto={onChangePhoto} uploading={uploadingPhoto} delay={40} />
 
       <Section label="Conta" delay={120}>
-        <MenuRow icon={<User size={20} color={colors.primary} variant="Bold" />} label="Dados pessoais" sub="Nome e endereço" onPress={onPersonalData} />
+        <MenuRow icon={<User size={20} color={colors.secondary} variant="Bold" />} label="Dados pessoais" sub="Nome e endereço" onPress={onPersonalData} />
         <Divider />
-        <MenuRow icon={<Sms size={20} color={colors.primary} variant="Bold" />} label="E-mail" sub={profile?.email} onPress={onEmail} />
+        <MenuRow icon={<Sms size={20} color={colors.secondary} variant="Bold" />} label="E-mail" sub={profile?.email} onPress={onEmail} />
         {profile && !profile.email_verified ? (
           <Fragment>
             <Divider />
-            <MenuRow icon={<Verify size={20} color={colors.primary} variant="Bold" />} label="Verificar e-mail" sub="Confirme para liberar recursos" onPress={onVerifyEmail} />
+            <MenuRow icon={<Verify size={20} color={colors.secondary} variant="Bold" />} label="Verificar e-mail" sub="Confirme para liberar recursos" onPress={onVerifyEmail} />
           </Fragment>
         ) : null}
         <Divider />
-        <MenuRow icon={<Call size={20} color={colors.primary} variant="Bold" />} label="Telefone" sub={profile?.phone} onPress={onPhone} />
+        <MenuRow icon={<Call size={20} color={colors.secondary} variant="Bold" />} label="Telefone" sub={profile?.phone} onPress={onPhone} />
         {profile && !profile.phone_verified ? (
           <Fragment>
             <Divider />
-            <MenuRow icon={<Verify size={20} color={colors.primary} variant="Bold" />} label="Verificar telefone" sub="Confirme para liberar recursos" onPress={onVerifyPhone} />
+            <MenuRow icon={<Verify size={20} color={colors.secondary} variant="Bold" />} label="Verificar telefone" sub="Confirme para liberar recursos" onPress={onVerifyPhone} />
           </Fragment>
         ) : null}
         <Divider />
-        <MenuRow icon={<Notification size={20} color={colors.primary} variant="Bold" />} label="Notificações" sub="Preferências de alertas" onPress={onNotifications} />
+        <MenuRow icon={<Notification size={20} color={colors.secondary} variant="Bold" />} label="Notificações" sub="Preferências de alertas" onPress={onNotifications} />
       </Section>
 
       <Section label="Segurança" delay={160}>
-        <MenuRow icon={<Lock size={20} color={colors.primary} variant="Bold" />} label="Alterar senha" sub="Atualize sua senha de acesso" onPress={onChangePassword} />
+        <MenuRow icon={<Lock size={20} color={colors.secondary} variant="Bold" />} label="Alterar senha" sub="Atualize sua senha de acesso" onPress={onChangePassword} />
         <Divider />
-        <MenuRow icon={<MonitorMobbile size={20} color={colors.primary} variant="Bold" />} label="Sessões ativas" sub="Aparelhos conectados" onPress={onSessions} />
+        <MenuRow icon={<MonitorMobbile size={20} color={colors.secondary} variant="Bold" />} label="Sessões ativas" sub="Aparelhos conectados" onPress={onSessions} />
         <Divider />
         <MenuRow tone="danger" icon={<Trash size={20} color={colors.error} variant="Bold" />} label="Excluir minha conta" onPress={onDeleteAccount} />
       </Section>
 
       <Section label="Privacidade e suporte" delay={200}>
-        <MenuRow icon={<I24Support size={20} color={colors.primary} variant="Bold" />} label="Suporte" sub="Abra e acompanhe chamados" onPress={onSupport} />
+        <MenuRow icon={<I24Support size={20} color={colors.secondary} variant="Bold" />} label="Suporte" sub="Abra e acompanhe chamados" onPress={onSupport} />
         <Divider />
-        <MenuRow icon={<ShieldTick size={20} color={colors.primary} variant="Bold" />} label="Política de Privacidade" onPress={onPrivacy} />
+        <MenuRow icon={<ShieldTick size={20} color={colors.secondary} variant="Bold" />} label="Política de Privacidade" onPress={onPrivacy} />
         <Divider />
-        <MenuRow icon={<DocumentText size={20} color={colors.primary} variant="Bold" />} label="Termos de Uso" onPress={onTerms} />
+        <MenuRow icon={<DocumentText size={20} color={colors.secondary} variant="Bold" />} label="Termos de Uso" onPress={onTerms} />
         <Divider />
-        <MenuRow icon={<DocumentDownload size={20} color={colors.primary} variant="Bold" />} label="Exportar meus dados" sub="Baixar uma cópia (LGPD)" onPress={onExportData} />
+        <MenuRow icon={<DocumentDownload size={20} color={colors.secondary} variant="Bold" />} label="Exportar meus dados" sub="Baixar uma cópia (LGPD)" onPress={onExportData} />
       </Section>
 
       <Button

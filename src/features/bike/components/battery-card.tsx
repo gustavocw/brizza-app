@@ -11,7 +11,7 @@ import { numberToBR, type MotoData } from '../services/bike.dto'
 function Stat({ icon, value, label }: { icon: ReactNode; value: string; label: string }) {
   return (
     <Row className="gap-3">
-      <View className="h-10 w-10 items-center justify-center rounded-2xl bg-primarySoft">{icon}</View>
+      <View className="h-10 w-10 items-center justify-center rounded-2xl bg-secondarySoft">{icon}</View>
       <View className="flex-1">
         <Paragraph appear={false} className="text-base font-bold text-foreground">
           {value}
@@ -41,13 +41,13 @@ export function BatteryCard({ battery, delay = 0 }: { battery: MotoData['battery
 
       <View className="flex-1 gap-3">
         <Stat
-          icon={<Flash size={18} color={colors.primary} variant="Bold" />}
+          icon={<Flash size={18} color={colors.secondary} variant="Bold" />}
           value={`${numberToBR(battery.autonomyKm)} km`}
           label="de autonomia"
         />
         <View className="h-px bg-divider" />
         <Stat
-          icon={<Health size={18} color={colors.primary} variant="Bold" />}
+          icon={<Health size={18} color={colors.secondary} variant="Bold" />}
           value={`${battery.healthPct}%`}
           label={`saúde · ${battery.chargeCycles} ciclos`}
         />

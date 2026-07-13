@@ -83,6 +83,11 @@ const colors = {
   accent: palette.green400, // verde ação (energia)
   onAccent: palette.white,
 
+  // Azul-marinho de apoio — dados / utilitário (telemetria, menus, ficha técnica).
+  secondary: palette.navy700,
+  secondarySoft: palette.navy50,
+  onSecondary: palette.white,
+
   success: palette.green500,
   successSoft: palette.green100,
   warning: palette.amber,
@@ -119,6 +124,10 @@ const colorsDark = {
 
   accent: palette.green300,
   onAccent: '#00160D',
+
+  secondary: palette.navy500,
+  secondarySoft: '#0A2547',
+  onSecondary: palette.navy50,
 
   success: palette.green400,
   successSoft: '#062A1A',

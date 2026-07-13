@@ -19,8 +19,8 @@ export function StationCard({ station, onPress, onRoute }: Props) {
 
   return (
     <Pressable onPress={onPress} style={shadowsTheme.sm} className="flex-row items-center gap-3 rounded-3xl bg-surface p-4">
-      <View className="h-12 w-12 items-center justify-center rounded-2xl bg-primarySoft">
-        <Flash size={22} color={dim ? colors.subtle : colors.primary} variant="Bold" />
+      <View className="h-12 w-12 items-center justify-center rounded-2xl bg-secondarySoft">
+        <Flash size={22} color={dim ? colors.subtle : colors.secondary} variant="Bold" />
       </View>
 
       <View className="flex-1">
