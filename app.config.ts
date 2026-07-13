@@ -6,16 +6,20 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   slug: 'brizze-mobile',
   owner: 'brizze',
   scheme: 'brizze',
-  version: '1.0.10',
+  version: '1.0.11',
   orientation: 'portrait',
   userInterfaceStyle: 'light', 
   icon: './assets/icon.png',
   ios: {
     supportsTablet: false,
     bundleIdentifier: process.env.IOS_BUNDLE_ID ?? 'com.brizze.mobile',
-    buildNumber: '10',
+    buildNumber: '11',
     infoPlist: {
       NSCameraUsageDescription: 'A câmera é usada para ler o QR code da sua moto e vinculá-la à conta.',
+      // Os mapas (react-native-maps) referenciam a API de localização, então a chave é
+      // exigida pela Apple mesmo sem pedir GPS ativamente (ITMS-90683).
+      NSLocationWhenInUseUsageDescription:
+        'Usamos sua localização para mostrar sua moto e as estações de recarga no mapa, perto de você.',
       // App é só em português: força a região base pra App Store listar só pt-BR.
       CFBundleDevelopmentRegion: 'pt-BR',
       // Só usa HTTPS padrão: evita a pergunta de export compliance a cada upload.
@@ -25,7 +29,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   android: {
     adaptiveIcon: { foregroundImage: './assets/adaptive-icon.png', backgroundColor: '#FFFFFF' },
     package: process.env.ANDROID_PACKAGE ?? 'com.brizze.mobile',
-    versionCode: 10,
+    versionCode: 11,
   },
   plugins: [
     'expo-router',
