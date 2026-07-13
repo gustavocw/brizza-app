@@ -23,7 +23,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     },
   },
   android: {
-    adaptiveIcon: { foregroundImage: './assets/adaptive-icon.png', backgroundColor: '#F7F8F6' },
+    adaptiveIcon: { foregroundImage: './assets/adaptive-icon.png', backgroundColor: '#FFFFFF' },
     package: process.env.ANDROID_PACKAGE ?? 'com.brizze.mobile',
     versionCode: 9,
   },
@@ -32,7 +32,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     'expo-font',
     [
       'expo-splash-screen',
-      { image: './assets/splash-logo.png', imageWidth: 84, resizeMode: 'contain', backgroundColor: '#F7F8F6' },
+      { image: './assets/brizze-wordmark.png', imageWidth: 220, resizeMode: 'contain', backgroundColor: '#F6F7F8' },
     ],
     'expo-status-bar',
     ['expo-build-properties', { ios: { buildReactNativeFromSource: true } }],
