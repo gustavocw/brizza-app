@@ -20,7 +20,7 @@ type Props = {
 }
 
 const chipBg: Record<Tone, string> = {
-  primary: 'bg-primarySoft',
+  primary: 'bg-secondarySoft',
   neutral: 'bg-surfaceMuted',
   danger: 'bg-errorSoft',
 }
@@ -46,7 +46,7 @@ export function MenuRow({ icon, label, sub, value, tone = 'primary', onPress }: 
           {label}
         </Paragraph>
         {sub ? (
-          <Paragraph appear={false} numberOfLines={1} className="text-xs text-muted">
+          <Paragraph appear={false} numberOfLines={1} className="text-xs text-subtle">
             {sub}
           </Paragraph>
         ) : null}
@@ -57,7 +57,7 @@ export function MenuRow({ icon, label, sub, value, tone = 'primary', onPress }: 
           {value}
         </Paragraph>
       ) : onPress ? (
-        <ArrowRight2 size={18} color={colors.subtle} variant="Linear" />
+        <ArrowRight2 size={12} color={colors.primary} variant="Linear" />
       ) : null}
     </Container>
   )

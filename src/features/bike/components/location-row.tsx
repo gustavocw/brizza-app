@@ -18,8 +18,8 @@ export function LocationRow({ location, onPress, delay = 0 }: Props) {
   return (
     <Card elevated delay={delay} className="rounded-3xl border-transparent bg-surface p-0">
       <Pressable onPress={onPress} className="flex-row items-center gap-3 p-4">
-        <View className="h-12 w-12 items-center justify-center rounded-2xl bg-primarySoft">
-          <Location size={22} color={colors.primary} variant="Bold" />
+        <View className="h-12 w-12 items-center justify-center rounded-2xl bg-secondarySoft">
+          <Location size={22} color={colors.secondary} variant="Bold" />
         </View>
         <View className="flex-1">
           <Paragraph appear={false} numberOfLines={1} className="font-semibold text-foreground">
@@ -30,7 +30,7 @@ export function LocationRow({ location, onPress, delay = 0 }: Props) {
           </Paragraph>
         </View>
         <View className="h-11 w-11 items-center justify-center rounded-full bg-primary">
-          <Map size={20} color={colors.onPrimary} variant="Linear" />
+          <Map size={20} color={colors.onPrimary} variant="Bold" />
         </View>
       </Pressable>
     </Card>
