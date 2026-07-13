@@ -6,38 +6,51 @@
 //   - src/theme/theme.ts   (the app, via import) → powers StyleSheet / inline styles
 //
 // Change a value HERE and it updates everywhere. Never hardcode a hex in a
-// component. To rebrand, edit `palette.brand` + the semantic maps below.
+// component. To rebrand, edit `palette` + the semantic maps below.
+//
+// Palette from the official brand book (Branding book - Brizze): green #006138
+// (Pantone 349 C) is the PRIMARY, navy #002856 (Pantone 282 C) is the support
+// color for dark surfaces, gray #848484 (Cool Gray 8 C) and black are secondary.
 //
 // Types live in tokens.d.ts (kept next to this file).
 // ─────────────────────────────────────────────────────────────────────────────
 
 // Raw palette — the only place literal colors are allowed.
 const palette = {
-  // Brand — Brizze green.
-  brand: '#1E6B41', // green-600 — verde primário
-  brandDark: '#1A5235', // green-700
-  brandSoft: '#EDFAF3', // green-50 — verde claro
+  // Brand — Brizze green (primary) + navy (support). Official hexes.
+  brand: '#006138', // verde primário — Pantone 349 C
+  brandDark: '#00502F', // green-700 (pressed/hover)
+  brandSoft: '#E7F3EC', // green-50 — verde clarinho
 
-  // Full green scale (electric mobility identity).
-  green900: '#0D2B1F', // verde noite
-  green800: '#153D2B',
-  green700: '#1A5235',
-  green600: '#1E6B41',
-  green500: '#2A8A52',
-  green400: '#3AAD68', // verde ação
-  green300: '#5EC885',
-  green200: '#96DCAD',
-  green100: '#D0F0DC',
-  green50: '#EDFAF3',
+  // Full green scale, anchored at 600 = #006138 (electric mobility identity).
+  green900: '#002316', // verde noite
+  green800: '#003A22',
+  green700: '#00502F',
+  green600: '#006138', // primário
+  green500: '#0B7A46',
+  green400: '#1F9A5C', // verde ação (accent — energia)
+  green300: '#5BB183',
+  green200: '#97CDAF',
+  green100: '#C6E3D2',
+  green50: '#E7F3EC',
 
-  // Neutrals.
-  ink: '#1A1A18', // texto
-  gray900: '#1A1A18',
-  gray600: '#5C5B57',
-  gray400: '#9E9D99',
-  gray200: '#DDDCDA',
-  gray100: '#EEEEED',
-  gray50: '#F7F8F6', // background
+  // Navy scale — support color / dark surfaces. Anchored at 700 = #002856.
+  navy900: '#00112B',
+  navy800: '#001B3D',
+  navy700: '#002856', // azul-marinho oficial — Pantone 282 C
+  navy600: '#103C6E',
+  navy500: '#1E4E86',
+  navy100: '#C9D5E4',
+  navy50: '#EAEFF5',
+
+  // Neutrals. gray400 = the brand's secondary gray (#848484, Cool Gray 8 C).
+  ink: '#0F1417', // texto (quase preto)
+  gray900: '#0F1417',
+  gray600: '#5B6168',
+  gray400: '#848484', // cinza secundário oficial
+  gray200: '#D9DCDD',
+  gray100: '#EDEEEF',
+  gray50: '#F6F7F8', // background
   white: '#FFFFFF',
 
   // Feedback.
@@ -45,8 +58,6 @@ const palette = {
   amberSoft: '#FFF4D9',
   red: '#E53935',
   redSoft: '#FDECEA',
-  blue: '#4285F4', // map
-  blueSoft: '#E7F0FE',
 }
 
 // Semantic tokens — what components actually reference (bg-background, text-foreground…).
@@ -63,13 +74,13 @@ const colors = {
   border: palette.gray200,
   divider: palette.gray100,
 
-  primary: palette.brand,
+  primary: palette.brand, // #006138
   primaryDark: palette.brandDark,
   primarySoft: palette.brandSoft,
   onPrimary: palette.white, // text/icon on primary surfaces
-  brandNight: palette.green900, // deep brand surface (hero / premium dark cards)
+  brandNight: palette.navy700, // deep brand surface (hero / premium dark cards) — NAVY
 
-  accent: palette.green400, // verde ação
+  accent: palette.green400, // verde ação (energia)
   onAccent: palette.white,
 
   success: palette.green500,
@@ -78,48 +89,48 @@ const colors = {
   warningSoft: palette.amberSoft,
   error: palette.red,
   errorSoft: palette.redSoft,
-  info: palette.blue,
-  infoSoft: palette.blueSoft,
+  info: palette.navy700, // azul-marinho
+  infoSoft: palette.navy50,
 
-  overlay: 'rgba(13, 43, 31, 0.45)', // green-900 tint behind sheets/dialogs
+  overlay: 'rgba(0, 40, 86, 0.45)', // navy tint behind sheets/dialogs
   disabled: palette.gray200,
 }
 
-// DARK scheme — same keys, dark-green values. Consumed by JS via useColors().
+// DARK scheme — same keys, navy-based values. Consumed by JS via useColors().
 // UI ships light-only for now (see app.config userInterfaceStyle); this keeps
 // the JS palette coherent for when dark mode is turned on.
 const colorsDark = {
-  background: '#081711',
-  surface: palette.green900,
-  surfaceMuted: palette.green800,
+  background: palette.navy900,
+  surface: palette.navy800,
+  surfaceMuted: '#0A2547',
 
-  foreground: palette.green50,
-  muted: palette.green200,
-  subtle: '#7FA890',
+  foreground: palette.navy50,
+  muted: palette.navy100,
+  subtle: '#7E93AD',
 
-  border: palette.green700,
-  divider: palette.green800,
+  border: '#12345E',
+  divider: '#0A2547',
 
   primary: palette.green400,
   primaryDark: palette.green500,
-  primarySoft: '#0F3322',
-  onPrimary: '#06140D',
-  brandNight: palette.green900, // deep brand surface (hero / premium dark cards)
+  primarySoft: '#062A1A',
+  onPrimary: '#00160D',
+  brandNight: palette.navy700,
 
   accent: palette.green300,
-  onAccent: '#06140D',
+  onAccent: '#00160D',
 
   success: palette.green400,
-  successSoft: '#0F3322',
+  successSoft: '#062A1A',
   warning: palette.amber,
   warningSoft: '#2E2410',
   error: '#FF6B68',
   errorSoft: '#2E1414',
-  info: palette.blue,
-  infoSoft: '#102A4E',
+  info: palette.navy500,
+  infoSoft: '#0A2547',
 
   overlay: 'rgba(0, 0, 0, 0.6)',
-  disabled: palette.green700,
+  disabled: '#12345E',
 }
 
 // Radii follow the blueprint (sm 8 / md 14 / lg 20).
@@ -134,15 +145,17 @@ const radius = {
   full: 9999,
 }
 
-// DM Sans (interface) + DM Mono (labels/data). Loaded in app/_layout via
-// @expo-google-fonts/dm-sans and @expo-google-fonts/dm-mono.
+// Montserrat — the brand book's official typeface. Loaded in app/_layout via
+// @expo-google-fonts/montserrat. The brand has no monospace face, so the "mono"
+// role maps to Montserrat too: labels keep their uppercase/tracked treatment
+// (via className), just rendered in Montserrat instead of a monospace font.
 const fonts = {
-  sans: 'DMSans_400Regular',
-  medium: 'DMSans_500Medium',
-  semibold: 'DMSans_600SemiBold',
-  bold: 'DMSans_700Bold',
-  mono: 'DMMono_400Regular',
-  monoMedium: 'DMMono_500Medium',
+  sans: 'Montserrat_400Regular',
+  medium: 'Montserrat_500Medium',
+  semibold: 'Montserrat_600SemiBold',
+  bold: 'Montserrat_700Bold',
+  mono: 'Montserrat_400Regular',
+  monoMedium: 'Montserrat_500Medium',
 }
 
 module.exports = { palette, colors, colorsDark, radius, fonts }

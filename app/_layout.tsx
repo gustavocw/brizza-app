@@ -7,12 +7,11 @@ import * as SplashScreen from 'expo-splash-screen'
 import { StatusBar } from 'expo-status-bar'
 import { useFonts } from 'expo-font'
 import {
-  DMSans_400Regular,
-  DMSans_500Medium,
-  DMSans_600SemiBold,
-  DMSans_700Bold,
-} from '@expo-google-fonts/dm-sans'
-import { DMMono_400Regular, DMMono_500Medium } from '@expo-google-fonts/dm-mono'
+  Montserrat_400Regular,
+  Montserrat_500Medium,
+  Montserrat_600SemiBold,
+  Montserrat_700Bold,
+} from '@expo-google-fonts/montserrat'
 import { AppProviders } from '@/providers/app-providers'
 import { AnimatedSplash } from '@/shared/components/layout/animated-splash'
 import { ErrorBoundary } from '@/shared/components/error-boundary'
@@ -37,12 +36,10 @@ Notifications.setNotificationHandler({
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
-    DMSans_400Regular,
-    DMSans_500Medium,
-    DMSans_600SemiBold,
-    DMSans_700Bold,
-    DMMono_400Regular,
-    DMMono_500Medium,
+    Montserrat_400Regular,
+    Montserrat_500Medium,
+    Montserrat_600SemiBold,
+    Montserrat_700Bold,
   })
 
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated)

@@ -16,9 +16,9 @@ export const colorThemeDark: ColorMap = colorsDark
 export const radiusTheme = radius
 
 /**
- * Font family stack. DM Sans for the interface, DM Mono for labels/data, shipped
- * everywhere for cross-platform parity. `Platform.select` lets you fall back to
- * the system font if a weight failed to load.
+ * Font family stack. Montserrat (the brand's official typeface) for everything,
+ * shipped everywhere for cross-platform parity. `Platform.select` lets you fall
+ * back to the system font if a weight failed to load.
  */
 export const fontTheme = {
   sans: Platform.select({ default: fonts.sans }),
