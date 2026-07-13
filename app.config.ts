@@ -36,7 +36,21 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     'expo-font',
     [
       'expo-splash-screen',
-      { image: './assets/brizze-wordmark.png', imageWidth: 220, resizeMode: 'contain', backgroundColor: '#F6F7F8' },
+      {
+        image: './assets/brizze-wordmark.png',
+        imageWidth: 220,
+        resizeMode: 'contain',
+        backgroundColor: '#F6F7F8',
+        // Android 12+ mascara o splash nativo num círculo, então o wordmark largo é
+        // cortado nas laterais. No Android usa o ícone "zz" compacto (cabe no círculo);
+        // o wordmark completo aparece no overlay JS logo em seguida.
+        android: {
+          image: './assets/brand-zz.png',
+          imageWidth: 150,
+          resizeMode: 'contain',
+          backgroundColor: '#F6F7F8',
+        },
+      },
     ],
     'expo-status-bar',
     ['expo-build-properties', { ios: { buildReactNativeFromSource: true } }],
