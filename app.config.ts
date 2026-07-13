@@ -6,14 +6,14 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   slug: 'brizze-mobile',
   owner: 'brizze',
   scheme: 'brizze',
-  version: '1.0.9',
+  version: '1.0.10',
   orientation: 'portrait',
   userInterfaceStyle: 'light', 
   icon: './assets/icon.png',
   ios: {
     supportsTablet: false,
     bundleIdentifier: process.env.IOS_BUNDLE_ID ?? 'com.brizze.mobile',
-    buildNumber: '9',
+    buildNumber: '10',
     infoPlist: {
       NSCameraUsageDescription: 'A câmera é usada para ler o QR code da sua moto e vinculá-la à conta.',
       // App é só em português: força a região base pra App Store listar só pt-BR.
@@ -25,7 +25,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   android: {
     adaptiveIcon: { foregroundImage: './assets/adaptive-icon.png', backgroundColor: '#FFFFFF' },
     package: process.env.ANDROID_PACKAGE ?? 'com.brizze.mobile',
-    versionCode: 9,
+    versionCode: 10,
   },
   plugins: [
     'expo-router',
