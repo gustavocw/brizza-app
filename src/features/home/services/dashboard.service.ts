@@ -13,10 +13,15 @@ const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
 const SNAPSHOT: DashboardData = {
   vehicle: { model: 'Brizze S1', plate: 'ABC-1234' },
-  battery: { percent: 74, autonomyKm: 112, status: 'parked' },
-  motor: { state: 'Tudo certo', tempC: 28 },
+  battery: { percent: 74, autonomyKm: 112, healthPct: 98, chargeCycles: 142, status: 'parked' },
   lastRoute: { distanceKm: 8.4, when: 'hoje' },
   odometerKm: 2235,
+  avgSpeedKmh: 32,
+  co2SavedKg: 128,
+  motor: { state: 'Tudo certo', tempC: 28 },
+  specs: { powerKw: 3, topSpeedKmh: 90, rangeKm: 120, weightKg: 78, chargeTimeH: 4 },
+  nextService: { km: 2500, days: 30 },
+  checks: { system: 'ok', battery: 'attention', motor: 'ok', brakes: 'problem', tires: 'attention' },
   location: {
     address: 'Rua das Flores, 142',
     city: 'Belo Horizonte',
