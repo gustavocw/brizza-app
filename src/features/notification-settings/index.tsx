@@ -24,7 +24,7 @@ export default function NotificationSettingsScreen() {
 
       <QueryBoundary query={query} loading={<Skeleton style={{ height: 332, borderRadius: 24 }} />}>
         {prefs ? (
-          <Card className="rounded-3xl border-transparent bg-surface px-4 py-1">
+          <Card className="rounded-3xl bg-surface px-4 py-1">
             {PREF_ITEMS.map((item, i) => (
               <Fragment key={item.key}>
                 {i > 0 ? <Divider /> : null}

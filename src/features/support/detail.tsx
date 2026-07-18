@@ -23,7 +23,7 @@ export default function TicketDetailScreen() {
       <QueryBoundary query={query} loading={<Skeleton style={{ height: 260, borderRadius: 24 }} />}>
         {ticket ? (
           <View className="gap-4">
-            <Card className="gap-3 rounded-3xl border-transparent bg-surface p-4">
+            <Card className="gap-3 rounded-3xl bg-surface p-4">
               <View className="flex-row items-start gap-2">
                 <Title appear={false} className="flex-1 text-lg">
                   {ticket.subject}
@@ -41,7 +41,7 @@ export default function TicketDetailScreen() {
               </View>
             </Card>
 
-            <Card className="gap-2 rounded-3xl border-transparent bg-surface p-4">
+            <Card className="gap-2 rounded-3xl bg-surface p-4">
               <Paragraph appear={false} style={{ fontFamily: fontTheme.monoMedium }} className="text-[11px] uppercase tracking-widest text-subtle">
                 Sua mensagem
               </Paragraph>
@@ -51,7 +51,7 @@ export default function TicketDetailScreen() {
             </Card>
 
             {ticket.admin_response ? (
-              <Card className="gap-2 rounded-3xl border-transparent bg-primarySoft p-4">
+              <Card className="gap-2 rounded-3xl bg-primarySoft p-4">
                 <Paragraph appear={false} style={{ fontFamily: fontTheme.monoMedium }} className="text-[11px] uppercase tracking-widest text-primary">
                   Resposta da equipe
                 </Paragraph>

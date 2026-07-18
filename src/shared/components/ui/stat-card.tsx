@@ -10,15 +10,13 @@ type Props = {
   value: string
   sub?: string
   delay?: number
-  /** Float with a shadow (dashboard) or sit flat. Default true. */
-  elevated?: boolean
 }
 
 /** Compact metric tile: icon chip + label + value (+ optional sub). Fills its row column. */
-export function StatCard({ icon, label, value, sub, delay = 0, elevated = true }: Props) {
+export function StatCard({ icon, label, value, sub, delay = 0 }: Props) {
   return (
     <View className="flex-1">
-      <Card elevated={elevated} delay={delay} className="gap-3 rounded-3xl border-transparent p-4">
+      <Card delay={delay} className="gap-3 rounded-3xl p-4">
         <View className="h-11 w-11 items-center justify-center rounded-2xl bg-secondarySoft">{icon}</View>
         <View>
           <Paragraph appear={false} style={{ fontFamily: fontTheme.mono }} className="text-[10px] uppercase tracking-wider text-subtle">

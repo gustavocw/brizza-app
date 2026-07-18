@@ -50,7 +50,7 @@ const palette = {
   gray600: '#5B6168',
   gray400: '#848484', // cinza secundário oficial
   gray200: '#D9DCDD',
-  gray150: '#F1F1F1', // hairline dos cards (escolhida no design da Home)
+  gray150: '#EEF2F0', // hairline dos cards (verde bem claro)
   gray100: '#EDEEEF',
   gray50: '#F6F7F8', // background
   white: '#FFFFFF',

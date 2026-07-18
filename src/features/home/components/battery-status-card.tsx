@@ -3,7 +3,6 @@ import { Card } from '@/shared/components/ui/card'
 import { Paragraph } from '@/shared/components/ui/paragraph'
 import { Row } from '@/shared/components/ui/layout'
 import { useColors } from '@/theme/use-colors'
-import { CARD_SHADOW } from '@/shared/constants/card-style'
 
 const BARS = 10
 
@@ -45,8 +44,7 @@ export function BatteryStatusCard({ percent, delay = 0 }: { percent: number; del
   return (
     <Card
       delay={delay}
-      style={CARD_SHADOW}
-      className="flex-row items-center justify-between rounded-3xl border-transparent bg-brandForest p-5"
+      className="flex-row items-center justify-between rounded-3xl bg-brandForest p-5"
     >
       <View>
         <Row className="items-baseline">

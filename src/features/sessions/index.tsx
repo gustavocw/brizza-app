@@ -56,7 +56,7 @@ export default function SessionsScreen() {
       </View>
 
       <QueryBoundary query={query} isEmpty={sessions.length === 0} loading={<Skeleton style={{ height: 160, borderRadius: 24 }} />}>
-        <Card className="rounded-3xl border-transparent bg-surface px-4 py-1">
+        <Card className="rounded-3xl bg-surface px-4 py-1">
           {sessions.map((s, i) => (
             <Fragment key={s.id}>
               {i > 0 ? <Divider /> : null}

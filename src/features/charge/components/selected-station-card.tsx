@@ -5,6 +5,7 @@ import { Paragraph } from '@/shared/components/ui/paragraph'
 import { Row } from '@/shared/components/ui/layout'
 import { useColors } from '@/theme/use-colors'
 import { shadowsTheme } from '@/theme/theme'
+import { CARD_BORDER } from '@/shared/constants/card-style'
 import {
   availabilityLabel,
   formatPriceShort,
@@ -43,7 +44,7 @@ export function SelectedStationCard({ station, favorite, routing, onToggleFavori
   const rating = formatRating(station.rating, station.reviewCount)
 
   return (
-    <View style={shadowsTheme.md} className="gap-4 rounded-3xl bg-surface p-4">
+    <View style={CARD_BORDER} className="gap-4 rounded-3xl bg-surface p-4">
       {/* close FAB floats symmetric at the card corner (same gap top/right) */}
       <Pressable
         onPress={onClose}

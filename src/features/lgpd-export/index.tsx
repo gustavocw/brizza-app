@@ -37,7 +37,7 @@ export default function LgpdExportScreen() {
         </Title>
       </View>
 
-      <Card delay={40} className="gap-4 rounded-3xl border-transparent p-5">
+      <Card delay={40} className="gap-4 rounded-3xl p-5">
         <View className="h-12 w-12 items-center justify-center rounded-2xl bg-primarySoft">
           <ShieldTick size={24} color={colors.primary} variant="Bold" />
         </View>
