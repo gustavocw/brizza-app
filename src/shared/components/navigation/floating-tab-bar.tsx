@@ -4,7 +4,6 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import * as Haptics from 'expo-haptics'
 import { Flash, Home2, Notification, Profile } from 'iconsax-react-nativejs'
 import { AnimatedTabChip } from './animated-tab-chip'
-import { MotoIcon } from './moto-icon'
 import { shadowsTheme } from '@/theme/theme'
 
 type TabItem = {
@@ -30,11 +29,13 @@ type FloatingTabBarProps = {
 
 // Keyed by the route file name (English). Labels stay in Portuguese for the UI.
 const TAB_ITEMS: Record<string, TabItem> = {
-  home: { label: 'Início', width: 104, renderIcon: (color) => <Home2 size={22} color={color} variant="Bold" /> },
-  bike: { label: 'Moto', width: 94, renderIcon: (color) => <MotoIcon size={24} color={color} /> },
-  charge: { label: 'Carregar', width: 124, renderIcon: (color) => <Flash size={22} color={color} variant="Bold" /> },
-  alerts: { label: 'Alertas', width: 116, renderIcon: (color) => <Notification size={22} color={color} variant="Bold" /> },
-  profile: { label: 'Perfil', width: 106, renderIcon: (color) => <Profile size={22} color={color} variant="Bold" /> },
+  home: { label: 'Início', width: 112, renderIcon: (color) => <Home2 size={25} color={color} variant="Bold" /> },
+  // `bike` (Motor) hidden from the tab bar for now — no TAB_ITEMS entry means the
+  // bar skips it (`if (!item) return null`). The screen/route still exists; its data
+  // was consolidated into Home. Re-add a `bike` entry here (+ import MotoIcon) to bring it back.
+  charge: { label: 'Carregar', width: 134, renderIcon: (color) => <Flash size={25} color={color} variant="Bold" /> },
+  alerts: { label: 'Alertas', width: 122, renderIcon: (color) => <Notification size={25} color={color} variant="Bold" /> },
+  profile: { label: 'Perfil', width: 112, renderIcon: (color) => <Profile size={25} color={color} variant="Bold" /> },
 }
 
 /**

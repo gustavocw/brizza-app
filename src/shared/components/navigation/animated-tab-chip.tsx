@@ -11,8 +11,8 @@ import Animated, {
 import { useColors } from '@/theme/use-colors'
 import { fontTheme } from '@/theme/theme'
 
-export const CHIP_HEIGHT = 44
-const COLLAPSED_WIDTH = 44
+export const CHIP_HEIGHT = 52
+const COLLAPSED_WIDTH = 46
 const SPRING = { damping: 18, stiffness: 220, mass: 0.7 }
 
 export type AnimatedTabChipProps = {
@@ -89,9 +89,9 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   icon: {
-    width: 26,
-    height: 26,
-    marginLeft: 9,
+    width: 30,
+    height: 30,
+    marginLeft: 10,
   },
   iconLayer: {
     position: 'absolute',
@@ -104,10 +104,10 @@ const styles = StyleSheet.create({
   },
   labelWrap: {
     flex: 1,
-    marginLeft: 6,
-    paddingRight: 4,
+    marginLeft: 7,
+    paddingRight: 5,
   },
   label: {
-    fontSize: 14.5,
+    fontSize: 16.5,
   },
 })
