@@ -5,18 +5,21 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withDelay,
+  withSpring,
   withTiming,
 } from 'react-native-reanimated'
 
 export type AppearConfig = {
   /** ms before the animation starts. Stagger siblings for a domino effect. */
   delay?: number
-  /** ms the animation runs. Default 280. */
+  /** ms the animation runs. Default 280. Ignored when `spring` is set. */
   duration?: number
   /** Initial scale (1 = no scale). Default 0.96 — a subtle pop. */
   scaleFrom?: number
   /** Optional slide-up distance in px (0 = none). */
   translateY?: number
+  /** Spring the entrance instead of easing it (a bit of bounce/overshoot). */
+  spring?: boolean
   /** Skip the animation (render final state). Use inside virtualized lists. */
   disabled?: boolean
 }
@@ -33,6 +36,7 @@ export function useAppear({
   duration = 280,
   scaleFrom = 0.96,
   translateY = 0,
+  spring = false,
   disabled = false,
 }: AppearConfig = {}) {
   const progress = useSharedValue(disabled ? 1 : 0)
@@ -42,8 +46,11 @@ export function useAppear({
       progress.value = 1
       return
     }
-    progress.value = withDelay(delay, withTiming(1, { duration, easing: Easing.out(Easing.cubic) }))
-  }, [disabled, delay, duration, progress])
+    const animation = spring
+      ? withSpring(1, { damping: 15, stiffness: 150, mass: 0.8 })
+      : withTiming(1, { duration, easing: Easing.out(Easing.cubic) })
+    progress.value = withDelay(delay, animation)
+  }, [disabled, delay, duration, spring, progress])
 
   return useAnimatedStyle(() => ({
     opacity: progress.value,
@@ -61,8 +68,8 @@ export type AppearProps = ViewProps & AppearConfig
  *
  *   <Appear delay={120} className="gap-3">…</Appear>
  */
-export function Appear({ delay, duration, scaleFrom, translateY, disabled, style, children, ...rest }: AppearProps) {
-  const animatedStyle = useAppear({ delay, duration, scaleFrom, translateY, disabled })
+export function Appear({ delay, duration, scaleFrom, translateY, spring, disabled, style, children, ...rest }: AppearProps) {
+  const animatedStyle = useAppear({ delay, duration, scaleFrom, translateY, spring, disabled })
   return (
     <Animated.View style={[style, animatedStyle]} {...rest}>
       {children}

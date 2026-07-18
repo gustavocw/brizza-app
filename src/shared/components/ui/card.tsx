@@ -14,7 +14,7 @@ export type CardProps = ViewProps & {
 
 export function Card({ delay = 0, appear = true, elevated = false, className, style, children, ...rest }: CardProps) {
   return (
-    <Appear delay={delay} disabled={!appear}>
+    <Appear delay={delay} disabled={!appear} translateY={16} spring>
       <View
         {...rest}
         style={[elevated ? shadowsTheme.sm : undefined, style]}
