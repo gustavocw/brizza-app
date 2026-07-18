@@ -9,5 +9,5 @@ export default function Index() {
   const hydrated = useAuthStore((s) => s.hydrated)
 
   if (!hydrated) return null
-  return <Redirect href={isAuthenticated ? routes.tabs.home() : routes.public.signIn()} />
+  return <Redirect href={isAuthenticated ? routes.tabs.motorcycle() : routes.public.signIn()} />
 }

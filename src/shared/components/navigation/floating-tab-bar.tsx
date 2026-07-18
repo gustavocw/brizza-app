@@ -5,6 +5,7 @@ import * as Haptics from 'expo-haptics'
 import { Notification, Profile } from 'iconsax-react-nativejs'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { AnimatedTabChip } from './animated-tab-chip'
+import { useHasNavButtons } from '@/shared/hooks/use-has-nav-buttons'
 import { shadowsTheme } from '@/theme/theme'
 
 type TabItem = {
@@ -30,10 +31,7 @@ type FloatingTabBarProps = {
 
 // Keyed by the route file name (English). Labels stay in Portuguese for the UI.
 const TAB_ITEMS: Record<string, TabItem> = {
-  home: { label: 'Início', width: 112, renderIcon: (color) => <MaterialCommunityIcons name="motorbike-electric" size={27} color={color} /> },
-  // `bike` (Motor) hidden from the tab bar for now — no TAB_ITEMS entry means the
-  // bar skips it (`if (!item) return null`). The screen/route still exists; its data
-  // was consolidated into Home. Re-add a `bike` entry here (+ import MotoIcon) to bring it back.
+  motorcycle: { label: 'Moto', width: 104, renderIcon: (color) => <MaterialCommunityIcons name="motorbike-electric" size={27} color={color} /> },
   charge: { label: 'Carregar', width: 134, renderIcon: (color) => <MaterialCommunityIcons name="ev-station" size={26} color={color} /> },
   alerts: { label: 'Alertas', width: 122, renderIcon: (color) => <Notification size={25} color={color} variant="Bold" /> },
   profile: { label: 'Perfil', width: 112, renderIcon: (color) => <Profile size={25} color={color} variant="Bold" /> },
@@ -46,11 +44,14 @@ const TAB_ITEMS: Record<string, TabItem> = {
  */
 export function FloatingTabBar({ state, navigation }: FloatingTabBarProps) {
   const insets = useSafeAreaInsets()
+  const hasNavButtons = useHasNavButtons()
 
   return (
     <View pointerEvents="box-none" style={styles.host}>
       <View
-        style={[styles.bar, shadowsTheme.md, { marginBottom: insets.bottom + 2 }]}
+        // Extra lift only over Android's 3-button nav bar so the bar floats clear
+        // of the buttons (gesture nav / iOS home indicator need just a hair).
+        style={[styles.bar, shadowsTheme.md, { marginBottom: insets.bottom + (hasNavButtons ? 16 : 2) }]}
         className="flex-row items-center gap-1 rounded-full bg-surface p-1.5"
       >
         {state.routes.map((route, index) => {

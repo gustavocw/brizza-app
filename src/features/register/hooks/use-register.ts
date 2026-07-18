@@ -86,7 +86,7 @@ export function useRegister() {
         [REFRESH_TOKEN_KEY, data.refresh_token],
       ])
       login(toAppUser(data.user))
-      nav.replace(nav.routes.tabs.home())
+      nav.replace(nav.routes.tabs.motorcycle())
     },
   })
 

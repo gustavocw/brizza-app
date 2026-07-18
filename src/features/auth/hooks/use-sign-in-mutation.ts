@@ -26,7 +26,7 @@ export function useSignInMutation() {
         [REFRESH_TOKEN_KEY, refresh_token],
       ])
       login(toAppUser(user))
-      nav.replace(nav.routes.tabs.home())
+      nav.replace(nav.routes.tabs.motorcycle())
     },
   })
 }

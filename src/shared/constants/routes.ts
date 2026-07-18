@@ -33,8 +33,7 @@ export const routes = {
   },
 
   tabs: {
-    home: (): Href => ({ pathname: '/(tabs)/home' }),
-    bike: (): Href => ({ pathname: '/(tabs)/bike' }),
+    motorcycle: (): Href => ({ pathname: '/(tabs)/motorcycle' }),
     charge: (): Href => ({ pathname: '/(tabs)/charge' }),
     alerts: (): Href => ({ pathname: '/(tabs)/alerts' }),
     profile: (): Href => ({ pathname: '/(tabs)/profile' }),
