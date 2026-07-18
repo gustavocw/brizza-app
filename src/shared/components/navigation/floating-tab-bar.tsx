@@ -2,7 +2,8 @@ import type { ReactNode } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import * as Haptics from 'expo-haptics'
-import { Flash, Home2, Notification, Profile } from 'iconsax-react-nativejs'
+import { Flash, Notification, Profile } from 'iconsax-react-nativejs'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { AnimatedTabChip } from './animated-tab-chip'
 import { shadowsTheme } from '@/theme/theme'
 
@@ -29,7 +30,7 @@ type FloatingTabBarProps = {
 
 // Keyed by the route file name (English). Labels stay in Portuguese for the UI.
 const TAB_ITEMS: Record<string, TabItem> = {
-  home: { label: 'Início', width: 112, renderIcon: (color) => <Home2 size={25} color={color} variant="Bold" /> },
+  home: { label: 'Início', width: 112, renderIcon: (color) => <MaterialCommunityIcons name="motorbike-electric" size={27} color={color} /> },
   // `bike` (Motor) hidden from the tab bar for now — no TAB_ITEMS entry means the
   // bar skips it (`if (!item) return null`). The screen/route still exists; its data
   // was consolidated into Home. Re-add a `bike` entry here (+ import MotoIcon) to bring it back.
