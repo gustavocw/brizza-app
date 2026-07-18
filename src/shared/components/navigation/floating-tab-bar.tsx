@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import * as Haptics from 'expo-haptics'
-import { Flash, Notification, Profile } from 'iconsax-react-nativejs'
+import { Notification, Profile } from 'iconsax-react-nativejs'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { AnimatedTabChip } from './animated-tab-chip'
 import { shadowsTheme } from '@/theme/theme'
@@ -34,7 +34,7 @@ const TAB_ITEMS: Record<string, TabItem> = {
   // `bike` (Motor) hidden from the tab bar for now — no TAB_ITEMS entry means the
   // bar skips it (`if (!item) return null`). The screen/route still exists; its data
   // was consolidated into Home. Re-add a `bike` entry here (+ import MotoIcon) to bring it back.
-  charge: { label: 'Carregar', width: 134, renderIcon: (color) => <Flash size={25} color={color} variant="Bold" /> },
+  charge: { label: 'Carregar', width: 134, renderIcon: (color) => <MaterialCommunityIcons name="ev-station" size={26} color={color} /> },
   alerts: { label: 'Alertas', width: 122, renderIcon: (color) => <Notification size={25} color={color} variant="Bold" /> },
   profile: { label: 'Perfil', width: 112, renderIcon: (color) => <Profile size={25} color={color} variant="Bold" /> },
 }
