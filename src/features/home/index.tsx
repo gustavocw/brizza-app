@@ -1,9 +1,9 @@
-import { Pressable, View } from 'react-native'
-import { ArrowDown2 } from 'iconsax-react-nativejs'
+import { View } from 'react-native'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { Screen } from '@/shared/components/layout/screen'
 import { QueryBoundary } from '@/shared/components/data/query-boundary'
 import { Card, Paragraph, Row } from '@/shared/components/ui'
+import { MotoHeader } from '@/shared/components/moto/moto-header'
 import { CARD_BORDER } from './components/card-style'
 import { ScreenGradient } from './components/screen-gradient'
 import { useColors } from '@/theme/use-colors'
@@ -27,43 +27,14 @@ import { numberToBR } from './utils/format'
  */
 export default function HomeScreen() {
   const colors = useColors()
-  const { query, location, onSelectBike, onCopyAddress } = useHome()
+  const { query, location, onCopyAddress } = useHome()
   const data = query.data
 
   return (
     <View className="flex-1">
       <ScreenGradient />
       <Screen className="bg-transparent" contentClassName="gap-6 px-4 pb-32 pt-1">
-      <View>
-        <Row className="items-center justify-between">
-          <Pressable
-            onPress={onSelectBike}
-            hitSlop={8}
-            accessibilityRole="button"
-            accessibilityLabel="Trocar de moto"
-          >
-            <Row className="items-center gap-1.5">
-              <Paragraph appear={false} className="text-xl font-semibold text-foreground">
-                {data?.vehicle.model ?? 'Brizze'}
-              </Paragraph>
-              <ArrowDown2 size={18} color={colors.foreground} variant="Linear" />
-            </Row>
-          </Pressable>
-
-          <Row className="items-center gap-1.5">
-            <View className="h-2 w-2 rounded-full bg-accent" />
-            <Paragraph appear={false} className="text-xs font-medium text-muted">
-              Conectada
-            </Paragraph>
-          </Row>
-        </Row>
-
-        {data ? (
-          <Paragraph appear={false} className="mt-0.5 text-xs font-medium text-muted">
-            {data.vehicle.plate}
-          </Paragraph>
-        ) : null}
-      </View>
+      <MotoHeader />
 
       <QueryBoundary query={query} loading={<DashboardSkeleton />}>
         {data ? (

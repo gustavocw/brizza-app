@@ -9,7 +9,6 @@ export type CheckStatus = 'ok' | 'attention' | 'problem'
  * (MotoData), not here, to avoid duplicating the same data across both tabs.
  */
 export type DashboardData = {
-  vehicle: { model: string; plate: string }
   battery: { percent: number; autonomyKm: number; healthPct: number; chargeCycles: number; status: VehicleStatus }
   lastRoute: { distanceKm: number; when: string }
   odometerKm: number

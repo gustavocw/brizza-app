@@ -3,6 +3,7 @@ import { TickCircle } from 'iconsax-react-nativejs'
 import { Screen } from '@/shared/components/layout/screen'
 import { QueryBoundary } from '@/shared/components/data/query-boundary'
 import { List, Paragraph } from '@/shared/components/ui'
+import { MotoHeader } from '@/shared/components/moto/moto-header'
 import { useColors } from '@/theme/use-colors'
 import { NotificationRow } from './components/notification-row'
 import { NotificationsEmpty } from './components/notifications-empty'
@@ -22,7 +23,11 @@ export default function AlertsScreen() {
 
   return (
     <Screen scroll={false} dismissKeyboardOnTap={false} contentClassName="gap-4 px-0 pt-1">
-      <View className="flex-row items-center justify-between px-4 pt-1">
+      <View className="px-4">
+        <MotoHeader />
+      </View>
+
+      <View className="flex-row items-center justify-between px-4">
         <Paragraph appear={false} className="text-muted">
           {unreadLabel(unreadCount)}
         </Paragraph>

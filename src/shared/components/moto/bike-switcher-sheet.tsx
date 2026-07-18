@@ -25,7 +25,7 @@ export function BikeSwitcherSheet({ model, plate }: Props) {
 
       <View className="flex-row items-center gap-3 rounded-2xl border-2 border-primary bg-primarySoft p-4">
         <View className="h-12 w-12 items-center justify-center rounded-full bg-primary">
-          <MaterialCommunityIcons name="motorbike" size={26} color={colors.onPrimary} />
+          <MaterialCommunityIcons name="motorbike-electric" size={26} color={colors.onPrimary} />
         </View>
         <View className="flex-1">
           <Paragraph appear={false} className="font-semibold text-foreground">

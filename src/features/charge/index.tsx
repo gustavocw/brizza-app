@@ -6,6 +6,7 @@ import { Screen } from '@/shared/components/layout/screen'
 import { QueryBoundary } from '@/shared/components/data/query-boundary'
 import { ErrorBoundary } from '@/shared/components/error-boundary'
 import { List, Paragraph } from '@/shared/components/ui'
+import { MotoHeader } from '@/shared/components/moto/moto-header'
 import { useColors } from '@/theme/use-colors'
 import { fontTheme, shadowsTheme } from '@/theme/theme'
 import { StationsMap } from './components/stations-map'
@@ -37,7 +38,11 @@ export default function ChargeScreen() {
 
   return (
     <Screen scroll={false} dismissKeyboardOnTap={false} contentClassName="gap-4 px-0 pt-1">
-      <View className="px-4 pt-1">
+      <View className="px-4">
+        <MotoHeader />
+      </View>
+
+      <View className="px-4">
         <Paragraph appear={false} className="text-muted">
           {subtitle}
         </Paragraph>
