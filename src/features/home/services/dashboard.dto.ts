@@ -1,3 +1,5 @@
+import type { ImageSourcePropType } from 'react-native'
+
 export type VehicleStatus = 'parked' | 'moving' | 'charging'
 
 /** Each quick health check: fine, needs attention, or has a problem. */
@@ -9,6 +11,8 @@ export type CheckStatus = 'ok' | 'attention' | 'problem'
  * (MotoData), not here, to avoid duplicating the same data across both tabs.
  */
 export type DashboardData = {
+  /** Bike photo for the home banner (mock-only: bundled asset). */
+  image: ImageSourcePropType
   battery: { percent: number; autonomyKm: number; healthPct: number; chargeCycles: number; status: VehicleStatus }
   lastRoute: { distanceKm: number; when: string }
   odometerKm: number

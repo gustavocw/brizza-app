@@ -39,7 +39,7 @@ export default function HomeScreen() {
       <QueryBoundary query={query} loading={<DashboardSkeleton />}>
         {data ? (
           <View className="gap-6">
-            <BikeCard delay={60} />
+            <BikeCard image={data.image} delay={60} />
 
             <BatteryStatusCard percent={data.battery.percent} delay={90} />
 

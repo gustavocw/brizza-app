@@ -10,7 +10,7 @@
 export const qk = {
   dashboard: {
     all: ['dashboard'] as const,
-    summary: () => [...qk.dashboard.all, 'summary'] as const,
+    summary: (bikeId: string) => [...qk.dashboard.all, 'summary', bikeId] as const,
   },
 
   me: {
@@ -38,7 +38,7 @@ export const qk = {
 
   bike: {
     all: ['bike'] as const,
-    detail: () => [...qk.bike.all, 'detail'] as const,
+    list: () => [...qk.bike.all, 'list'] as const,
   },
 
   notificationPrefs: {

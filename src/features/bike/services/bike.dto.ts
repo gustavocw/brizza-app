@@ -2,12 +2,17 @@
 // `BikeStatus` (MOCK telemetry) schemas — `GET /user/me/bike` + `/bike/status`.
 // Data is mocked for now (see bike.service.ts) but typed to swap in the real calls.
 
+import type { ImageSourcePropType } from 'react-native'
+
 // Real status enum from GET /user/me/bike + /bike/status (Brizze API).
 export type BikeStatusKind = 'pending_activation' | 'active' | 'offline' | 'charging' | 'disabled'
 
 export type MotoData = {
+  id: string
   model: string
   plate: string
+  /** Bike photo (mock-only: bundled asset). */
+  image: ImageSourcePropType
   status: BikeStatusKind
   lastSeen: string
   battery: { percent: number; autonomyKm: number; healthPct: number; chargeCycles: number }
