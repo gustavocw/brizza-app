@@ -18,7 +18,7 @@ import { useAlerts } from './hooks/use-alerts'
  */
 export default function AlertsScreen() {
   const colors = useColors()
-  const { query, items, unreadCount, isRefetching, isFetchingNextPage, onRefresh, loadMore, onPressItem, onOptions, onMarkAll } =
+  const { query, items, unreadCount, isRefetching, isFetchingNextPage, onRefresh, loadMore, onPressItem, onMarkAll } =
     useAlerts()
 
   return (
@@ -52,7 +52,7 @@ export default function AlertsScreen() {
             data={items}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
-              <NotificationRow notification={item} onPress={() => onPressItem(item)} onOptions={() => onOptions(item)} />
+              <NotificationRow notification={item} onPress={() => onPressItem(item)} />
             )}
             ItemSeparatorComponent={() => <View className="h-3" />}
             contentContainerStyle={{ paddingHorizontal: 16, paddingTop: 4, paddingBottom: 140 }}

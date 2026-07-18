@@ -1,7 +1,7 @@
 import type { ComponentType } from 'react'
 import { Pressable, View } from 'react-native'
 import { twMerge } from 'tailwind-merge'
-import { BatteryCharging, BatteryEmpty, BatteryFull, Flash, Gift, InfoCircle, More, Warning2 } from 'iconsax-react-nativejs'
+import { BatteryCharging, BatteryEmpty, BatteryFull, Flash, Gift, InfoCircle, Warning2 } from 'iconsax-react-nativejs'
 import { Paragraph } from '@/shared/components/ui/paragraph'
 import { useColors } from '@/theme/use-colors'
 import { fontTheme, shadowsTheme } from '@/theme/theme'
@@ -24,18 +24,17 @@ const KIND: Record<NotificationKind, { Icon: IconCmp; bg: string; tone: Tone }> 
 type Props = {
   notification: AppNotification
   onPress: () => void
-  onOptions: () => void
 }
 
-/** One notification: kind chip + title/body/time, an unread dot, and a kebab menu. */
-export function NotificationRow({ notification, onPress, onOptions }: Props) {
+/** One notification: kind chip + title/body/time, with an unread dot. */
+export function NotificationRow({ notification, onPress }: Props) {
   const colors = useColors()
   const cfg = KIND[notification.kind] ?? KIND.system
   const Icon = cfg.Icon
   const unread = !notification.read_at
 
   return (
-    <Pressable onPress={onPress} style={shadowsTheme.sm} className="flex-row items-start gap-3 rounded-3xl bg-surface p-4">
+    <Pressable onPress={onPress} style={shadowsTheme.sm} className="flex-row items-center gap-3 rounded-3xl bg-surface p-4">
       <View className={twMerge('h-11 w-11 items-center justify-center rounded-2xl', cfg.bg)}>
         <Icon size={20} color={colors[cfg.tone]} variant="Bold" />
       </View>
@@ -64,10 +63,6 @@ export function NotificationRow({ notification, onPress, onOptions }: Props) {
           {timeAgo(notification.created_at)}
         </Paragraph>
       </View>
-
-      <Pressable onPress={onOptions} hitSlop={10} className="-mr-1 -mt-1 p-1">
-        <More size={20} color={colors.subtle} variant="Linear" />
-      </Pressable>
     </Pressable>
   )
 }
