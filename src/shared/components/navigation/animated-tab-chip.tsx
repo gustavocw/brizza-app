@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { useState } from 'react'
 import { Pressable, StyleSheet, Text } from 'react-native'
 import Animated, {
   Extrapolation,
@@ -14,13 +15,17 @@ import { fontTheme } from '@/theme/theme'
 export const CHIP_HEIGHT = 52
 const COLLAPSED_WIDTH = 46
 const SPRING = { damping: 18, stiffness: 220, mass: 0.7 }
+// Chip chrome around the label: icon (marginLeft 10 + 30) + label marginLeft 7
+// + a little breathing room on the right. Added to the measured text width so
+// the pill always fits its label — never squeezed into an ellipsis.
+const LABEL_CHROME = 10 + 30 + 7 + 12
 
 export type AnimatedTabChipProps = {
   label: string
   /** Renders the icon for a given color (called once per color state). */
   renderIcon: (color: string) => ReactNode
   isActive: boolean
-  /** Target width when expanded, sized to the label. */
+  /** Fallback expanded width used until the label measures itself. */
   activeWidth: number
   onPress: () => void
 }
@@ -42,10 +47,15 @@ export function AnimatedTabChip({ label, renderIcon, isActive, activeWidth, onPr
   const c = useColors()
   const transparentPrimary = rgba(c.primary, 0)
 
+  // Measured natural width of the label (from a hidden, unconstrained copy) drives
+  // the expanded width, so the pill grows to fit any label instead of clipping.
+  const [labelWidth, setLabelWidth] = useState(0)
+  const expandedWidth = labelWidth > 0 ? labelWidth + LABEL_CHROME : activeWidth
+
   const progress = useDerivedValue(() => withSpring(isActive ? 1 : 0, SPRING), [isActive])
 
   const containerStyle = useAnimatedStyle(() => ({
-    width: interpolate(progress.value, [0, 1], [COLLAPSED_WIDTH, activeWidth]),
+    width: interpolate(progress.value, [0, 1], [COLLAPSED_WIDTH, expandedWidth]),
     backgroundColor: interpolateColor(progress.value, [0, 1], [transparentPrimary, c.primary]),
   }))
 
@@ -75,6 +85,14 @@ export function AnimatedTabChip({ label, renderIcon, isActive, activeWidth, onPr
             {label}
           </Text>
         </Animated.View>
+        {/* Hidden, unconstrained copy just to measure the label's natural width. */}
+        <Text
+          numberOfLines={1}
+          onLayout={(e) => setLabelWidth(e.nativeEvent.layout.width)}
+          style={[styles.label, styles.measure, { fontFamily: fontTheme.semibold }]}
+        >
+          {label}
+        </Text>
       </Animated.View>
     </Pressable>
   )
@@ -109,5 +127,11 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 16.5,
+  },
+  measure: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    opacity: 0,
   },
 })

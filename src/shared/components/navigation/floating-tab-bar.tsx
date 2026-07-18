@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, useWindowDimensions, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import * as Haptics from 'expo-haptics'
 import { Notification, Profile } from 'iconsax-react-nativejs'
@@ -10,7 +10,7 @@ import { shadowsTheme } from '@/theme/theme'
 
 type TabItem = {
   label: string
-  /** Expanded width, sized to fit the label. */
+  /** Fallback expanded width until the chip measures its own label. */
   width: number
   renderIcon: (color: string) => ReactNode
 }
@@ -45,13 +45,15 @@ const TAB_ITEMS: Record<string, TabItem> = {
 export function FloatingTabBar({ state, navigation }: FloatingTabBarProps) {
   const insets = useSafeAreaInsets()
   const hasNavButtons = useHasNavButtons()
+  const { width } = useWindowDimensions()
 
   return (
     <View pointerEvents="box-none" style={styles.host}>
       <View
-        // Extra lift only over Android's 3-button nav bar so the bar floats clear
-        // of the buttons (gesture nav / iOS home indicator need just a hair).
-        style={[styles.bar, shadowsTheme.md, { marginBottom: insets.bottom + (hasNavButtons ? 16 : 2) }]}
+        // Grows to fit its chips (no squeezed labels), capped at the screen width
+        // minus 16px on each side. Extra bottom lift only over Android's 3-button
+        // nav bar so the bar floats clear (gesture nav / iOS home need just a hair).
+        style={[shadowsTheme.md, { maxWidth: width - 32, marginBottom: insets.bottom + (hasNavButtons ? 16 : 2) }]}
         className="flex-row items-center gap-1 rounded-full bg-surface p-1.5"
       >
         {state.routes.map((route, index) => {
@@ -88,8 +90,5 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     alignItems: 'center',
-  },
-  bar: {
-    maxWidth: '94%',
   },
 })
