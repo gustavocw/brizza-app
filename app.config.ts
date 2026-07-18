@@ -6,14 +6,14 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   slug: 'brizze-mobile',
   owner: 'brizze',
   scheme: 'brizze',
-  version: '1.0.13',
+  version: '1.0.14',
   orientation: 'portrait',
   userInterfaceStyle: 'light', 
   icon: './assets/icon.png',
   ios: {
     supportsTablet: false,
     bundleIdentifier: process.env.IOS_BUNDLE_ID ?? 'com.brizze.mobile',
-    buildNumber: '13',
+    buildNumber: '14',
     infoPlist: {
       NSCameraUsageDescription: 'A câmera é usada para ler o QR code da sua moto e vinculá-la à conta.',
       // Os mapas (react-native-maps) referenciam a API de localização, então a chave é
@@ -29,7 +29,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   android: {
     adaptiveIcon: { foregroundImage: './assets/adaptive-icon.png', backgroundColor: '#FFFFFF' },
     package: process.env.ANDROID_PACKAGE ?? 'com.brizze.mobile',
-    versionCode: 13,
+    versionCode: 14,
   },
   plugins: [
     'expo-router',
@@ -88,6 +88,9 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     EXPO_PUBLIC_API_URL: process.env.EXPO_PUBLIC_API_URL,
     EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID: process.env.EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID,
     EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID: process.env.EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID,
+    // Also exposed to JS for the Street View Static thumbnails (the key already
+    // ships client-side in the native plists, so this is not a new exposure).
+    GOOGLE_MAPS_API_KEY: process.env.GOOGLE_MAPS_API_KEY,
     eas: { projectId: process.env.EAS_PROJECT_ID ?? '3fc46409-7577-4139-ab07-1ff4df6e4e89' },
   },
 })

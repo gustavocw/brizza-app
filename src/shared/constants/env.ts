@@ -12,4 +12,6 @@ export const ENV = {
   // Google Sign-In iOS client ID (used by configure() on iOS).
   googleIosClientId:
     process.env.EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID ?? extra.EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID ?? '',
+  // Google Maps key (same one the native maps use) — Street View Static thumbnails.
+  googleMapsApiKey: extra.GOOGLE_MAPS_API_KEY ?? '',
 }
