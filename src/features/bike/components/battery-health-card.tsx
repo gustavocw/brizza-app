@@ -6,7 +6,7 @@ import { Card } from '@/shared/components/ui/card'
 import { Paragraph } from '@/shared/components/ui/paragraph'
 import { Row } from '@/shared/components/ui/layout'
 import { useColors } from '@/theme/use-colors'
-import { numberToBR, type MotoData } from '../services/bike.dto'
+import type { MotoData } from '../services/bike.dto'
 
 function Stat({ icon, value, label }: { icon: ReactNode; value: string; label: string }) {
   return (
@@ -24,32 +24,38 @@ function Stat({ icon, value, label }: { icon: ReactNode; value: string; label: s
   )
 }
 
-/** Battery gauge + autonomy and health, on a light card (ring track adapts to it). */
-export function BatteryCard({ battery, delay = 0 }: { battery: MotoData['battery']; delay?: number }) {
+type Props = {
+  battery: MotoData['battery']
+  chargeTimeH: number
+  delay?: number
+}
+
+/** Battery health detail: health gauge + cycles + charge time (deeper than the Home glance). */
+export function BatteryHealthCard({ battery, chargeTimeH, delay = 0 }: Props) {
   const colors = useColors()
 
   return (
     <Card elevated delay={delay} className="flex-row items-center gap-5 rounded-3xl border-transparent bg-surface p-5">
-      <BatteryRing percent={battery.percent} size={104} track={colors.border} trackOpacity={1}>
+      <BatteryRing percent={battery.healthPct} size={104} track={colors.border} trackOpacity={1}>
         <Paragraph appear={false} className="text-[22px] font-bold text-foreground">
-          {battery.percent}%
+          {battery.healthPct}%
         </Paragraph>
         <Paragraph appear={false} className="text-[10px] uppercase tracking-wider text-subtle">
-          bateria
+          saúde
         </Paragraph>
       </BatteryRing>
 
       <View className="flex-1 gap-3">
         <Stat
-          icon={<Flash size={18} color={colors.secondary} variant="Bold" />}
-          value={`${numberToBR(battery.autonomyKm)} km`}
-          label="de autonomia"
+          icon={<Health size={18} color={colors.secondary} variant="Bold" />}
+          value={`${battery.chargeCycles}`}
+          label="ciclos de carga"
         />
         <View className="h-px bg-divider" />
         <Stat
-          icon={<Health size={18} color={colors.secondary} variant="Bold" />}
-          value={`${battery.healthPct}%`}
-          label={`saúde · ${battery.chargeCycles} ciclos`}
+          icon={<Flash size={18} color={colors.secondary} variant="Bold" />}
+          value={`${chargeTimeH} h`}
+          label="tempo de carga"
         />
       </View>
     </Card>
