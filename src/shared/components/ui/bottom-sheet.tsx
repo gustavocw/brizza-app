@@ -13,6 +13,7 @@ import Animated, {
 } from 'react-native-reanimated'
 import { useReanimatedKeyboardAnimation } from 'react-native-keyboard-controller'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { BlurView } from 'expo-blur'
 import { useColors } from '@/theme/use-colors'
 import { shadowsTheme } from '@/theme/theme'
 
@@ -29,8 +30,10 @@ export type BottomSheetProps = {
   /** Cap as a fraction of screen height. Default 0.9. */
   maxHeightRatio?: number
   backgroundColor?: string
-  /** Backdrop opacity at rest. Default 0.5. */
+  /** Backdrop opacity at rest (used only when blurIntensity is 0). Default 0.5. */
   backdropOpacity?: number
+  /** expo-blur backdrop intensity (0–100). 0 disables blur → solid dark tint. Default 30. */
+  blurIntensity?: number
   /** Tap the backdrop to dismiss. Default true. */
   dismissOnBackdrop?: boolean
   /** Swipe down to dismiss. Default true. */
@@ -38,6 +41,9 @@ export type BottomSheetProps = {
 }
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
+
+// Extra breathing room always added below the sheet content.
+const PANEL_BOTTOM_EXTRA = 56
 
 const OPEN_SPRING = { damping: 22, stiffness: 240, mass: 0.9 }
 const CLOSE_TIMING = { duration: 240, easing: Easing.in(Easing.cubic) }
@@ -64,6 +70,7 @@ export function BottomSheet({
   maxHeightRatio = 0.9,
   backgroundColor,
   backdropOpacity = 0.5,
+  blurIntensity = 15,
   dismissOnBackdrop = true,
   swipeToDismiss = true,
 }: BottomSheetProps) {
@@ -120,18 +127,29 @@ export function BottomSheet({
   const sheetStyle = useAnimatedStyle(() => ({ transform: [{ translateY: translateY.value }] }))
   // Lift the sheet above the keyboard. abs() makes it robust to the lib's sign convention.
   const keyboardStyle = useAnimatedStyle(() => ({ transform: [{ translateY: -Math.abs(keyboard.height.value) }] }))
+  const withBlur = blurIntensity > 0
+  // With blur, keep the dark tint lighter so the frost reads through; the tint also
+  // stays the reliable fallback where native blur is unavailable (iOS w/o a rebuild,
+  // Android < 12), so the backdrop never goes fully transparent.
+  const tintOpacity = withBlur ? 0.28 : backdropOpacity
+  // The blur is rendered STATIC (never opacity-animated): animating a BlurView's
+  // alpha forces the native blur to recompute every frame and it lags badly. Only
+  // the cheap dark tint fades, over the full travel so it tracks the sheet.
   const backdropStyle = useAnimatedStyle(() => ({
-    opacity: interpolate(translateY.value, [0, effectiveH || screenH], [backdropOpacity, 0], Extrapolation.CLAMP),
+    opacity: interpolate(translateY.value, [0, screenH], [tintOpacity, 0], Extrapolation.CLAMP),
   }))
 
   const body = (
-    <View onLayout={onContentLayout} style={{ paddingBottom: insets.bottom + 16 }}>
+    <View onLayout={onContentLayout} style={{ paddingBottom: insets.bottom + 16 + PANEL_BOTTOM_EXTRA }}>
       {children}
     </View>
   )
 
   return (
     <View style={StyleSheet.absoluteFill} pointerEvents="box-none">
+      {withBlur ? (
+        <BlurView intensity={blurIntensity} tint="dark" pointerEvents="none" style={StyleSheet.absoluteFill} />
+      ) : null}
       <AnimatedPressable
         style={[StyleSheet.absoluteFill, styles.backdrop, backdropStyle]}
         pointerEvents={isOpen ? 'auto' : 'none'}
