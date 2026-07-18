@@ -30,7 +30,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   const hide = useCallback((id: string) => setToasts((prev) => prev.filter((t) => t.id !== id)), [])
 
   const show = useCallback(
-    ({ message, type = 'info', duration = 3000 }: ShowToastArgs) => {
+    ({ message, type = 'info', duration = 4500 }: ShowToastArgs) => {
       const id = `toast_${++seqRef.current}`
       setToasts((prev) => [...prev, { id, message, type }])
       if (duration > 0) setTimeout(() => hide(id), duration)

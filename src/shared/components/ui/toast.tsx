@@ -15,8 +15,8 @@ export function Toast({ message, type = 'info', onPress }: { message: string; ty
 
   return (
     <AnimatedPressable
-      entering={FadeInUp.springify().damping(18)}
-      exiting={FadeOutUp.duration(180)}
+      entering={FadeInUp.duration(300)}
+      exiting={FadeOutUp.duration(200)}
       onPress={onPress}
       style={shadowsTheme.md}
       className="w-full flex-row items-center gap-3 rounded-2xl bg-surface px-4 py-3"

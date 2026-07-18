@@ -89,12 +89,17 @@ function StationMarker({
   const scale = useSharedValue(0)
 
   useEffect(() => {
-    scale.value = withDelay(index * 45, withSpring(1, { damping: 12, stiffness: 170, mass: 0.7 }))
+    // overshootClamping: the scale never exceeds 1, so the balloon never grows past
+    // its snapshot bounds — otherwise Android clips the overflow and freezes it cut.
+    scale.value = withDelay(index * 45, withSpring(1, { damping: 15, stiffness: 170, mass: 0.7, overshootClamping: true }))
     const t = setTimeout(() => setTracking(false), 750 + index * 45)
     return () => clearTimeout(t)
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-  const style = useAnimatedStyle(() => ({ opacity: scale.value, transform: [{ scale: scale.value }] }))
+  // Scale only — NO opacity: animating a marker's alpha lets the snapshot freeze a
+  // semi-transparent frame, leaving the balloon permanently pale. It pops in from
+  // scale 0 (a point that grows), always fully opaque.
+  const style = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }))
 
   return (
     <Marker

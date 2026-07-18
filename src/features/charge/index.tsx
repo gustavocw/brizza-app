@@ -9,6 +9,7 @@ import { QueryBoundary } from '@/shared/components/data/query-boundary'
 import { ErrorBoundary } from '@/shared/components/error-boundary'
 import { List, Paragraph } from '@/shared/components/ui'
 import { MotoHeader } from '@/shared/components/moto/moto-header'
+import { useHasNavButtons } from '@/shared/hooks/use-has-nav-buttons'
 import { useColors } from '@/theme/use-colors'
 import { shadowsTheme } from '@/theme/theme'
 import { StationsMap } from './components/stations-map'
@@ -28,6 +29,7 @@ import type { ChargingStation } from './services/station.dto'
 export default function ChargeScreen() {
   const colors = useColors()
   const insets = useSafeAreaInsets()
+  const hasNavButtons = useHasNavButtons()
   const mapRef = useRef<MapView>(null)
   const {
     query,
@@ -87,8 +89,9 @@ export default function ChargeScreen() {
 
   const onRecenter = () => focus(userLocation.latitude, userLocation.longitude)
 
-  // Clearance so the floating card/list end above the floating tab bar.
-  const tabClearance = insets.bottom + 82
+  // Clearance so the floating card/list end above the floating tab bar. Mirrors
+  // the tab bar's own bottom margin so both lift together over Android's buttons.
+  const tabClearance = insets.bottom + (hasNavButtons ? 16 : 2) + 80
 
   return (
     <Screen scroll={false} dismissKeyboardOnTap={false} contentClassName="gap-4 px-0 pb-0 pt-1">
