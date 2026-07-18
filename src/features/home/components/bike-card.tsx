@@ -1,6 +1,6 @@
 import { Image, View } from 'react-native'
 import { Card } from '@/shared/components/ui/card'
-import { CARD_BORDER } from './card-style'
+import { CARD_BORDER } from '@/shared/constants/card-style'
 
 const MOTO = require('../../../../assets/moto.png')
 

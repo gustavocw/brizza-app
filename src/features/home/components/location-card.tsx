@@ -1,7 +1,7 @@
 import { View } from 'react-native'
 import { Card } from '@/shared/components/ui/card'
 import { Paragraph } from '@/shared/components/ui/paragraph'
-import { CARD_BORDER } from './card-style'
+import { CARD_BORDER } from '@/shared/constants/card-style'
 import { CopyAddressButton } from './copy-address-button'
 import { MiniMap } from './mini-map'
 

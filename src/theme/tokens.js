@@ -50,6 +50,7 @@ const palette = {
   gray600: '#5B6168',
   gray400: '#848484', // cinza secundário oficial
   gray200: '#D9DCDD',
+  gray150: '#F1F1F1', // hairline dos cards (escolhida no design da Home)
   gray100: '#EDEEEF',
   gray50: '#F6F7F8', // background
   white: '#FFFFFF',
@@ -78,6 +79,7 @@ const colors = {
 
   border: palette.gray200,
   divider: palette.gray100,
+  cardBorder: palette.gray150, // borda 2px dos cards brancos (no lugar de sombra)
 
   primary: palette.brand, // #006138
   primaryDark: palette.brandDark,
@@ -103,6 +105,7 @@ const colors = {
   successSoft: palette.green100,
   warning: palette.amber,
   warningSoft: palette.amberSoft,
+  onWarning: palette.ink, // texto/ícone sobre superfícies âmbar (branco reprova contraste)
   error: palette.red,
   errorSoft: palette.redSoft,
   info: palette.navy700, // azul-marinho
@@ -129,6 +132,7 @@ const colorsDark = {
 
   border: '#12345E',
   divider: '#0A2547',
+  cardBorder: '#12345E',
 
   primary: palette.green400,
   primaryDark: palette.green500,
@@ -152,6 +156,7 @@ const colorsDark = {
   successSoft: '#062A1A',
   warning: palette.amber,
   warningSoft: '#2E2410',
+  onWarning: palette.ink,
   error: '#FF6B68',
   errorSoft: '#2E1414',
   info: palette.navy500,

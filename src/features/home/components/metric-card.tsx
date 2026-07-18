@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import { Card } from '@/shared/components/ui/card'
 import { Paragraph } from '@/shared/components/ui/paragraph'
 import { Row } from '@/shared/components/ui/layout'
-import { CARD_BORDER } from './card-style'
+import { CARD_BORDER } from '@/shared/constants/card-style'
 
 type Props = {
   label: string
