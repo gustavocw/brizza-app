@@ -24,6 +24,7 @@ const palette = {
 
   // Full green scale, anchored at 600 = #006138 (electric mobility identity).
   green900: '#002316', // verde noite
+  forest: '#0F3D2C', // verde-floresta — superfície escura verde (card de bateria)
   green800: '#003A22',
   green700: '#00502F',
   green600: '#006138', // primário
@@ -53,6 +54,10 @@ const palette = {
   gray50: '#F6F7F8', // background
   white: '#FFFFFF',
 
+  // Teste — gradiente diagonal de fundo (Home).
+  gradientTop: '#F5F9F7',
+  gradientBottom: '#F6F6F8',
+
   // Feedback.
   amber: '#F5A623', // alerta
   amberSoft: '#FFF4D9',
@@ -80,6 +85,12 @@ const colors = {
   onPrimary: palette.white, // text/icon on primary surfaces
   brandNight: palette.navy700, // deep brand surface (hero / premium dark cards) — NAVY
 
+  // Verde-floresta — superfície escura verde (card de bateria estilo referência).
+  brandForest: palette.forest,
+  onForest: palette.white, // texto/% sobre o card verde-escuro
+  onForestLine: 'rgba(198,227,210,0.5)', // moldura + terminal do gauge (green100 esmaecido)
+  onForestTrack: 'rgba(198,227,210,0.16)', // barras vazias do gauge
+
   accent: palette.green400, // verde ação (energia)
   onAccent: palette.white,
 
@@ -99,6 +110,9 @@ const colors = {
 
   overlay: 'rgba(0, 40, 86, 0.45)', // navy tint behind sheets/dialogs
   disabled: palette.gray200,
+
+  gradientTop: palette.gradientTop, // teste — fundo Home
+  gradientBottom: palette.gradientBottom,
 }
 
 // DARK scheme — same keys, navy-based values. Consumed by JS via useColors().
@@ -122,6 +136,11 @@ const colorsDark = {
   onPrimary: '#00160D',
   brandNight: palette.navy700,
 
+  brandForest: palette.forest,
+  onForest: palette.white,
+  onForestLine: 'rgba(198,227,210,0.5)',
+  onForestTrack: 'rgba(198,227,210,0.16)',
+
   accent: palette.green300,
   onAccent: '#00160D',
 
@@ -140,6 +159,9 @@ const colorsDark = {
 
   overlay: 'rgba(0, 0, 0, 0.6)',
   disabled: '#12345E',
+
+  gradientTop: palette.gradientTop,
+  gradientBottom: palette.gradientBottom,
 }
 
 // Radii follow the blueprint (sm 8 / md 14 / lg 20).

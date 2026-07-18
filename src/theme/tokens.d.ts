@@ -14,6 +14,10 @@ export type ColorToken =
   | 'primarySoft'
   | 'onPrimary'
   | 'brandNight'
+  | 'brandForest'
+  | 'onForest'
+  | 'onForestLine'
+  | 'onForestTrack'
   | 'accent'
   | 'onAccent'
   | 'secondary'
@@ -29,6 +33,8 @@ export type ColorToken =
   | 'infoSoft'
   | 'overlay'
   | 'disabled'
+  | 'gradientTop'
+  | 'gradientBottom'
 
 export type ColorMap = Record<ColorToken, string>
 export type RadiusToken = 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'full'
