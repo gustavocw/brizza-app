@@ -11,46 +11,86 @@ import type { DashboardData } from './dashboard.dto'
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
-const MOTO1 = require('../../../../assets/moto.png')
-const MOTO2 = require('../../../../assets/moto2.png')
+const MOTO_CITY = require('../../../../assets/motos/1.jpeg')
+const MOTO_CLASSIC = require('../../../../assets/motos/2.jpeg')
+const MOTO_STREET = require('../../../../assets/motos/3.jpeg')
+const MOTO_CAFE = require('../../../../assets/motos/4.jpeg')
 
 const SNAPSHOTS: Record<string, DashboardData> = {
   'bike-1': {
-    image: MOTO1,
-    battery: { percent: 74, autonomyKm: 112, healthPct: 98, chargeCycles: 142, status: 'parked' },
+    image: MOTO_CITY,
+    battery: { percent: 74, autonomyKm: 82, healthPct: 98, chargeCycles: 142, status: 'parked' },
     lastRoute: { distanceKm: 8.4, when: 'hoje' },
     odometerKm: 2235,
-    avgSpeedKmh: 32,
+    avgSpeedKmh: 28,
     co2SavedKg: 128,
     motor: { state: 'Tudo certo', tempC: 28 },
-    specs: { powerKw: 3, topSpeedKmh: 90, rangeKm: 120, weightKg: 78, chargeTimeH: 4 },
+    specs: { powerKw: 2, topSpeedKmh: 60, rangeKm: 90, weightKg: 65, chargeTimeH: 4 },
     nextService: { km: 2500, days: 30 },
     checks: { system: 'ok', battery: 'attention', motor: 'ok', brakes: 'problem', tires: 'attention' },
     location: {
-      address: 'Rua das Flores, 142',
+      address: 'Av. Afonso Pena, 1377',
       city: 'Belo Horizonte',
       updatedAgo: 'agora',
-      latitude: -19.932,
-      longitude: -43.9377,
+      latitude: -19.922,
+      longitude: -43.927,
     },
   },
   'bike-2': {
-    image: MOTO2,
-    battery: { percent: 52, autonomyKm: 95, healthPct: 91, chargeCycles: 210, status: 'parked' },
-    lastRoute: { distanceKm: 12.3, when: 'hoje' },
-    odometerKm: 5480,
-    avgSpeedKmh: 41,
-    co2SavedKg: 210,
-    motor: { state: 'Tudo certo', tempC: 34 },
-    specs: { powerKw: 6, topSpeedKmh: 110, rangeKm: 150, weightKg: 92, chargeTimeH: 5 },
-    nextService: { km: 6000, days: 45 },
+    image: MOTO_CLASSIC,
+    battery: { percent: 88, autonomyKm: 105, healthPct: 95, chargeCycles: 96, status: 'parked' },
+    lastRoute: { distanceKm: 6.2, when: 'hoje' },
+    odometerKm: 1180,
+    avgSpeedKmh: 34,
+    co2SavedKg: 96,
+    motor: { state: 'Tudo certo', tempC: 30 },
+    specs: { powerKw: 3, topSpeedKmh: 80, rangeKm: 110, weightKg: 82, chargeTimeH: 4 },
+    nextService: { km: 3000, days: 40 },
     checks: { system: 'ok', battery: 'ok', motor: 'ok', brakes: 'ok', tires: 'ok' },
     location: {
-      address: 'Av. Getúlio Vargas, 1200',
+      address: 'Praça Sete de Setembro, 20',
       city: 'Belo Horizonte',
       updatedAgo: 'agora',
-      latitude: -19.94,
-      longitude: -43.933,
+      latitude: -19.919,
+      longitude: -43.938,
+    },
+  },
+  'bike-3': {
+    image: MOTO_STREET,
+    battery: { percent: 46, autonomyKm: 88, healthPct: 89, chargeCycles: 260, status: 'charging' },
+    lastRoute: { distanceKm: 15.1, when: 'hoje' },
+    odometerKm: 7890,
+    avgSpeedKmh: 44,
+    co2SavedKg: 268,
+    motor: { state: 'Tudo certo', tempC: 33 },
+    specs: { powerKw: 6, topSpeedKmh: 110, rangeKm: 150, weightKg: 95, chargeTimeH: 5 },
+    nextService: { km: 8000, days: 60 },
+    checks: { system: 'ok', battery: 'ok', motor: 'ok', brakes: 'attention', tires: 'ok' },
+    location: {
+      address: 'Av. do Contorno, 6061',
+      city: 'Belo Horizonte',
+      updatedAgo: 'agora',
+      latitude: -19.933,
+      longitude: -43.945,
+    },
+  },
+  'bike-4': {
+    image: MOTO_CAFE,
+    battery: { percent: 63, autonomyKm: 140, healthPct: 93, chargeCycles: 180, status: 'parked' },
+    lastRoute: { distanceKm: 22.6, when: 'hoje' },
+    odometerKm: 4310,
+    avgSpeedKmh: 52,
+    co2SavedKg: 342,
+    motor: { state: 'Tudo certo', tempC: 36 },
+    specs: { powerKw: 8, topSpeedKmh: 130, rangeKm: 180, weightKg: 110, chargeTimeH: 6 },
+    nextService: { km: 5000, days: 50 },
+    checks: { system: 'ok', battery: 'ok', motor: 'ok', brakes: 'ok', tires: 'attention' },
+    location: {
+      address: 'Rua Sapucaí, 383',
+      city: 'Belo Horizonte',
+      updatedAgo: 'agora',
+      latitude: -19.912,
+      longitude: -43.932,
     },
   },
 }
