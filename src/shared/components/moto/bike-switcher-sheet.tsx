@@ -41,8 +41,8 @@ export function BikeSwitcherSheet({ bikes, selectedId, onSelect }: Props) {
                 selected ? 'border-primary bg-primarySoft' : 'border-transparent bg-surfaceMuted'
               }`}
             >
-              <View className="h-14 w-14 overflow-hidden rounded-2xl">
-                <Image source={b.image} resizeMode="cover" style={{ width: '100%', height: '100%' }} />
+              <View className="h-14 w-24 overflow-hidden rounded-xl bg-surface">
+                <Image source={b.image} resizeMode="contain" style={{ width: '100%', height: '100%' }} />
               </View>
               <View className="flex-1">
                 <Paragraph appear={false} className="font-semibold text-foreground">
