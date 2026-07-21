@@ -94,7 +94,7 @@ export default function ChargeScreen() {
   const tabClearance = insets.bottom + (hasNavButtons ? 16 : 2) + 80
 
   return (
-    <Screen scroll={false} dismissKeyboardOnTap={false} contentClassName="gap-4 px-0 pb-0 pt-1">
+    <Screen gradient scroll={false} dismissKeyboardOnTap={false} contentClassName="gap-4 px-0 pb-0 pt-1">
       <View className="gap-4 px-4">
         <MotoHeader />
         <SearchHeader search={search} onSearch={setSearch} view={view} onView={setView} />

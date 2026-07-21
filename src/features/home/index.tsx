@@ -1,3 +1,4 @@
+import { useRef, useState } from 'react'
 import { View } from 'react-native'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { Screen } from '@/shared/components/layout/screen'
@@ -5,7 +6,6 @@ import { QueryBoundary } from '@/shared/components/data/query-boundary'
 import { Card, Paragraph, Row } from '@/shared/components/ui'
 import { MotoHeader } from '@/shared/components/moto/moto-header'
 import { CARD_BORDER } from '@/shared/constants/card-style'
-import { ScreenGradient } from './components/screen-gradient'
 import { useColors } from '@/theme/use-colors'
 import { fontTheme } from '@/theme/theme'
 import { BatteryHealthCard } from './components/battery-health-card'
@@ -30,16 +30,25 @@ export default function HomeScreen() {
   const { query, location, onCopyAddress } = useHome()
   const data = query.data
 
+  // Keep the background white through the photo banner, then let the usual tints
+  // start right after it — measure the banner's bottom in window coords.
+  const bannerRef = useRef<View>(null)
+  const [whiteHoldY, setWhiteHoldY] = useState(0)
+  const measureBanner = () =>
+    bannerRef.current?.measureInWindow((_x, y, _w, h) => {
+      if (y + h > 0) setWhiteHoldY(y + h)
+    })
+
   return (
-    <View className="flex-1">
-      <ScreenGradient />
-      <Screen className="bg-transparent" contentClassName="gap-6 px-4 pb-32 pt-1">
+    <Screen gradient gradientTopHold={whiteHoldY} contentClassName="gap-6 px-4 pb-32 pt-1">
       <MotoHeader />
 
       <QueryBoundary query={query} loading={<DashboardSkeleton />}>
         {data ? (
           <View className="gap-6">
-            <BikeCard image={data.image} delay={60} />
+            <View ref={bannerRef} onLayout={measureBanner}>
+              <BikeCard image={data.image} delay={60} />
+            </View>
 
             <BatteryStatusCard percent={data.battery.percent} delay={90} />
 
@@ -124,7 +133,6 @@ export default function HomeScreen() {
           </View>
         ) : null}
       </QueryBoundary>
-      </Screen>
-    </View>
+    </Screen>
   )
 }

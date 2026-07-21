@@ -15,7 +15,7 @@ export default function ChangeContactScreen() {
     useChangeContact()
 
   return (
-    <Screen
+    <Screen gradient
       contentClassName="gap-5 px-4 pt-1"
       footer={
         phase === 'request' ? (

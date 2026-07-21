@@ -12,7 +12,7 @@ export default function NewTicketScreen() {
   const { control, onSubmit, isPending, canSubmit } = useNewTicket()
 
   return (
-    <Screen
+    <Screen gradient
       contentClassName="gap-5 px-4 pt-1"
       footer={<Button label="Enviar chamado" isLoading={isPending} disabled={isPending || !canSubmit} onPress={onSubmit} />}
     >

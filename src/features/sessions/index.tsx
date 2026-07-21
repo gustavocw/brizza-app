@@ -47,7 +47,7 @@ export default function SessionsScreen() {
   const { query, sessions, onRevoke } = useSessions()
 
   return (
-    <Screen contentClassName="gap-5 px-4 pt-1">
+    <Screen gradient contentClassName="gap-5 px-4 pt-1">
       <View className="flex-row items-center gap-3">
         <BackButton />
         <Title numberOfLines={1} className="flex-1 text-xl">

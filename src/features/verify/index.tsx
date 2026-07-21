@@ -13,7 +13,7 @@ export default function VerifyScreen() {
   const { config, control, onConfirm, confirming, canConfirm, onResend } = useVerify()
 
   return (
-    <Screen
+    <Screen gradient
       contentClassName="gap-5 px-4 pt-1"
       footer={<Button label="Confirmar" isLoading={confirming} disabled={confirming || !canConfirm} onPress={onConfirm} />}
     >

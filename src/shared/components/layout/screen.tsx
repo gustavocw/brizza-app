@@ -3,6 +3,7 @@ import { Keyboard, Pressable, View, type StyleProp, type ViewStyle } from 'react
 import { KeyboardAwareScrollView, KeyboardStickyView } from 'react-native-keyboard-controller'
 import { SafeAreaView, useSafeAreaInsets, type Edge } from 'react-native-safe-area-context'
 import { twMerge } from 'tailwind-merge'
+import { ScreenGradient } from './screen-gradient'
 
 export type ScreenProps = {
   children: ReactNode
@@ -14,6 +15,12 @@ export type ScreenProps = {
   bottomOffset?: number
   /** Tap empty space to blur the input + close the keyboard. Default true. */
   dismissKeyboardOnTap?: boolean
+  /** Paint the diagonal app background gradient behind the screen. Default false. */
+  gradient?: boolean
+  /** Optional override for the top color of the gradient (only used when `gradient`). */
+  gradientTopColor?: string
+  /** Hold the white top solid until this many px down (only with `gradient`). */
+  gradientTopHold?: number
   /**
    * Fixed action area pinned to the bottom of the screen, ABOVE the Android nav bar
    * / home indicator (safe area) and ABOVE the keyboard when it opens. The content
@@ -41,6 +48,9 @@ export function Screen({
   edges = ['top'],
   bottomOffset = 24,
   dismissKeyboardOnTap = true,
+  gradient = false,
+  gradientTopColor,
+  gradientTopHold,
   footer,
   className,
   contentClassName,
@@ -67,8 +77,8 @@ export function Screen({
     <View className={twMerge('flex-1 gap-4 p-4', contentClassName)}>{children}</View>
   )
 
-  return (
-    <SafeAreaView edges={edges} className={twMerge('flex-1 bg-background', className)}>
+  const shell = (
+    <SafeAreaView edges={edges} className={twMerge('flex-1', gradient ? 'bg-transparent' : 'bg-background', className)}>
       {body}
       {footer ? (
         <KeyboardStickyView offset={{ closed: 0, opened: insets.bottom }}>
@@ -79,4 +89,17 @@ export function Screen({
       ) : null}
     </SafeAreaView>
   )
+
+  // Gradient sits behind the (transparent) safe-area shell so it covers the whole
+  // window, status bar included.
+  if (gradient) {
+    return (
+      <View className="flex-1">
+        <ScreenGradient topColor={gradientTopColor} topHoldPx={gradientTopHold} />
+        {shell}
+      </View>
+    )
+  }
+
+  return shell
 }

@@ -14,7 +14,7 @@ export default function EditProfileScreen() {
   const { control, query, onCepBlur, onSubmit, isPending, canSubmit } = useEditProfile()
 
   return (
-    <Screen
+    <Screen gradient
       contentClassName="gap-5 px-4 pt-1"
       footer={
         query.data ? (

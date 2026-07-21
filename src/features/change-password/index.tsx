@@ -12,7 +12,7 @@ export default function ChangePasswordScreen() {
   const { control, onSubmit, isPending, canSubmit } = useChangePassword()
 
   return (
-    <Screen
+    <Screen gradient
       contentClassName="gap-5 px-4 pt-1"
       footer={<Button label="Alterar senha" isLoading={isPending} disabled={isPending || !canSubmit} onPress={onSubmit} />}
     >

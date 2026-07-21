@@ -18,7 +18,7 @@ export default function LgpdExportScreen() {
   const { onExport, isExporting } = useLgpdExport()
 
   return (
-    <Screen
+    <Screen gradient
       contentClassName="gap-5 px-4 pt-1"
       footer={
         <Button

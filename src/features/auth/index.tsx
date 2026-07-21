@@ -19,7 +19,7 @@ export default function SignInScreen() {
     useSignIn()
 
   return (
-    <Screen contentClassName="gap-6 px-6 py-4">
+    <Screen gradient contentClassName="gap-6 px-6 py-4">
       <Appear className="items-center gap-4 pb-2 pt-8">
         <BrandMark />
         <View className="items-center gap-1">

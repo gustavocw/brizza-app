@@ -16,7 +16,7 @@ export default function LegalScreen() {
   const data = query.data
 
   return (
-    <Screen
+    <Screen gradient
       contentClassName="gap-5 px-5 pt-1"
       footer={
         needsAccept ? (

@@ -10,7 +10,7 @@ export default function SupportScreen() {
   const { query, tickets, isRefetching, onRefresh, onOpen, onNew } = useSupport()
 
   return (
-    <Screen
+    <Screen gradient
       scroll={false}
       dismissKeyboardOnTap={false}
       contentClassName="gap-4 px-0 pt-1"

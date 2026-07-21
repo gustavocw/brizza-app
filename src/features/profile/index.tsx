@@ -76,7 +76,7 @@ export default function ProfileScreen() {
   const email = profile?.email || fallbackEmail
 
   return (
-    <Screen contentClassName="gap-5 px-4 pb-32 pt-1">
+    <Screen gradient contentClassName="gap-5 px-4 pb-32 pt-1">
       <ProfileHeader name={name} email={email} photoUrl={profile?.photo_url} onChangePhoto={onChangePhoto} uploading={uploadingPhoto} delay={40} />
 
       <Section label="Conta" delay={120}>
