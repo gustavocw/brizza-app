@@ -13,7 +13,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   ios: {
     supportsTablet: false,
     bundleIdentifier: process.env.IOS_BUNDLE_ID ?? 'com.brizze.mobile',
-    buildNumber: '15',
+    buildNumber: '16',
     infoPlist: {
       NSCameraUsageDescription: 'A câmera é usada para ler o QR code da sua moto e vinculá-la à conta.',
       // Os mapas (react-native-maps) referenciam a API de localização, então a chave é
@@ -29,7 +29,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   android: {
     adaptiveIcon: { foregroundImage: './assets/adaptive-icon.png', backgroundColor: '#FFFFFF' },
     package: process.env.ANDROID_PACKAGE ?? 'com.brizze.mobile',
-    versionCode: 15,
+    versionCode: 16,
   },
   plugins: [
     'expo-router',
