@@ -19,7 +19,7 @@ const MOTO_CAFE = require('../../../../assets/motos/4.jpeg')
 const BIKES: MotoData[] = [
   {
     id: 'bike-1',
-    model: 'Brizze City',
+    model: 'Z1 City',
     plate: 'ABC-1234',
     image: MOTO_CITY,
     status: 'active',
@@ -31,7 +31,7 @@ const BIKES: MotoData[] = [
   },
   {
     id: 'bike-2',
-    model: 'Brizze Classic',
+    model: 'Z1 Fun',
     plate: 'DEF-5678',
     image: MOTO_CLASSIC,
     status: 'active',
@@ -43,7 +43,7 @@ const BIKES: MotoData[] = [
   },
   {
     id: 'bike-3',
-    model: 'Brizze Street',
+    model: 'Z1 Ventus',
     plate: 'GHI-9012',
     image: MOTO_STREET,
     status: 'charging',
@@ -55,7 +55,7 @@ const BIKES: MotoData[] = [
   },
   {
     id: 'bike-4',
-    model: 'Brizze Café',
+    model: 'Z4',
     plate: 'JKL-3456',
     image: MOTO_CAFE,
     status: 'active',
