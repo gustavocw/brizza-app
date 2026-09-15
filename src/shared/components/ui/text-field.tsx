@@ -35,16 +35,25 @@ export const TextField = forwardRef<RNTextInput, TextFieldProps>(function TextFi
           focused ? 'border-primary' : 'border-border',
           error ? 'border-error' : '',
         )}
-        style={[{ minHeight: 52 }, multiline ? { paddingVertical: 10 } : null]}
+        style={[{ minHeight: 52 }, multiline ? { paddingVertical: 10 } : { paddingVertical: 0 }]}
       >
         {left}
         <RNTextInput
           ref={ref}
           multiline={multiline}
-          className={twMerge('flex-1 font-sans text-base', className)}
+          className={twMerge('flex-1 font-sans', className)}
           placeholderTextColor={colors.subtle}
-          // Explicit color: Android renders white text on secureTextEntry otherwise.
-          style={[{ color: colors.foreground }, style]}
+          style={[
+            {
+              color: colors.foreground,
+              fontSize: 16,
+              paddingVertical: 0,
+              includeFontPadding: false,
+              textAlignVertical: multiline ? 'top' : 'center',
+            },
+            multiline ? { minHeight: 80 } : null,
+            style,
+          ]}
           onFocus={(e) => {
             setFocused(true)
             onFocus?.(e)
