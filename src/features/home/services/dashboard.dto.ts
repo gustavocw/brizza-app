@@ -1,32 +1,25 @@
 import type { ImageSourcePropType } from 'react-native'
-
-export type VehicleStatus = 'parked' | 'moving' | 'charging'
-
-/** Each quick health check: fine, needs attention, or has a problem. */
-export type CheckStatus = 'ok' | 'attention' | 'problem'
+import type { BikeStatusKind } from '@/features/bike/services/bike.dto'
 
 /**
- * The dashboard snapshot — the app's "overview". Identity + battery + glanceable
- * metrics + quick health checks. Deep motor/spec detail lives on the Motor screen
- * (MotoData), not here, to avoid duplicating the same data across both tabs.
+ * Resumo do painel inicial, montado a partir de GET /user/me/bike (identidade) e
+ * GET /user/me/bike/status (telemetria).
+ *
+ * Sem fonte no backend, comentados nas telas até existir dado real:
+ * saúde da bateria e ciclos de carga (BMS), ficha técnica do modelo, temperatura
+ * e estado do motor (controlador), distância da última viagem fechada, velocidade
+ * média, CO₂ economizado, próxima revisão e as checagens de sistema/freio/pneu.
  */
 export type DashboardData = {
-  /** Bike photo for the home banner (mock-only: bundled asset). */
+  /** A API não guarda foto da moto: imagem padrão do app. */
   image: ImageSourcePropType
-  battery: { percent: number; autonomyKm: number; healthPct: number; chargeCycles: number; status: VehicleStatus }
-  lastRoute: { distanceKm: number; when: string }
+  status: BikeStatusKind
+  lastSeen: string
+  battery: { percent: number; autonomyKm: number }
   odometerKm: number
-  avgSpeedKmh: number
-  co2SavedKg: number
-  motor: { state: string; tempC: number }
-  specs: { powerKw: number; topSpeedKmh: number; rangeKm: number; weightKg: number; chargeTimeH: number }
-  nextService: { km: number; days: number }
-  checks: {
-    system: CheckStatus
-    battery: CheckStatus
-    motor: CheckStatus
-    brakes: CheckStatus
-    tires: CheckStatus
-  }
-  location: { address: string; city: string; updatedAgo: string; latitude: number; longitude: number }
+  tripKm: number
+  speedKmh: number
+  batteryVoltage: number
+  rssi: number
+  location: { address: string; city: string; updatedAgo: string; latitude: number; longitude: number } | null
 }

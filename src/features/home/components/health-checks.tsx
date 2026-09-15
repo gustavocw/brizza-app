@@ -5,12 +5,22 @@ import { Card } from '@/shared/components/ui/card'
 import { Paragraph } from '@/shared/components/ui/paragraph'
 import { Row } from '@/shared/components/ui/layout'
 import { useColors } from '@/theme/use-colors'
-import type { CheckStatus, DashboardData } from '../services/dashboard.dto'
 import { CARD_BORDER } from '@/shared/constants/card-style'
+
+// Componente parado: nenhuma checagem dessas existe no backend hoje. Os tipos
+// ficam aqui pra ele voltar sem depender do DashboardData.
+export type CheckStatus = 'ok' | 'attention' | 'problem'
+export type Checks = {
+  system: CheckStatus
+  battery: CheckStatus
+  motor: CheckStatus
+  brakes: CheckStatus
+  tires: CheckStatus
+}
 
 type IconName = ComponentProps<typeof MaterialCommunityIcons>['name']
 
-const ITEMS: { key: keyof DashboardData['checks']; label: string; icon: IconName }[] = [
+const ITEMS: { key: keyof Checks; label: string; icon: IconName }[] = [
   { key: 'system', label: 'Sistema', icon: 'chip' },
   { key: 'battery', label: 'Bateria', icon: 'battery' },
   { key: 'motor', label: 'Motor', icon: 'engine' },
@@ -39,7 +49,7 @@ function Check({ label, status, icon }: { label: string; status: CheckStatus; ic
 }
 
 /** Quick health snapshot — an icon per part in a status-colored circle (green ok / amber attention / red problem). */
-export function HealthChecks({ checks, delay = 0 }: { checks: DashboardData['checks']; delay?: number }) {
+export function HealthChecks({ checks, delay = 0 }: { checks: Checks; delay?: number }) {
   return (
     <Card delay={delay} style={CARD_BORDER} className="rounded-3xl bg-surface p-4">
       <Row className="gap-1">

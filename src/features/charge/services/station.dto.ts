@@ -1,7 +1,6 @@
-// Contract for charging stations. Matches the RUNNING `GET /charging-stations`
-// response (verified live), which differs from the OpenAPI `ChargingStation`
-// schema: the API returns price_per_kwh + total_slots/available_slots/is_open
-// (not price_brl + availability). Availability is derived client-side.
+// Contrato das estações de recarga: resposta de GET /charging-stations
+// (price_per_kwh, total_slots, available_slots, is_open). A disponibilidade é
+// derivada aqui no app.
 
 export type Availability = 'available' | 'busy' | 'offline'
 
@@ -18,8 +17,8 @@ export type ChargingStation = {
   available_slots: number
   price_per_kwh: number
   is_open: boolean
-  // MOCK-ONLY presentation fields (not in the running API yet — the charging
-  // network will ship them). Optional so the real payload keeps typechecking.
+  // Sem fonte: foto, nota, avaliações e horário viriam da rede de recarga, que
+  // não está integrada. Opcionais — os cartões escondem quando faltam.
   photoUrl?: string
   rating?: number
   reviewCount?: number

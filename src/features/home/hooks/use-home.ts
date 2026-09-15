@@ -4,27 +4,36 @@ import { useUserLocation } from '@/shared/hooks/use-user-location'
 import { useDashboardQuery } from './use-dashboard-query'
 
 /**
- * Dashboard controller. Owns the (mocked) telemetry query and the copy-address
- * handler; the view renders what it returns. The location card shows the user's
- * registered address (TEMPORARY until the fleet API ships the real vehicle GPS);
- * while it resolves, the mocked snapshot location is the fallback. The moto
- * name/status header lives in the shared MotoHeader (present on every tab).
+ * Controlador do painel. A localização exibida é a da moto (GPS do rastreador);
+ * a API devolve só coordenada, então o endereço vem da geocodificação do próprio
+ * aparelho. Sem moto vinculada, `query.data` é null e a tela mostra o convite
+ * para vincular.
  */
 export function useHome() {
   const toast = useToast()
   const query = useDashboardQuery()
   const { coords, address } = useUserLocation()
 
-  const location =
-    coords && address?.street && address.city
+  const bikeLocation = query.data?.location ?? null
+  // Sem endereço da moto (a API devolve só lat/lng), o endereço do usuário serve
+  // de rótulo enquanto a geocodificação reversa não entra.
+  const location = bikeLocation
+    ? {
+        ...bikeLocation,
+        address:
+          bikeLocation.address ||
+          (address?.street ? [address.street, address.number].filter(Boolean).join(', ') : 'Localização da moto'),
+        city: bikeLocation.city || address?.city || '',
+      }
+    : coords && address?.street
       ? {
           address: [address.street, address.number].filter(Boolean).join(', '),
-          city: address.city,
+          city: address.city ?? '',
           updatedAgo: 'agora',
           latitude: coords.latitude,
           longitude: coords.longitude,
         }
-      : (query.data?.location ?? null)
+      : null
 
   const onCopyAddress = async () => {
     if (!location) return

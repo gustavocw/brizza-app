@@ -1,22 +1,20 @@
-import { keepPreviousData, useQuery } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
+import { getApiErrorCode } from '@/lib/api'
 import { qk } from '@/lib/query-keys'
-import { useSelectedBike } from '@/features/bike/hooks/use-selected-bike'
 import { DashboardService } from '../services/dashboard.service'
 
-// READ → useQuery. Keyed by the RESOLVED selected bike (same source as the header
-// and Motor screen, so they can never point at different bikes). keepPreviousData
-// keeps the current bike's overview on screen during a switch instead of tearing
-// down to a skeleton. Unwrap the ApiResponse in queryFn (throw on failure) so
-// React Query's loading/error state works.
+// Telemetria muda sozinha e não há WebSocket: a tela busca de novo a cada 30 s.
+// Conta sem moto (404 BIKE_NOT_LINKED) devolve null, que a tela trata como
+// "vincule sua moto".
 export function useDashboardQuery() {
-  const { selectedId } = useSelectedBike()
   return useQuery({
-    queryKey: qk.dashboard.summary(selectedId),
+    queryKey: qk.dashboard.summary('mine'),
     queryFn: async () => {
-      const res = await DashboardService.summary(selectedId)
-      if (!res.success) throw res.error
-      return res.data
+      const res = await DashboardService.summary()
+      if (res.success) return res.data
+      if (getApiErrorCode(res.error) === 'BIKE_NOT_LINKED') return null
+      throw res.error
     },
-    placeholderData: keepPreviousData,
+    refetchInterval: 30_000,
   })
 }

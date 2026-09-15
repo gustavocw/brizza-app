@@ -75,6 +75,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       { photosPermission: 'O app acessa suas fotos para você escolher a imagem de perfil.' },
     ],
     'expo-notifications',
+    'expo-sharing',
     // Native Google Sign-In. iosUrlScheme = reversed iOS client ID (handles the
     // OAuth callback on iOS). Android matches by package + SHA-1 in the Console.
     [

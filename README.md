@@ -1,109 +1,80 @@
 # Brizze
 
-App mobile das motos elétricas Brizze. O usuário acompanha a moto pelo celular: bateria, autonomia, localização e carregamento. Tudo em poucos toques.
+App mobile das motos elétricas Brizze (Minas Brisa). O usuário acompanha a moto pelo celular: bateria, autonomia, localização, estações de recarga e alertas.
 
-> **Estágio:** MVP com dados mockados. A telemetria real da moto (bateria e GPS) é a integração que falta fechar.
+> **Estágio (2026-09-14):** conta, perfil e suporte estão integrados na Brizze API. Moto, dashboard, estações e alertas rodam com **dados mockados no app** até a telemetria real do rastreador entrar (ver `docs/INTEGRACAO.md`).
 
 ## Funcionalidades
 
-- **Login** por CPF e senha, ou pelo Google e pela Apple.
-- **Dashboard** com nível de bateria, autonomia estimada, status do motor e total rodado.
-- **Localização** da moto no mapa do Google, com o endereço atual.
-- **Navegação por abas** numa tab bar flutuante (Início, Moto, Carregar, Alertas, Perfil).
-
-Hoje tudo roda com dados simulados. A troca pela GoBrisa API acontece nos services de cada feature.
+- **Login** por e-mail ou telefone + senha, ou Google (nativo). Apple fica escondido até o backend ligar `APPLE_CLIENT_IDS`.
+- **Cadastro** completo (nome, e-mail, telefone, CPF, senha, endereço com busca de CEP), reativar conta excluída, esqueci a senha.
+- **Moto** (aba inicial): foto, bateria, saúde da bateria, localização em mapa Google, odômetro, autonomia, velocidade média, CO₂, motor, próxima revisão, ficha técnica e checagens. Seletor de moto no header (4 motos mock).
+- **Carregar**: mapa Google com balões de distância + lista; busca; card da estação com rota desenhada no mapa (Google Routes API); favoritos locais.
+- **Alertas**: feed com paginação por cursor, marcar lida / todas, excluir (optimistic updates). Push registrado em `POST /user/me/devices` ao logar (entrega real exige Firebase no build).
+- **Perfil**: foto (presign → Bunny), dados pessoais, trocar e-mail/telefone com código, verificar e-mail/telefone, preferências de notificação, alterar senha, sessões ativas, suporte (tickets), termos e privacidade, exportar dados (LGPD), excluir conta.
+- Tab bar flutuante com 4 abas: **Moto, Carregar, Alertas, Perfil**.
 
 ## Stack
 
 | Camada | Tecnologia |
 | --- | --- |
 | Runtime | Expo SDK 56, React Native 0.85, React 19.2 (New Architecture) |
-| Navegação | expo-router 6 (roteamento por arquivos) |
-| Estilo | NativeWind com tokens em fonte única |
-| Dados do servidor | TanStack Query |
-| Estado do cliente | Zustand |
-| HTTP | axios |
-| Formulários | react-hook-form e zod |
-| Mapas | react-native-maps (Google) |
-| Ícones | iconsax |
-| Tipografia | DM Sans e DM Mono |
-| Animação | Reanimated |
-| Qualidade | TypeScript, ESLint, Prettier e Jest |
+| Navegação | expo-router (rotas por arquivo em `app/`) |
+| Estilo | NativeWind 4 com tokens em `src/theme/tokens.js`; fonte Montserrat |
+| Dados do servidor | TanStack Query 5 (`src/lib/query-keys.ts` centraliza as chaves) |
+| Estado do cliente | Zustand (auth + moto selecionada, persistidos em AsyncStorage) |
+| HTTP | axios (`src/lib/api.ts`): Bearer automático, refresh single-flight com rotação, bridge de 401 pra logout |
+| Formulários | react-hook-form + zod |
+| Mapas | react-native-maps (Google) + Google Routes API + Street View estático |
+| Ícones / animação | iconsax, Reanimated 4, Lottie |
+| Push | expo-notifications + expo-device |
+| Qualidade | TypeScript, ESLint, Prettier, Jest |
 
 ## Arquitetura
 
-Cada parte tem um lugar.
+- `app/` só roteia. Grupos `(public)` (sign-in, register, forgot-password, undelete), `(tabs)` (motorcycle, charge, alerts, profile) e `(private)` (edit-profile, change-password, change-contact/[kind], verify/[kind], notification-settings, sessions, support, legal/[kind], lgpd-export, link-bike).
+- `src/features/<feature>/` é autocontida: `index.tsx` (view sem lógica), `hooks/` (controller `use<Feature>()` + queries/mutations), `services/` (`*.service.ts` chama a API e `*.dto.ts` tipa o contrato), `components/`.
+- `src/shared/` guarda UI, hooks, stores, constantes e utils compartilhados. `src/providers/` compõe gesture handler, keyboard, safe area, Query, config, toast e overlays.
 
-- `app/` cuida só do roteamento. Cada arquivo importa uma feature e a renderiza.
-- `src/features/<feature>/` é autocontida. A view (`index.tsx`) não tem lógica. Ela vive toda no controller (`use<Feature>()`), junto dos services e das queries.
-- `src/shared/` guarda o que duas ou mais features usam: componentes de UI, hooks, stores e constantes.
+Convenções: leitura com `useQuery`, escrita com `useMutation`; services retornam `ApiResponse` (nunca lançam) e os hooks desembrulham; toda tela dentro de `<Screen>`; cor sempre via token; textos em pt-BR.
 
-Convenções que valem sempre. Leitura de dados usa `useQuery` e escrita usa `useMutation`. Toda tela fica dentro de `<Screen>`, então o teclado nunca cobre o input. Cor sai sempre de token, nunca de hex solto.
+### O que é mock hoje
+
+| Feature | Arquivo | Estado |
+| --- | --- | --- |
+| Lista/seleção de motos | `src/features/bike/services/bike.service.ts` | 4 motos canned (`Z1 City`, `Z1 Fun`, `Z1 Ventus`, `Z4`) com fotos em `assets/motos/` |
+| Dashboard | `src/features/home/services/dashboard.service.ts` | snapshot canned por moto |
+| Estações | `src/features/charge/services/charge.service.ts` | 8 estações posicionadas em offsets ao redor do usuário |
+| Alertas | `src/features/alerts/services/notification.service.ts` | 5 notificações canned |
+| Localização do usuário | `src/shared/hooks/use-user-location.ts` | geocodifica o endereço cadastrado (Nominatim) — provisório até o GPS da moto |
+
+Os hooks e views já estão prontos pros endpoints reais (`GET /user/me/bike`, `/user/me/bike/status`, `/charging-stations`, `/user/me/notifications`); a troca é só no service.
 
 ## Como rodar
 
-Requisitos: Node 20 ou superior, pnpm, e o ambiente nativo do Expo (Xcode no iOS, Android Studio no Android).
-
-1. Instale as dependências.
+Requisitos: Node 20+, pnpm, ambiente nativo do Expo (Xcode / Android Studio). `react-native-maps`, câmera, notificações e Google Sign-In são módulos nativos — o app não roda no Expo Go.
 
 ```bash
 pnpm install
+cp .env.example .env      # preencher as chaves
+pnpm ios    # ou pnpm android — o primeiro build gera ios/ e android/
 ```
 
-2. Crie o `.env` a partir do exemplo e preencha as chaves.
-
-```bash
-cp .env.example .env
-```
-
-| Variável | Para quê serve |
+| Variável | Para quê |
 | --- | --- |
-| `EXPO_PUBLIC_API_URL` | URL da GoBrisa API |
-| `GOOGLE_MAPS_API_KEY` | Chave do Google Maps. Habilite "Maps SDK for Android" e "Maps SDK for iOS" |
+| `EXPO_PUBLIC_API_URL` | URL da Brizze API (`http://localhost:8080` no simulador iOS, `http://10.0.2.2:8080` no emulador Android, `https://brizze-api.fly.dev` em prod) |
+| `GOOGLE_MAPS_API_KEY` | Maps SDK iOS/Android + Routes API + Street View Static |
+| `EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID` | audience que o backend verifica no login Google |
+| `EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID` | exigido pelo `GoogleSignin.configure` no iOS |
 
-3. Rode no simulador ou emulador. O primeiro build já gera os projetos nativos.
-
-```bash
-pnpm ios
-# ou
-pnpm android
-```
-
-O `react-native-maps` é módulo nativo, então o mapa aparece só depois desse build. Mudou alguma config nativa? Rode `pnpm prebuild` antes.
+Builds EAS (`eas.json`): perfis `development`, `preview` (APK) e `production` já injetam essas variáveis. Versão atual `1.0.20` (build 20).
 
 ## Scripts
 
 | Comando | O que faz |
 | --- | --- |
-| `pnpm start` | sobe o Metro |
-| `pnpm ios` ou `pnpm android` | build nativo e roda no device |
-| `pnpm run typecheck` | checagem de tipos com `tsc` |
-| `pnpm run lint` | ESLint |
-| `pnpm test` | testes com Jest |
-| `pnpm run format` | Prettier |
-| `pnpm run build:prod:ios` | build de produção iOS via EAS |
-| `pnpm run build:prod:android` | build de produção Android via EAS |
-
-## Estrutura
-
-```
-app/                 rotas do expo-router
-  (public)/          login
-  (tabs)/            abas autenticadas
-src/
-  features/          cada tela, autocontida
-    auth/            login
-    home/            dashboard
-  shared/            ui, hooks, stores, constantes
-  lib/               api, query client, query keys
-  providers/         overlays, toast, config
-  theme/             tokens, cores, fontes
-```
-
-## Marca
-
-Verde primário `#1E6B41`, verde ação `#3AAD68`, verde noite `#0D2B1F`, fundo `#F7F8F6`. Para remarcar o app, edite `src/theme/tokens.js`.
-
-## Licença
-
-Veja o arquivo [LICENSE](LICENSE).
+| `pnpm start` | Metro |
+| `pnpm ios` / `pnpm android` | build nativo + roda |
+| `pnpm typecheck` / `pnpm lint` / `pnpm test` | qualidade |
+| `pnpm build:preview:android` | APK interno via EAS |
+| `pnpm build:prod:ios` / `pnpm submit:ios` | loja |

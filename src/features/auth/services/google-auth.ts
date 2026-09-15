@@ -1,31 +1,40 @@
-import {
-  GoogleSignin,
-  isErrorWithCode,
-  isSuccessResponse,
-  statusCodes,
-} from '@react-native-google-signin/google-signin'
+import Constants, { ExecutionEnvironment } from 'expo-constants'
+import type * as GoogleSignInModule from '@react-native-google-signin/google-signin'
 import { ENV } from '@/shared/constants/env'
+
+// Expo Go ships without the RNGoogleSignin native module: a top-level import
+// throws at boot and takes the whole sign-in route down with it. The module is
+// required on demand, and only outside Expo Go.
+export const isGoogleSignInAvailable =
+  Constants.executionEnvironment !== ExecutionEnvironment.StoreClient
 
 // Configured once, lazily, so importing this module never touches the native
 // layer at app boot (and stays safe under tests). webClientId is the audience the
 // backend checks; iosClientId is required by the native flow on iOS.
-let configured = false
-function ensureConfigured() {
-  if (configured) return
-  GoogleSignin.configure({
-    webClientId: ENV.googleWebClientId,
-    iosClientId: ENV.googleIosClientId || undefined,
-  })
-  configured = true
+let googleSignIn: typeof GoogleSignInModule | null = null
+function loadGoogleSignIn(): typeof GoogleSignInModule {
+  if (!isGoogleSignInAvailable) {
+    throw new Error('Login com Google não funciona no Expo Go. Entre com e-mail ou telefone e senha.')
+  }
+  if (!googleSignIn) {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const mod = require('@react-native-google-signin/google-signin') as typeof GoogleSignInModule
+    mod.GoogleSignin.configure({
+      webClientId: ENV.googleWebClientId,
+      iosClientId: ENV.googleIosClientId || undefined,
+    })
+    googleSignIn = mod
+  }
+  return googleSignIn
 }
 
 /**
  * Runs the native Google Sign-In and returns the Google `idToken` to POST to
  * `/auth/google`. Returns null when the user cancels. Throws with a readable
- * message for known native failures (Play Services missing).
+ * message for known native failures (Play Services missing, Expo Go).
  */
 export async function googleSignInIdToken(): Promise<string | null> {
-  ensureConfigured()
+  const { GoogleSignin, isErrorWithCode, isSuccessResponse, statusCodes } = loadGoogleSignIn()
   try {
     await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true })
     const response = await GoogleSignin.signIn()

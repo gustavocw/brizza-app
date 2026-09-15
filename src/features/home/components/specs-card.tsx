@@ -5,11 +5,20 @@ import { Card } from '@/shared/components/ui/card'
 import { Paragraph } from '@/shared/components/ui/paragraph'
 import { Row } from '@/shared/components/ui/layout'
 import { useColors } from '@/theme/use-colors'
-import type { DashboardData } from '../services/dashboard.dto'
 import { CARD_BORDER } from '@/shared/constants/card-style'
 
-/** Technical spec sheet (label → value rows) under a titled header. */
-export function SpecsCard({ specs, delay = 0 }: { specs: DashboardData['specs']; delay?: number }) {
+// Componente parado: ficha técnica do modelo não existe no backend (não há
+// cadastro de modelos). O tipo fica local pra ele voltar sem o DashboardData.
+export type BikeSpecs = {
+  powerKw: number
+  topSpeedKmh: number
+  rangeKm: number
+  weightKg: number
+  chargeTimeH: number
+}
+
+/** Ficha técnica (rótulo → valor) sob um cabeçalho. */
+export function SpecsCard({ specs, delay = 0 }: { specs: BikeSpecs; delay?: number }) {
   const colors = useColors()
   const rows = [
     { label: 'Potência', value: `${specs.powerKw} kW` },

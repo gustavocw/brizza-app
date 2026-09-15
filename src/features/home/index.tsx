@@ -3,27 +3,27 @@ import { View } from 'react-native'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { Screen } from '@/shared/components/layout/screen'
 import { QueryBoundary } from '@/shared/components/data/query-boundary'
-import { Card, Paragraph, Row } from '@/shared/components/ui'
+import { Row } from '@/shared/components/ui'
 import { MotoHeader } from '@/shared/components/moto/moto-header'
-import { CARD_BORDER } from '@/shared/constants/card-style'
 import { useColors } from '@/theme/use-colors'
-import { fontTheme } from '@/theme/theme'
-import { BatteryHealthCard } from './components/battery-health-card'
+// Sem fonte no backend até o BMS e o controlador entrarem na telemetria:
+// import { BatteryHealthCard } from './components/battery-health-card'
+// import { HealthChecks } from './components/health-checks'
+// import { MotorCard } from './components/motor-card'
+// import { SpecsCard } from './components/specs-card'
 import { BatteryStatusCard } from './components/battery-status-card'
 import { BikeCard } from './components/bike-card'
 import { DashboardSkeleton } from './components/dashboard-skeleton'
-import { HealthChecks } from './components/health-checks'
 import { LocationCard } from './components/location-card'
 import { MetricCard } from './components/metric-card'
-import { MotorCard } from './components/motor-card'
-import { SpecsCard } from './components/specs-card'
+import { EmptyBike } from './components/empty-bike'
 import { useHome } from './hooks/use-home'
 import { numberToBR } from './utils/format'
 
 /**
- * Dashboard view — the app's "overview": bike photo card, battery gauge, glanceable
- * metrics, quick actions, location and a health snapshot. Deep motor/spec detail
- * lives on the Motor tab. UI only; data + handlers come from useHome() (mocked).
+ * Painel inicial: foto da moto, bateria, métricas do rastreador e localização.
+ * Só UI; os dados vêm de useHome(), que lê a API. Conta sem moto cai no
+ * convite para vincular.
  */
 export default function HomeScreen() {
   const colors = useColors()
@@ -44,7 +44,9 @@ export default function HomeScreen() {
       <MotoHeader />
 
       <QueryBoundary query={query} loading={<DashboardSkeleton />}>
-        {data ? (
+        {data === null ? (
+          <EmptyBike />
+        ) : data ? (
           <View className="gap-6">
             <View ref={bannerRef} onLayout={measureBanner}>
               <BikeCard image={data.image} delay={60} />
@@ -52,12 +54,9 @@ export default function HomeScreen() {
 
             <BatteryStatusCard percent={data.battery.percent} delay={90} />
 
-            <BatteryHealthCard
-              healthPct={data.battery.healthPct}
-              chargeCycles={data.battery.chargeCycles}
-              chargeTimeH={data.specs.chargeTimeH}
-              delay={110}
-            />
+            {/* Saúde da bateria e ciclos de carga dependem do BMS, que ainda não
+                chega na telemetria:
+            <BatteryHealthCard healthPct={...} chargeCycles={...} chargeTimeH={...} delay={110} /> */}
 
             {location ? (
               <LocationCard
@@ -92,44 +91,29 @@ export default function HomeScreen() {
               <Row className="gap-4">
                 <MetricCard
                   delay={160}
-                  label="Velocidade média"
-                  value={`${data.avgSpeedKmh}`}
+                  label="Velocidade atual"
+                  value={`${data.speedKmh}`}
                   unit="km/h"
                   icon={<MaterialCommunityIcons name="speedometer" size={18} color={colors.primary} />}
                 />
                 <MetricCard
                   delay={180}
-                  label="Economia de CO₂"
-                  value={numberToBR(data.co2SavedKg)}
-                  unit="kg"
-                  icon={<MaterialCommunityIcons name="molecule-co2" size={18} color={colors.primary} />}
+                  label="Viagem atual"
+                  value={numberToBR(data.tripKm)}
+                  unit="km"
+                  icon={<MaterialCommunityIcons name="map-marker-path" size={18} color={colors.primary} />}
                 />
+                {/* Economia de CO₂ não existe no backend:
+                <MetricCard delay={180} label="Economia de CO₂" value={...} unit="kg" /> */}
               </Row>
             </View>
 
-            <MotorCard state={data.motor.state} tempC={data.motor.tempC} delay={190} />
-
-            <Card delay={200} style={CARD_BORDER} className="flex-row items-center gap-4 rounded-3xl bg-surface p-4">
-              <View className="h-11 w-11 items-center justify-center rounded-2xl bg-primarySoft">
-                <MaterialCommunityIcons name="wrench-clock" size={22} color={colors.primary} />
-              </View>
-              <View className="flex-1">
-                <Paragraph
-                  appear={false}
-                  style={{ fontFamily: fontTheme.mono }}
-                  className="text-[10px] uppercase tracking-wider text-subtle"
-                >
-                  Próxima revisão
-                </Paragraph>
-                <Paragraph appear={false} className="text-lg font-semibold text-secondary">
-                  {numberToBR(data.nextService.km)} km ou {data.nextService.days} dias
-                </Paragraph>
-              </View>
-            </Card>
-
-            <SpecsCard specs={data.specs} delay={240} />
-
-            <HealthChecks checks={data.checks} delay={260} />
+            {/* Motor, próxima revisão, ficha técnica e checagens não têm fonte no
+                backend (dependem do controlador e de um cadastro de modelos):
+            <MotorCard state={...} tempC={...} delay={190} />
+            <Card delay={200} ...>Próxima revisão</Card>
+            <SpecsCard specs={...} delay={240} />
+            <HealthChecks checks={...} delay={260} /> */}
           </View>
         ) : null}
       </QueryBoundary>

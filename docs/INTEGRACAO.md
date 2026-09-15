@@ -96,3 +96,17 @@ Pendências que continuam no backend / config externa:
 
 Deps nativas adicionadas (exigem rebuild do dev client/APK): `expo-notifications`, `expo-device`,
 `expo-file-system`, `expo-sharing`.
+
+## 7. Atualização (2026-09-14): estado real do app × API
+
+Sondagem no código, não ao vivo. API de produção mudou para **`https://brizze-api.fly.dev`** (`brizza-api.fly.dev` está suspensa). `eas.json` já aponta pro host novo.
+
+**Integrado (chama a API):** login (email/telefone + senha), Google (`POST /auth/google`), cadastro + CEP, esqueci a senha, undelete, refresh single-flight, logout, `GET/PUT/DELETE /user/me`, foto (presign 3 passos), verificar email/telefone, trocar email/telefone, alterar senha, sessões, preferências de notificação, termos/privacidade + aceite + status, tickets de suporte, export LGPD, registro de device push.
+
+**Mock no app (services locais):** lista de motos e seletor, dashboard da moto, estações de recarga (posicionadas ao redor do usuário), feed de alertas. Os endpoints reais existem no backend (`/user/me/bike*`, `/charging-stations`, `/user/me/notifications*`); foram mockados pra demo com 4 motos padronizadas enquanto a telemetria real não chega. Localização do usuário é geocodificada do endereço cadastrado (Nominatim).
+
+**Backend, correções de leitura anteriores:**
+- Gate de negócio: hoje só exige **termos vigentes** (`403 TERMS_VERSION_OUTDATED`). O gate de verificação/caução existe no código mas não está montado — usuário novo que aceitar termos já acessa moto/estações/alertas.
+- Sem worker rodando em produção, os códigos de verificação por email/SMS **não são enviados** (ficam na fila). Confirmar com o backend antes de depender do fluxo de verificação em prod.
+- Apple: `/auth/apple` existe, mas responde 404 até `APPLE_CLIENT_IDS` ser configurado. Botão segue oculto (`APPLE_LOGIN_ENABLED = false`).
+- Telemetria real: hardware definido (rastreador Omni M113, TCP). Plano em `brizza-docs/docs/07-telemetria-hardware.md`. Quando entrar, `GET /user/me/bike/status` deve ganhar velocidade, odômetro, km da viagem, tensão e RSSI — campos que o dashboard já mostra em mock.
